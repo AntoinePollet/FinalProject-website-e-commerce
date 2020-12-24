@@ -52,9 +52,10 @@ export default {
 			text-decoration: none;
 			color: white;
 			margin-right: 15px;
+			padding-bottom: 3px;
 		}
 		.navigation-list-items-link:hover {
-			text-transform: uppercase;
+			border-bottom: 2px solid white;
 		}
 	}
 }
