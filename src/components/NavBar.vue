@@ -1,17 +1,21 @@
 <template>
-	<div class="navbar">
-		<ul class="navigation-list">
-			<li
-				v-for="item in navigationBar"
-				:key="item.path"
-				class="navigation-list-items"
-			>
-				<router-link :to="item.path" class="navigation-list-items-link">{{
-					item.name
-				}}</router-link>
-			</li>
-		</ul>
-	</div>
+	<v-app-bar app class="navbar">
+		<v-toolbar-title
+			><router-link to="/" class="navigation-home"
+				>Home</router-link
+			></v-toolbar-title
+		>
+		<v-spacer></v-spacer>
+		<v-btn
+			v-for="item in navigationBar"
+			:key="item.path"
+			class="navigation-list-items"
+			:to="item.path"
+			text
+		>
+			{{ item.name }}
+		</v-btn>
+	</v-app-bar>
 </template>
 
 <script>
@@ -30,8 +34,8 @@ export default {
 					path: '/profil'
 				},
 				{
-					name: 'Panier',
-					path: '/panier'
+					name: 'Cart',
+					path: '/cart'
 				}
 			]
 		};
@@ -40,22 +44,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.navigation-list {
-	display: flex;
-	justify-content: flex-end;
+.navbar {
 	list-style: none;
-	padding: 15px;
 	background: linear-gradient(0.25turn, #2a9d8f, #0d312c);
+	.navigation-home {
+		text-decoration: none;
+		color: white;
+		font-weight: bold;
+	}
 	.navigation-list-items {
-		font-size: 20px;
-		.navigation-list-items-link {
-			text-decoration: none;
-			color: white;
-			margin-right: 15px;
-		}
-		.navigation-list-items-link:hover {
-			text-transform: uppercase;
-		}
+		text-decoration: none;
+		color: white;
+		margin-right: 15px;
+		padding-bottom: 3px;
+	}
+	.navigation-list-items:hover {
+		border-bottom: 2px solid white;
 	}
 }
 </style>
