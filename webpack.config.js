@@ -44,6 +44,7 @@ module.exports = {
     open: true,
     hot: true,
     historyApiFallback: true
+    //host: '192.168.0.102'
   },
   plugins: [
     new MiniCssExtractPlugin({

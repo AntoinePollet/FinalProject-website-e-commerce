@@ -1,0 +1,92 @@
+[
+    {
+        "name": "Etagere",
+        "description": "etagere 2m par 80cm",
+        "images": "https://picsum.photos/id/237/300",
+        "categorie": "meuble",
+        "couleur": "marron",
+        "price": 149,
+        "id": 1
+    },
+    {
+        "name": "Lit",
+        "description": "etagere 2m par 80cm",
+        "images": "https://picsum.photos/id/23/300",
+        "categorie": "meuble",
+        "couleur": "noir",
+        "price": 160,
+        "id": 2
+    },
+    {
+        "name": "Table",
+        "description": "etagere 2m par 80cm",
+        "images": "https://picsum.photos/id/238/300",
+        "categorie": "meuble",
+        "couleur": "marron",
+        "price": 50,
+        "id": 3
+    },
+    {
+        "name": "Chevet",
+        "description": "etagere 2m par 80cm",
+        "images": "https://picsum.photos/id/37/300",
+        "categorie": "meuble",
+        "couleur": "marron",
+        "price": 19,
+        "id": 4
+    },
+    {
+        "name": "Tablette",
+        "description": "etagere 2m par 80cm qui prend toute la place, et qui en plus ravira les invité",
+        "images": "https://picsum.photos/id/27/300",
+        "categorie": "meuble",
+        "couleur": "marron",
+        "price": 49,
+        "id": 5
+    },
+    {
+        "name": "Mobilier",
+        "description": "etagere 2m par 80cm",
+        "images": "https://picsum.photos/id/28/300",
+        "categorie": "meuble",
+        "couleur": "marron",
+        "price": 382,
+        "id": 6
+    },
+    {
+        "name": "Bureau",
+        "description": "etagere 2m par 80cm",
+        "images": "https://picsum.photos/id/29/300",
+        "categorie": "meuble",
+        "couleur": "marron",
+        "price": 99,
+        "id": 7
+    },
+    {
+        "name": "Meuble télé",
+        "description": "etagere 2m par 80cm",
+        "images": "https://picsum.photos/id/30/300",
+        "categorie": "meuble",
+        "couleur": "marron",
+        "price": 142,
+        "id": 8
+    },
+    {
+        "name": "Armoire",
+        "description": "etagere 2m par 80cm",
+        "images": "https://picsum.photos/id/31/300",
+        "categorie": "meuble",
+        "couleur": "marron",
+        "price": 85,
+        "id": 9
+    },
+    {
+        "name": "Armoire vitrinée",
+        "description": "etagere 2m par 80cm",
+        "images": "https://picsum.photos/id/32/300",
+        "categorie": "meuble",
+        "couleur": "marron",
+        "price": 120,
+        "id": 10
+    }
+]

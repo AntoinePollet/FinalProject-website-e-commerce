@@ -1,5 +1,5 @@
 <template>
-	<div class="footer">
+	<v-footer class="footer" app>
 		<ul class="navigation-list">
 			<li
 				v-for="item in navigationFooter"
@@ -11,7 +11,7 @@
 				}}</router-link>
 			</li>
 		</ul>
-	</div>
+	</v-footer>
 </template>
 
 <script>
