@@ -15,15 +15,19 @@
 		>
 			{{ item.name }}
 		</v-btn>
+		<v-btn to="/cart" class="navigation-list-items" text>
+			Cart({{ totalItems }})
+		</v-btn>
 	</v-app-bar>
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex';
 export default {
 	name: 'NavBar',
-	components: {},
 	data() {
 		return {
+			number: 0,
 			navigationBar: [
 				{
 					name: 'Sign In',
@@ -32,13 +36,20 @@ export default {
 				{
 					name: 'Profil',
 					path: '/profil'
-				},
-				{
-					name: 'Cart',
-					path: '/cart'
 				}
 			]
 		};
+	},
+	computed: {
+		...mapState({
+			cart: state => state.cart.cart
+		}),
+		totalItems() {
+			return this.cart.reduce((acc, item) => {
+				acc = acc + item.quantity;
+				return acc;
+			}, 0);
+		}
 	}
 };
 </script>
