@@ -1,5 +1,5 @@
 <template>
-	<v-footer class="footer" app>
+	<v-footer class="footer d-flex justify-center" app>
 		<ul class="navigation-list">
 			<li
 				v-for="item in navigationFooter"

@@ -2,21 +2,33 @@
 	<v-app>
 		<v-main>
 			<v-container>
+				<v-text-field
+					v-model="search"
+					placeholder="Search"
+					clearable
+				></v-text-field>
+				<v-slider
+					max="400"
+					min="1"
+					v-model="selectedPrice"
+					thumb-label="always"
+					thumb-color="purple"
+				></v-slider>
 				<v-col>
 					<v-row class="d-flex flex-wrap justify-center">
 						<v-card
-							v-for="item in items"
+							v-for="item in filteredItems"
 							:key="item.id"
-							class="col-lg-2 col-md-3 col-sm-4 ml-10 mb-5"
+							class="col-lg-3 col-md-5 col-sm-4 ml-10 mb-5"
+							@click="$router.push(`article/${item.id}`)"
 						>
-							<v-card-title>{{ item.name }}</v-card-title>
+							<v-card-title
+								>{{ item.name }}<v-spacer></v-spacer>
+								{{ item.price }} €</v-card-title
+							>
 							<v-card-text>{{ item.description }}</v-card-text>
 
 							<v-img :src="item.images" width="300px" contain />
-							<v-card-subtitle>Price : {{ item.price }} €</v-card-subtitle>
-							<v-card-actions class="justify-end">
-								<v-btn @click="addToCart(item)">Ajouter</v-btn>
-							</v-card-actions>
 						</v-card>
 					</v-row>
 				</v-col>
@@ -32,13 +44,27 @@ export default {
 	name: 'Home',
 	data() {
 		return {
-			items: items
+			items: items,
+			search: '',
+			selectedPrice: 400
 		};
 	},
-	methods: {
-		addToCart(item) {
-			this.$store.dispatch('cart/addToCart', item);
+	computed: {
+		filteredItems() {
+			let filtered = this.items;
+			if (this.search && this.search.length) {
+				filtered = filtered.filter(item => item.name.includes(this.search));
+			}
+			if (this.selectedPrice < 400) {
+				filtered = filtered.filter(item => item.price <= this.selectedPrice);
+			}
+			return filtered;
 		}
+	},
+	beforeRouteEnter(to, from, next) {
+		next(vm => {
+			vm.$store.dispatch('cart/initCart', items);
+		});
 	}
 };
 </script>
