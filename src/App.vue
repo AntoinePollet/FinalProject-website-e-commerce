@@ -2,7 +2,7 @@
 	<v-app id="app">
 		<NavBar />
 		<v-main>
-			<router-view />
+			<router-view :key="$route.fullPath" />
 		</v-main>
 		<Footer class="footer" />
 		<vue-snotify></vue-snotify>

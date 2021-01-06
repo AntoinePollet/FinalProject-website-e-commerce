@@ -6,9 +6,12 @@
 				:key="item.path"
 				class="navigation-list-items"
 			>
-				<router-link :to="item.path" class="navigation-list-items-link">{{
-					item.name
-				}}</router-link>
+				<router-link
+					:to="item.path"
+					:active="isActive"
+					class="navigation-list-items-link"
+					>{{ item.name }}</router-link
+				>
 			</li>
 		</ul>
 	</v-footer>
@@ -20,6 +23,7 @@ export default {
 	components: {},
 	data() {
 		return {
+			isActive: true,
 			navigationFooter: [
 				{
 					name: 'About us',
@@ -27,7 +31,7 @@ export default {
 				},
 				{
 					name: 'Contact us',
-					path: '/contactus'
+					path: '/contact'
 				},
 				{
 					name: 'Copyright',
@@ -52,11 +56,14 @@ export default {
 			font-size: 20px;
 			.navigation-list-items-link {
 				text-decoration: none;
-				color: white;
 				margin-right: 15px;
+				color: white;
 				padding-bottom: 3px;
 			}
 			.navigation-list-items-link:hover {
+				border-bottom: 2px solid white;
+			}
+			.router-link-active {
 				border-bottom: 2px solid white;
 			}
 		}
