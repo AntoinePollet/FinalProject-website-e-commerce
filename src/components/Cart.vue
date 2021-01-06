@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<v-main>
 		<div v-if="cart.length != 0">
 			<v-col>
 				<v-row class="ma-5 d-flex justify-end">
@@ -15,8 +15,13 @@
 							class="col-5 mb-10"
 						>
 							<v-card-title
-								>{{ item.name }} <v-spacer></v-spacer
-								>{{ item.price }} €</v-card-title
+								>{{ item.name }}
+								<v-btn
+									:class="colorItem(item.couleur)"
+									class="ml-5"
+									rounded
+								></v-btn
+								><v-spacer></v-spacer>{{ item.price }} €</v-card-title
 							>
 							<div class="d-flex">
 								<v-img :src="item.images" width="100px" />
@@ -41,13 +46,19 @@
 		</div>
 
 		<div v-else>Pas d'item dans le Panier</div>
-	</div>
+	</v-main>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
+import colors from '../data/colors.json';
 export default {
 	name: 'Cart',
+	data() {
+		return {
+			colors: colors
+		};
+	},
 	computed: {
 		...mapGetters({
 			cart: 'cart/getCart'
@@ -65,6 +76,14 @@ export default {
 		},
 		priceItem(item) {
 			return item.price * item.quantity;
+		},
+		colorItem(nameColor) {
+			for (let color in this.colors) {
+				if (this.colors[color].name === nameColor) {
+					const theChosenColor = this.colors[color].color;
+					return theChosenColor;
+				}
+			}
 		}
 	}
 };

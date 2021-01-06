@@ -10,6 +10,12 @@ const cart = {
     },
     getArticle: state => id => {
       return state.articles.find(item => item.id === id)
+    },
+    autocompleteList: state => {
+      return state.articles.reduce((acc, item) => {
+        acc.push(item.name)
+        return acc
+      }, [])
     }
   },
   mutations: {

@@ -2,18 +2,6 @@
 	<v-app>
 		<v-main>
 			<v-container>
-				<v-text-field
-					v-model="search"
-					placeholder="Search"
-					clearable
-				></v-text-field>
-				<v-slider
-					max="400"
-					min="1"
-					v-model="selectedPrice"
-					thumb-label="always"
-					thumb-color="purple"
-				></v-slider>
 				<v-col>
 					<v-row class="d-flex flex-wrap justify-center">
 						<v-card
@@ -26,9 +14,10 @@
 								>{{ item.name }}<v-spacer></v-spacer>
 								{{ item.price }} €</v-card-title
 							>
+							<v-divider class="mx-4"></v-divider>
 							<v-card-text>{{ item.description }}</v-card-text>
 
-							<v-img :src="item.images" width="300px" contain />
+							<v-img :src="item.images" contain />
 						</v-card>
 					</v-row>
 				</v-col>
@@ -45,19 +34,16 @@ export default {
 	data() {
 		return {
 			items: items,
-			search: '',
-			selectedPrice: 400
+			search: ''
 		};
 	},
 	computed: {
 		filteredItems() {
 			let filtered = this.items;
-			if (this.search && this.search.length) {
-				filtered = filtered.filter(item => item.name.includes(this.search));
-			}
-			if (this.selectedPrice < 400) {
-				filtered = filtered.filter(item => item.price <= this.selectedPrice);
-			}
+			const arr = [];
+			filtered.reduce((acc, item) => {
+				arr.push(item.note);
+			}, []);
 			return filtered;
 		}
 	},
