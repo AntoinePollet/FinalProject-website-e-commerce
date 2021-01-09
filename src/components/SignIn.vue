@@ -30,15 +30,24 @@ export default {
 		return {
 			validForm: true,
 			email: '',
+			goTo: '/',
 			emailRule: [v => !!v || 'Email requis !'],
 			passwordRule: [v => !!v || 'Password requis !']
 		};
+	},
+	beforeRouteEnter(to, from, next) {
+		if (from.name === 'livraison') {
+			next(vm => {
+				vm.goTo = '/commande/livraison';
+			});
+		}
+		next();
 	},
 	methods: {
 		signIn() {
 			if (this.$refs.form.validate()) {
 				this.$store.dispatch('user/logIn');
-				this.$router.push('/');
+				this.$router.push(this.goTo);
 			}
 		}
 	}

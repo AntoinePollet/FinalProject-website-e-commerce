@@ -10,7 +10,11 @@
 				<div>
 					<v-card-text>{{ getArticle.description }}</v-card-text>
 					<div class="d-flex justify-end align-center">
-						<v-btn :class="getColor(getArticle.couleur)"></v-btn>
+						<v-btn
+							:class="getColor(getArticle.couleur)"
+							elevation="2"
+							fab
+						></v-btn>
 						<v-select
 							:items="[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
 							v-model="quantity"

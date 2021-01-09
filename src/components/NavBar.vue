@@ -37,7 +37,7 @@
 		>
 			{{ item.name }}
 		</v-btn>
-		<v-btn to="/cart" class="navigation-list-items white--text" text>
+		<v-btn to="/commande" class="navigation-list-items white--text" text>
 			Cart({{ totalItems }})
 		</v-btn>
 	</v-app-bar>

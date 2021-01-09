@@ -2,7 +2,7 @@
 	<v-container class="mt-5">
 		<h1 class="mb-5">Nous contacter</h1>
 		<v-card class="pa-7">
-			<v-form ref="form" v-model="valid">
+			<v-form ref="form" v-model="valid" lazy-validation>
 				<v-text-field
 					placeholder="Name"
 					v-model="name"
@@ -25,7 +25,7 @@
 					:rules="descriptionRule"
 				></v-textarea>
 				<v-card-actions class="d-flex justify-end"
-					><v-btn color="primary" @click="send()" :disabled="!valid"
+					><v-btn color="teal white--text" @click="send()" :disabled="!valid"
 						>Envoyer</v-btn
 					></v-card-actions
 				>
