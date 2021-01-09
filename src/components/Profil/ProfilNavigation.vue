@@ -43,8 +43,10 @@ export default {
 	},
 	methods: {
 		signOut() {
-			this.$store.dispatch('user/logOut');
-			this.$router.push('/');
+			if (this.$store.state.user.isAuth) {
+				this.$store.dispatch('user/logOut');
+				this.$router.push('/');
+			}
 		}
 	}
 };

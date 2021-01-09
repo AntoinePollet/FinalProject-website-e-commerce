@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../components/Home.vue'
 import Cart from '../components/Cart.vue'
+import Livraison from '../components/Livraison.vue'
 import Search from '../components/Search.vue'
 import Article from '../components/Article.vue'
 import Contact from '../components/Contact.vue'
@@ -23,9 +24,14 @@ export default new Router({
       component: Home
     },
     {
-      path: '/cart',
+      path: '/commande',
       name: 'cart',
       component: Cart
+    },
+    {
+      path: '/commande/livraison',
+      name: 'livraison',
+      component: Livraison
     },
     {
       path: '/search',

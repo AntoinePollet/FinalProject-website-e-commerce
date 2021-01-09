@@ -2,17 +2,20 @@
 	<v-main>
 		<div v-if="cart.length != 0">
 			<v-col>
-				<v-row class="ma-5 d-flex justify-end">
+				<v-row class="ma-5 d-flex flex-column align-content-end">
 					<h2>
 						Total price : <strong>{{ totalPrice }}</strong> €
 					</h2>
+					<v-btn class="teal" @click="nextStep" text color="white"
+						>Suivant</v-btn
+					>
 				</v-row>
 				<v-row>
 					<v-container class="d-flex flex-column justify-end align-end">
 						<v-card
 							v-for="(item, index) in cart"
 							:key="index"
-							class="col-5 mb-10"
+							class="col-lg-7 col-sm-12 mb-10"
 						>
 							<v-card-title
 								>{{ item.name }}
@@ -84,6 +87,9 @@ export default {
 					return theChosenColor;
 				}
 			}
+		},
+		nextStep() {
+			this.$router.push('/commande/livraison');
 		}
 	}
 };

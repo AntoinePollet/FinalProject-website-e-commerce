@@ -2,10 +2,15 @@
 	<div class="navigation d-flex">
 		<ProfilNavigation />
 		<v-container class="pa-15">
-			<div>
-				<router-link to="/profil">profil</router-link> ->
-				<router-link :to="path">{{ path }}</router-link>
-			</div>
+			<!-- 
+			<v-breadcrumbs :items="items">
+				<template v-slot:item="{ item }">
+					<v-breadcrumbs-item :to="item.href" :exact="true">{{
+						item.text
+					}}</v-breadcrumbs-item>
+				</template>
+			</v-breadcrumbs>
+			-->
 			<v-form ref="form" v-model="valid" :lazy-validation="true">
 				<v-text-field
 					placeholder="Name"
@@ -94,7 +99,7 @@ export default {
 	},
 	computed: {
 		path() {
-			return this.$route.name;
+			return this.$route.path;
 		}
 	},
 	methods: {

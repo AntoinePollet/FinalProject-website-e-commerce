@@ -27,7 +27,7 @@
         "images": "https://picsum.photos/id/238/300",
         "categorie": "table",
         "couleur": "gris",
-        "price": 50,
+        "price": 500,
         "note": 4.5,
         "stock": true,
         "id": 3

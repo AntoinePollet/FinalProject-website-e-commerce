@@ -12,7 +12,7 @@
 					/>
 					<v-slider
 						class="mt-5"
-						max="400"
+						:max="getHigherPriceArticle"
 						min="1"
 						v-model="selectedPrice"
 						hint="Price"
@@ -51,10 +51,22 @@
 									{{ item.price }} €</v-card-title
 								>
 								<v-divider class="ma-4"></v-divider>
-								<v-btn :class="colorItem(item.couleur)" rounded></v-btn>
+								<v-btn
+									:class="colorItem(item.couleur)"
+									elevation="2"
+									fab
+								></v-btn>
 								<v-card-text>{{ item.description }}</v-card-text>
 
 								<v-img :src="item.images" width="300px" contain />
+								<v-rating
+									v-model="item.note"
+									readonly
+									dense
+									color="teal"
+									half-increments
+									background-color="blue-grey lighten-2"
+								/>
 							</v-card>
 						</v-row>
 					</v-col>
@@ -149,6 +161,15 @@ export default {
 				arr.push(item.categorie);
 				return arr;
 			}, []);
+		},
+		getHigherPriceArticle() {
+			return this.items.reduce((acc, item) => {
+				if (acc < item.price) {
+					return item.price;
+				} else {
+					return acc;
+				}
+			}, 0);
 		}
 	},
 	watch: {
