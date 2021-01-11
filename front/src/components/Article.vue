@@ -32,8 +32,13 @@
 				half-increments
 				background-color="blue-grey lighten-2"
 			/>
+			<p v-if="getArticle.inStock">In stock !!</p>
+			<p v-else>Out of stock</p>
 			<v-card-actions class="d-flex justify-end"
-				><v-btn class="white--text teal" @click="addToCart(getArticle)"
+				><v-btn
+					class="white--text teal"
+					:disabled="!getArticle.inStock"
+					@click="addToCart(getArticle)"
 					>Add to cart</v-btn
 				></v-card-actions
 			>
