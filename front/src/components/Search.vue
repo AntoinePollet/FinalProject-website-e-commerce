@@ -67,6 +67,8 @@
 									half-increments
 									background-color="blue-grey lighten-2"
 								/>
+								<p v-if="item.inStock" class="">In stock !!</p>
+								<p v-else>Out of stock</p>
 							</v-card>
 						</v-row>
 					</v-col>
@@ -143,7 +145,7 @@ export default {
 				});
 			}
 			if (this.selectedFilter === 'Note Client') {
-				filtered = filtered.sort((a, b) => a.note - b.note);
+				filtered = filtered.sort((a, b) => a.note - b.note).reverse();
 			}
 			return filtered;
 		},

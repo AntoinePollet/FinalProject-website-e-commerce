@@ -7,7 +7,7 @@
         "couleur": "blanc",
         "price": 149,
         "note": 4.2,
-        "stock": true,
+        "inStock": true,
         "id": 1
     },
     {
@@ -18,7 +18,7 @@
         "couleur": "noir",
         "price": 160,
         "note": 4,
-        "stock": true,
+        "inStock": true,
         "id": 2
     },
     {
@@ -29,7 +29,7 @@
         "couleur": "gris",
         "price": 500,
         "note": 4.5,
-        "stock": true,
+        "inStock": true,
         "id": 3
     },
     {
@@ -40,7 +40,7 @@
         "couleur": "blanc",
         "price": 19,
         "note": 3.9,
-        "stock": true,
+        "inStock": true,
         "id": 4
     },
     {
@@ -51,7 +51,7 @@
         "couleur": "marron",
         "price": 49,
         "note": 5,
-        "stock": true,
+        "inStock": true,
         "id": 5
     },
     {
@@ -62,7 +62,7 @@
         "couleur": "noir",
         "price": 382,
         "note": 2.6,
-        "stock": true,
+        "inStock": true,
         "id": 6
     },
     {
@@ -73,7 +73,7 @@
         "couleur": "noir",
         "price": 99,
         "note": 4.6,
-        "stock": true,
+        "inStock": true,
         "id": 7
     },
     {
@@ -84,7 +84,7 @@
         "couleur": "marron",
         "price": 142,
         "note": 3.7,
-        "stock": true,
+        "inStock": true,
         "id": 8
     },
     {
@@ -95,7 +95,7 @@
         "couleur": "blanc",
         "price": 85,
         "note": 5,
-        "stock": true,
+        "inStock": false,
         "id": 9
     },
     {
@@ -106,7 +106,7 @@
         "couleur": "gris",
         "price": 400,
         "note": 4.1,
-        "stock": true,
+        "inStock": true,
         "id": 10
     },
     {
@@ -117,7 +117,7 @@
         "couleur": "gris",
         "price": 159,
         "note": 4.4,
-        "stock": true,
+        "inStock": true,
         "id": 11
     },
     {
@@ -128,7 +128,7 @@
         "couleur": "blanc",
         "price": 223,
         "note": 4.8,
-        "stock": true,
+        "inStock": false,
         "id": 12
     },
     {
@@ -139,7 +139,7 @@
         "couleur": "marron",
         "price": 99,
         "note": 3.7,
-        "stock": true,
+        "inStock": true,
         "id": 13
     }
 ]
