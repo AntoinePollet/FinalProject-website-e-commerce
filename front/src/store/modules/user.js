@@ -1,7 +1,8 @@
 const user = {
   namespaced: true,
   state: {
-    isAuth: false
+    isAuth: false,
+    role: ['admin'] // admin contain one more route
   },
   getters: {},
   mutations: {
@@ -13,10 +14,10 @@ const user = {
     }
   },
   actions: {
-    logIn ({ commit }) {
+    login ({ commit }) {
       commit('LOG_IN')
     },
-    logOut ({ commit }) {
+    logout ({ commit }) {
       commit('LOG_OUT')
     }
   }

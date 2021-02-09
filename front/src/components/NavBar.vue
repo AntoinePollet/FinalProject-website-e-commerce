@@ -1,10 +1,14 @@
 <template>
-	<v-app-bar app class="navbar">
+	<v-app-bar app class="navbar" :src="imageBackground">
 		<v-toolbar-title
 			><router-link to="/" class="navigation-home white--text"
-				>Home</router-link
-			></v-toolbar-title
-		>
+				><v-img
+					:src="image"
+					contain
+					max-height="45"
+					max-width="45"
+				></v-img></router-link
+		></v-toolbar-title>
 		<v-spacer></v-spacer>
 		<v-autocomplete
 			class="colorInput"
@@ -14,10 +18,12 @@
 			@keyup.enter="searchItem(search)"
 			hide-details
 			outlined
+			flat
 			dense
 			:items="items"
 			hide-no-data
 			:search-input.sync="search"
+			solo
 			color="white"
 		/>
 		<v-spacer></v-spacer>
@@ -37,6 +43,9 @@
 		>
 			{{ item.name }}
 		</v-btn>
+		<v-btn to="/favoris" class="navigation-list-items white--text" text>
+			Favoris({{ favoris.length }})</v-btn
+		>
 		<v-btn to="/commande" class="navigation-list-items white--text" text>
 			Cart({{ totalItems }})
 		</v-btn>
@@ -52,6 +61,8 @@ export default {
 	data() {
 		return {
 			search: '',
+			image: require('../public/KyoKyu.jpg'),
+			imageBackground: require('../public/sakura.jpg'),
 			searchInput: '',
 			items: [],
 			navigationBar: [
@@ -74,7 +85,8 @@ export default {
 	computed: {
 		...mapState({
 			cart: state => state.cart.cart,
-			isAuth: state => state.user.isAuth
+			isAuth: state => state.user.isAuth,
+			favoris: state => state.favoris.favoris
 		}),
 		...mapGetters({
 			autocompleteList: 'cart/autocompleteList'
@@ -108,11 +120,10 @@ export default {
 <style lang="scss">
 .navbar {
 	list-style: none;
-	background: linear-gradient(0.25turn, #2a9d8f, #0d312c);
 	.v-select__selection,
 	.v-select__selection--comma,
 	.v-select.v-text-field input {
-		color: white !important;
+		color: black !important;
 	}
 	.navigation-home {
 		text-decoration: none;

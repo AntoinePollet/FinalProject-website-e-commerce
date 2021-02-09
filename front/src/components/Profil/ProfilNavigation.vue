@@ -8,15 +8,20 @@
 				>{{ item.name }}</router-link
 			>
 		</h2>
-		<h2>
-			<v-btn text class="teal white--text" @click="signOut"
-				>Se deconnecter</v-btn
-			>
+		<h2 v-if="isAdmin" class="navigation-items">
+			<router-link
+				to="/profil/admin"
+				class="navigation-items-link"
+				:active="true"
+				>Admin
+			</router-link>
 		</h2>
+		<v-btn text class="teal white--text" @click="signOut">Se deconnecter</v-btn>
 	</div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
 	name: 'ProfilNavigation',
 	data() {
@@ -41,10 +46,20 @@ export default {
 			]
 		};
 	},
+	computed: {
+		...mapState({
+			admin: state => state.user.role
+		}),
+		isAdmin() {
+			if (this.admin.includes('admin')) {
+				return true;
+			} else return false;
+		}
+	},
 	methods: {
 		signOut() {
 			if (this.$store.state.user.isAuth) {
-				this.$store.dispatch('user/logOut');
+				this.$store.dispatch('user/logout');
 				this.$router.push('/');
 			}
 		}

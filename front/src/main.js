@@ -5,6 +5,7 @@ import store from './store/index.js'
 import vuetify from './plugins/vuetify'
 import snotify from './plugins/snotify'
 
+
 new Vue({
   router,
   store,

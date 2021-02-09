@@ -19,7 +19,7 @@
 
 					<v-card-actions class="justify-end"
 						><v-btn class="teal white--text" @click="save"
-							>Sign in</v-btn
+							>Save</v-btn
 						></v-card-actions
 					>
 				</v-form>

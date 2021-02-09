@@ -1,14 +1,19 @@
 <template>
 	<v-main>
-		<div v-if="cart.length != 0">
+		<div v-if="cart.length != 0" id="element-to-print">
 			<v-col>
 				<v-row class="ma-5 d-flex flex-column align-content-end">
 					<h2>
 						Total price : <strong>{{ totalPrice }}</strong> €
 					</h2>
-					<v-btn class="teal" @click="nextStep" text color="white"
+					<v-btn
+						class="teal"
+						@click="$router.push({ name: 'livraison' })"
+						text
+						color="white"
 						>Suivant</v-btn
 					>
+					<v-btn class="teal" @click="pdf()" text color="white">download</v-btn>
 				</v-row>
 				<v-row>
 					<v-container class="d-flex flex-column justify-end align-end">
@@ -27,7 +32,7 @@
 								><v-spacer></v-spacer>{{ item.price }} €</v-card-title
 							>
 							<div class="d-flex">
-								<v-img :src="item.images" width="100px" />
+								<v-img :src="item.images[0]" width="100px" />
 
 								<v-card-text>{{ item.description }}</v-card-text>
 								<v-select
@@ -55,6 +60,9 @@
 <script>
 import { mapGetters } from 'vuex';
 import colors from '../data/colors.json';
+import { jsPDF } from 'jspdf';
+import 'jspdf-autotable';
+
 export default {
 	name: 'Cart',
 	data() {
@@ -71,6 +79,19 @@ export default {
 				acc = acc + item.price * item.quantity;
 				return acc;
 			}, 0);
+		},
+		getCartItem() {
+			return this.cart.map(item => {
+				let arr = new Array();
+				arr.push(
+					item.name,
+					item.categorie,
+					item.quantity,
+					item.couleur,
+					item.price + ' €'
+				);
+				return arr;
+			});
 		}
 	},
 	methods: {
@@ -88,8 +109,27 @@ export default {
 				}
 			}
 		},
-		nextStep() {
-			this.$router.push('/commande/livraison');
+		pdf() {
+			const doc = new jsPDF();
+
+			doc.text('KyoKyu', 100, 10);
+			doc.setFontSize(12);
+			doc.text('Name', 40, 20);
+			doc.text('Adresse', 40, 25);
+			doc.text('Postal code + city', 40, 30);
+			doc.text('Pays', 40, 35);
+			doc.setFontSize(16);
+			doc.autoTable({
+				startY: 50,
+				head: [['Item', 'Categorie', 'quantity', 'Color', 'Price']],
+				body: this.getCartItem
+			});
+			doc.text(
+				`Total :  ${this.totalPrice} €`,
+				100,
+				doc.lastAutoTable.finalY + 10
+			);
+			doc.save('facture.pdf');
 		}
 	}
 };
