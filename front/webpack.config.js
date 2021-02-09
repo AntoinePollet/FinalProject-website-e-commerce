@@ -37,6 +37,10 @@ module.exports = {
           name: '[path][name].[ext]',
           esModule: false
         }
+      },
+      {
+        test: /\.svg$/,
+        use: ['babel-loader', 'vue-svg-loader']
       }
     ]
   },

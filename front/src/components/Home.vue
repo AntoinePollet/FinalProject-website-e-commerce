@@ -8,16 +8,24 @@
 							v-for="item in filteredItems"
 							:key="item.id"
 							class="col-lg-3 col-md-5 col-sm-4 ml-10 mb-5"
-							@click="$router.push(`article/${item.id}`)"
 						>
 							<v-card-title
 								>{{ item.name }}<v-spacer></v-spacer>
+								<v-icon
+									class="mr-1"
+									:color="item.favoris ? 'red' : 'red lighten-4'"
+									@click="addToFav(item)"
+									>mdi-heart</v-icon
+								>
 								{{ item.price }} €</v-card-title
 							>
 							<v-divider class="mx-4"></v-divider>
 							<v-card-text>{{ item.description }}</v-card-text>
-
-							<v-img :src="item.images" contain />
+							<v-img
+								:src="item.images[0]"
+								contain
+								@click="$router.push(`article/${item.id}`)"
+							/>
 						</v-card>
 					</v-row>
 				</v-col>
@@ -34,6 +42,7 @@ export default {
 	data() {
 		return {
 			items: items,
+			imageBackground: require('../public/pink_sakura.jpg'),
 			search: ''
 		};
 	},
@@ -51,6 +60,11 @@ export default {
 		next(vm => {
 			vm.$store.dispatch('cart/initCart', items);
 		});
+	},
+	methods: {
+		addToFav(item) {
+			this.$store.dispatch('favoris/addToFav', item);
+		}
 	}
 };
 </script>

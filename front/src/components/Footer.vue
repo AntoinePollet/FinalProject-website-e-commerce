@@ -46,7 +46,7 @@ export default {
 <style lang="scss" scoped>
 .footer {
 	padding: 25px 0 25px 0;
-	background: linear-gradient(0.25turn, #2a9d8f, #0d312c);
+	background-image: url(../public/sakura.jpg);
 	.navigation-list {
 		display: flex;
 		justify-content: center;
