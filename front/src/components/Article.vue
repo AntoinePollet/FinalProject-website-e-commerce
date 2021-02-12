@@ -4,7 +4,7 @@
 			<v-col class="col-2">
 				<v-row
 					class="justify-end py-3"
-					v-for="image in getArticle.images"
+					v-for="image in article.images"
 					:key="image"
 				>
 					<v-img :src="image" max-width="100" @mouseover="changeImage(image)" />
@@ -13,16 +13,14 @@
 			<v-col> <v-img :src="img" /></v-col>
 			<v-col>
 				<v-row>
-					<v-card-title>{{ getArticle.name }}</v-card-title>
+					<v-card-title>{{ article.name }}</v-card-title>
 				</v-row>
 				<v-row
-					><v-card-subtitle>{{
-						getArticle.description
-					}}</v-card-subtitle></v-row
+					><v-card-subtitle>{{ article.description }}</v-card-subtitle></v-row
 				>
 				<div class="my-3">
 					<v-rating
-						v-model="getArticle.note"
+						v-model="article.note"
 						color="teal"
 						size="20"
 						readonly
@@ -32,9 +30,9 @@
 					/>
 				</div>
 				<v-row class="d-flex align-center">
-					<v-avatar><img :src="getArticle.images[0]" /></v-avatar>
+					<v-avatar><img :src="article.images[0]" /></v-avatar>
 					<p class="font-weight-bold mb-0 ml-2">
-						{{ firstLetterUppercase(getArticle.couleur) }}
+						{{ firstLetterUppercase(article.couleur) }}
 					</p>
 				</v-row>
 				<v-row class="py-3">
@@ -47,18 +45,18 @@
 					/>
 				</v-row>
 				<v-row class="py-3">
-					<h1>{{ getArticle.price }} €</h1>
+					<h1>{{ article.price }} €</h1>
 				</v-row>
 				<v-row>
-					<p v-if="getArticle.inStock">In stock !!</p>
+					<p v-if="article.inStock">In stock !!</p>
 					<p v-else>Out of stock</p>
 				</v-row>
 				<v-row>
 					<v-card-actions class="d-flex justify-end"
 						><v-btn
 							class="white--text teal"
-							:disabled="!getArticle.inStock"
-							@click="addToCart(getArticle)"
+							:disabled="!article.inStock"
+							@click="addToCart(article)"
 							>Add to cart</v-btn
 						></v-card-actions
 					>
@@ -69,8 +67,8 @@
 </template>
 
 <script>
-import articles from '../data/items.json';
 import colors from '../data/colors.json';
+import { mapState } from 'vuex';
 export default {
 	name: 'Article',
 	data() {
@@ -82,19 +80,24 @@ export default {
 		};
 	},
 	computed: {
-		getArticle() {
-			return articles.find(item => item.id == this.$route.params.id);
-		},
+		...mapState({
+			article: state => state.cart.currentItem
+		}),
 		cart() {
 			return this.$store.state.cart.cart;
 		},
 		defaultImage() {
-			this.img = this.getArticle.images[0]
-			return this.getArticle.images[0]
+			this.img = this.article.images[0];
+			return this.article.images[0];
 		}
 	},
 	watch: {
 		defaultImage() {}
+	},
+	beforeRouteEnter(to, from, next) {
+		next(vm => {
+			vm.$store.dispatch('cart/getItem', vm.$route.params.id);
+		});
 	},
 	methods: {
 		async addToCart(item) {
@@ -114,11 +117,11 @@ export default {
 			}
 		},
 		firstLetterUppercase(string) {
-			return string.charAt(0).toUpperCase() + string.slice(1)
+			return string.charAt(0).toUpperCase() + string.slice(1);
 		},
 		changeImage(img) {
-			this.img = img
-			return img
+			this.img = img;
+			return img;
 		}
 	}
 };

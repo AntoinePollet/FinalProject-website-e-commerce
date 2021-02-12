@@ -16,6 +16,7 @@
 						min="1"
 						v-model="selectedPrice"
 						hint="Price"
+						step="50"
 						color="black"
 						persistent-hint
 						thumb-label="always"
@@ -89,14 +90,13 @@
 </template>
 
 <script>
-import items from '../data/items.json';
 import colors from '../data/colors.json';
+import { mapState } from 'vuex';
 
 export default {
 	name: 'Search',
 	data() {
 		return {
-			items: items,
 			colors: colors,
 			search: '',
 			selectedPrice: 400,
@@ -112,6 +112,9 @@ export default {
 		};
 	},
 	computed: {
+		...mapState({
+			items: state => state.cart.articles
+		}),
 		filteredItems() {
 			let filtered = this.items;
 			if (this.selectedCategorie !== 'All') {
@@ -124,7 +127,7 @@ export default {
 					item.name.toLowerCase().includes(this.search.toLowerCase())
 				);
 			}
-			if (this.selectedPrice < 400) {
+			if (this.selectedPrice < 9000) {
 				filtered = filtered.filter(item => item.price <= this.selectedPrice);
 			}
 			if (this.selectedColor) {
@@ -195,8 +198,9 @@ export default {
 	},
 	beforeRouteEnter(to, from, next) {
 		next(vm => {
-			vm.$store.dispatch('cart/initCart', items);
+			vm.$store.dispatch('cart/getItems');
 			vm.search = vm.$route.query.name;
+			vm.selectedPrice = 400;
 		});
 	},
 	methods: {
@@ -216,9 +220,8 @@ export default {
 		},
 		addToFav(item) {
 			this.$store.dispatch('favoris/addToFav', item);
-		}	
-	},
-
+		}
+	}
 };
 </script>
 

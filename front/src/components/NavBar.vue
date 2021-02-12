@@ -61,8 +61,8 @@ export default {
 	data() {
 		return {
 			search: '',
-			image: require('../public/KyoKyu.jpg'),
-			imageBackground: require('../public/sakura.jpg'),
+			image: require('../public/fuji.png'),
+			imageBackground: require('../public/discover.png'),
 			searchInput: '',
 			items: [],
 			navigationBar: [

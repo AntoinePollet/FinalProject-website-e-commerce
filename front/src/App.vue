@@ -4,7 +4,7 @@
 		<v-main>
 			<router-view :key="$route.fullPath" />
 		</v-main>
-		<Footer class="footer" />
+		<Footer />
 		<vue-snotify></vue-snotify>
 	</v-app>
 </template>
@@ -31,10 +31,5 @@ export default {
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
 	color: #2c3e50;
-	.footer {
-		position: fixed;
-		bottom: 0;
-		width: 100%;
-	}
 }
 </style>
