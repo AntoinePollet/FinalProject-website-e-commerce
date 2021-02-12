@@ -1,11 +1,11 @@
 <template>
-	<v-app>
+	<v-app class="application">
 		<v-main>
 			<v-container>
 				<v-col>
 					<v-row class="d-flex flex-wrap justify-center">
 						<v-card
-							v-for="item in filteredItems"
+							v-for="item in items"
 							:key="item.id"
 							class="col-lg-3 col-md-5 col-sm-4 ml-10 mb-5"
 						>
@@ -35,18 +35,21 @@
 </template>
 
 <script>
-import items from '../data/items.json';
+import { mapState } from 'vuex';
 
 export default {
 	name: 'Home',
 	data() {
 		return {
-			items: items,
 			imageBackground: require('../public/pink_sakura.jpg'),
 			search: ''
 		};
 	},
 	computed: {
+		...mapState({
+			items: state => state.cart.articles
+		})
+		/*
 		filteredItems() {
 			let filtered = this.items;
 			const arr = [];
@@ -55,10 +58,11 @@ export default {
 			}, []);
 			return filtered;
 		}
+		*/
 	},
 	beforeRouteEnter(to, from, next) {
 		next(vm => {
-			vm.$store.dispatch('cart/initCart', items);
+			vm.$store.dispatch('cart/getItems');
 		});
 	},
 	methods: {

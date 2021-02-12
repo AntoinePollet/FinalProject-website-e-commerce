@@ -1,19 +1,21 @@
 <template>
-	<v-footer class="footer d-flex justify-center" app>
-		<ul class="navigation-list">
-			<li
-				v-for="item in navigationFooter"
-				:key="item.path"
-				class="navigation-list-items"
-			>
-				<router-link
-					:to="item.path"
-					:active="isActive"
-					class="navigation-list-items-link"
-					>{{ item.name }}</router-link
+	<v-footer class="footer d-flex justify-center" app :padless="padless">
+		<v-card flat tile width="100%" class="pink lighten-4 text-center py-3">
+			<ul class="navigation-list">
+				<li
+					v-for="item in navigationFooter"
+					:key="item.path"
+					class="navigation-list-items"
 				>
-			</li>
-		</ul>
+					<router-link
+						:to="item.path"
+						:active="isActive"
+						class="navigation-list-items-link"
+						>{{ item.name }}</router-link
+					>
+				</li>
+			</ul>
+		</v-card>
 	</v-footer>
 </template>
 
@@ -24,6 +26,7 @@ export default {
 	data() {
 		return {
 			isActive: true,
+			padless: true,
 			navigationFooter: [
 				{
 					name: 'About us',
@@ -45,8 +48,6 @@ export default {
 
 <style lang="scss" scoped>
 .footer {
-	padding: 25px 0 25px 0;
-	background-image: url(../public/sakura.jpg);
 	.navigation-list {
 		display: flex;
 		justify-content: center;

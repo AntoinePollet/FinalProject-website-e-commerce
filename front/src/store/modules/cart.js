@@ -1,8 +1,12 @@
+import axios from 'axios'
+const url = 'http://localhost:3000/article'
+
 const cart = {
   namespaced: true,
   state: {
     cart: [],
-    articles: []
+    articles: [],
+    currentItem: {}
   },
   getters: {
     getCart: state => {
@@ -29,11 +33,14 @@ const cart = {
         item
       )
     },
-    INIT_CART (state, items) {
+    GET_ITEMS (state, items) {
       state.articles = []
       items.map(item => {
         state.articles.push(item)
       })
+    },
+    GET_ITEM (state, item) {
+      state.currentItem = item
     },
     ADD_TO_CURRENT_ARTICLE (state, item) {
       state.currentArticle = item
@@ -70,8 +77,27 @@ const cart = {
         }
       }
     },
-    initCart ({ commit }, items) {
-      commit('INIT_CART', items)
+    async getItems ({ commit }) {
+      const response = await axios
+        .get(`${url}/all`)
+        .then(res => {
+          return res.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      commit('GET_ITEMS', response)
+    },
+    async getItem ({ commit }, id) {
+      const res = await axios
+        .get(`${url}/find/${id}`)
+        .then(res => {
+          return res.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      commit('GET_ITEM', res)
     },
     removeCartItem ({ commit }, index) {
       commit('REMOVE_CART_ITEM', index)
