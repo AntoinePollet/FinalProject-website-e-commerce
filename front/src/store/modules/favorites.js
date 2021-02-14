@@ -1,4 +1,4 @@
-const favoris = {
+const favorites = {
   namespaced: true,
   state: {
     favoris: []
@@ -36,4 +36,4 @@ const favoris = {
   }
 }
 
-export default favoris
+export default favorites

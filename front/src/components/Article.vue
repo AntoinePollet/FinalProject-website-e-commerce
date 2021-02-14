@@ -54,7 +54,7 @@
 				<v-row>
 					<v-card-actions class="d-flex justify-end"
 						><v-btn
-							class="white--text teal"
+							class="white--text pink lighten-2"
 							:disabled="!article.inStock"
 							@click="addToCart(article)"
 							>Add to cart</v-btn
@@ -63,6 +63,7 @@
 				</v-row>
 			</v-col>
 		</v-container>
+		{{ article }}
 	</v-main>
 </template>
 
@@ -85,14 +86,10 @@ export default {
 		}),
 		cart() {
 			return this.$store.state.cart.cart;
-		},
-		defaultImage() {
-			this.img = this.article.images[0];
-			return this.article.images[0];
 		}
 	},
 	watch: {
-		defaultImage() {}
+		changeImage() {}
 	},
 	beforeRouteEnter(to, from, next) {
 		next(vm => {

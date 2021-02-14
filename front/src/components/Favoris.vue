@@ -19,12 +19,12 @@ export default {
 	name: 'Favoris',
 	computed: {
 		...mapState({
-			items: state => state.favoris.favoris
+			items: state => state.favorites.favoris
 		})
 	},
 	methods: {
 		removeFromFav(item) {
-			this.$store.dispatch('favoris/removeFav', item);
+			this.$store.dispatch('favorites/removeFav', item);
 		}
 	}
 };

@@ -13,7 +13,7 @@
 								>{{ item.name }}<v-spacer></v-spacer>
 								<v-icon
 									class="mr-1"
-									:color="item.favoris ? 'red' : 'red lighten-4'"
+									:color="item.favorites ? 'red' : 'red lighten-4'"
 									@click="addToFav(item)"
 									>mdi-heart</v-icon
 								>
@@ -22,7 +22,7 @@
 							<v-divider class="mx-4"></v-divider>
 							<v-card-text>{{ item.description }}</v-card-text>
 							<v-img
-								:src="item.images[0]"
+								:src="item.pictures[0]"
 								contain
 								@click="$router.push(`article/${item.id}`)"
 							/>
@@ -41,7 +41,6 @@ export default {
 	name: 'Home',
 	data() {
 		return {
-			imageBackground: require('../public/pink_sakura.jpg'),
 			search: ''
 		};
 	},
@@ -67,7 +66,7 @@ export default {
 	},
 	methods: {
 		addToFav(item) {
-			this.$store.dispatch('favoris/addToFav', item);
+			this.$store.dispatch('favorites/addToFav', item);
 		}
 	}
 };

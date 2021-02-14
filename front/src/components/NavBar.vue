@@ -1,5 +1,5 @@
 <template>
-	<v-app-bar app class="navbar" :src="imageBackground">
+	<v-app-bar app class="navbar pink lighten-4">
 		<v-toolbar-title
 			><router-link to="/" class="navigation-home white--text"
 				><v-img
@@ -44,7 +44,7 @@
 			{{ item.name }}
 		</v-btn>
 		<v-btn to="/favoris" class="navigation-list-items white--text" text>
-			Favoris({{ favoris.length }})</v-btn
+			Favoris({{ favorites.length }})</v-btn
 		>
 		<v-btn to="/commande" class="navigation-list-items white--text" text>
 			Cart({{ totalItems }})
@@ -61,8 +61,7 @@ export default {
 	data() {
 		return {
 			search: '',
-			image: require('../public/fuji.png'),
-			imageBackground: require('../public/discover.png'),
+			image: require('../public/KyoKyu.png'),
 			searchInput: '',
 			items: [],
 			navigationBar: [
@@ -86,7 +85,7 @@ export default {
 		...mapState({
 			cart: state => state.cart.cart,
 			isAuth: state => state.user.isAuth,
-			favoris: state => state.favoris.favoris
+			favorites: state => state.favorites.favoris
 		}),
 		...mapGetters({
 			autocompleteList: 'cart/autocompleteList'
@@ -120,6 +119,7 @@ export default {
 <style lang="scss">
 .navbar {
 	list-style: none;
+	background-color: #d38fac;
 	.v-select__selection,
 	.v-select__selection--comma,
 	.v-select.v-text-field input {
