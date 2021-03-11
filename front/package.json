@@ -1,7 +1,7 @@
 {
-  "name": "remembersongs",
+  "name": "FinalProjectEcommerce",
   "version": "1.0.0",
-  "description": "RememberSongs is a web app for musician",
+  "description": "Final Project",
   "main": "webpack.config.js",
   "prettier": {
     "singleQuote": true
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AntoinePollet/VueBase.git"
+    "url": "git+https://github.com/AntoinePollet/FinalProject-website-e-commerce.git"
   },
   "author": "Antoine Pollet",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/AntoinePollet/VueBase/issues"
+    "url": "https://github.com/AntoinePollet/FinalProject-website-e-commerce/issues"
   },
-  "homepage": "https://github.com/AntoinePollet/VueBase#readme",
+  "homepage": "https://github.com/AntoinePollet/FinalProject-website-e-commerce#readme",
   "dependencies": {
     "@babel/core": "^7.11.6",
     "@babel/preset-env": "^7.11.5",

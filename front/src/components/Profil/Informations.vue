@@ -1,5 +1,5 @@
 <template>
-	<div class="navigation d-flex">
+	<div class="navigation">
 		<ProfilNavigation />
 		<v-container class="pa-15">
 			<!-- 
@@ -111,7 +111,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.navigation {
-	height: 100%;
-}
 </style>
