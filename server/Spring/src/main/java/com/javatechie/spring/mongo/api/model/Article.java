@@ -18,7 +18,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-@Document(collection = "test")
+@Document(collection = "articles")
 public class Article {
 	@Id
 	private String id;

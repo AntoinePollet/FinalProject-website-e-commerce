@@ -4,10 +4,14 @@
 			<v-col class="col-2">
 				<v-row
 					class="justify-end py-3"
-					v-for="image in article.images"
-					:key="image"
+					v-for="picture in article.pictures"
+					:key="picture"
 				>
-					<v-img :src="image" max-width="100" @mouseover="changeImage(image)" />
+					<v-img
+						:src="picture"
+						max-width="100"
+						@mouseover="changeImage(picture)"
+					/>
 				</v-row>
 			</v-col>
 			<v-col> <v-img :src="img" /></v-col>
@@ -20,7 +24,7 @@
 				>
 				<div class="my-3">
 					<v-rating
-						v-model="article.note"
+						v-model="article.rating"
 						color="teal"
 						size="20"
 						readonly
@@ -30,9 +34,9 @@
 					/>
 				</div>
 				<v-row class="d-flex align-center">
-					<v-avatar><img :src="article.images[0]" /></v-avatar>
+					<v-avatar><img :src="article.pictures[0]" /></v-avatar>
 					<p class="font-weight-bold mb-0 ml-2">
-						{{ firstLetterUppercase(article.couleur) }}
+						{{ firstLetterUppercase(article.color) }}
 					</p>
 				</v-row>
 				<v-row class="py-3">
@@ -63,7 +67,6 @@
 				</v-row>
 			</v-col>
 		</v-container>
-		{{ article }}
 	</v-main>
 </template>
 
