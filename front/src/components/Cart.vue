@@ -1,38 +1,35 @@
 <template>
 	<v-main>
 		<div v-if="cart.length != 0" id="element-to-print">
-			<v-col>
-				<v-row class="ma-5 d-flex flex-column align-content-end">
-					<h2>
-						Total price : <strong>{{ totalPrice }}</strong> €
-					</h2>
-					<v-btn
-						class="teal"
-						@click="$router.push({ name: 'livraison' })"
-						text
-						color="white"
-						>Suivant</v-btn
-					>
-					<v-btn class="teal" @click="pdf()" text color="white">download</v-btn>
-				</v-row>
+			<v-col class="d-flex">
 				<v-row>
-					<v-container class="d-flex flex-column justify-end align-end">
+					<v-container class="d-flex flex-column">
+						<h1 class="text-left">Votre panier</h1>
+						<p class="text-right">Prix</p>
+						<v-divider></v-divider>
 						<v-card
 							v-for="(item, index) in cart"
 							:key="index"
-							class="col-lg-7 col-sm-12 mb-10"
+							class="col-sm-12 mb-10"
+							flat
 						>
+							<v-col class="d-flex">
+								<v-row>Images</v-row>
+								<v-row>Description</v-row>
+								<v-row>Prix</v-row>
+							</v-col>
+							<!--
 							<v-card-title
 								>{{ item.name }}
 								<v-btn
-									:class="colorItem(item.couleur)"
+									:class="colorItem(item.color)"
 									class="ml-5"
 									rounded
 								></v-btn
 								><v-spacer></v-spacer>{{ item.price }} €</v-card-title
 							>
 							<div class="d-flex">
-								<v-img :src="item.images[0]" width="100px" />
+								<v-img :src="item.pictures[0]" width="100px" />
 
 								<v-card-text>{{ item.description }}</v-card-text>
 								<v-select
@@ -47,8 +44,30 @@
 									>Supprimer</v-btn
 								></v-card-actions
 							>
+							-->
 						</v-card>
 					</v-container>
+				</v-row>
+				<v-row class="checkout col-lg-4 ma-5 d-flex flex-column">
+					<div>
+						<h2>
+							Total price : <strong>{{ totalPrice }}</strong> €
+						</h2>
+						<v-card-actions class="justify-center"
+							><v-btn
+								class="teal px-8 py-5"
+								@click="$router.push({ name: 'livraison' })"
+								text
+								color="white"
+								>Checkout</v-btn
+							></v-card-actions
+						>
+						<v-card-actions class="justify-center">
+							<v-btn class="teal" @click="pdf()" text color="white"
+								>download</v-btn
+							></v-card-actions
+						>
+					</div>
 				</v-row>
 			</v-col>
 		</div>
@@ -85,9 +104,9 @@ export default {
 				let arr = new Array();
 				arr.push(
 					item.name,
-					item.categorie,
+					item.category,
 					item.quantity,
-					item.couleur,
+					item.color,
 					item.price + ' €'
 				);
 				return arr;
@@ -121,7 +140,7 @@ export default {
 			doc.setFontSize(16);
 			doc.autoTable({
 				startY: 50,
-				head: [['Item', 'Categorie', 'quantity', 'Color', 'Price']],
+				head: [['Item', 'Category', 'Quantity', 'Color', 'Price']],
 				body: this.getCartItem
 			});
 			doc.text(
@@ -136,4 +155,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.checkout {
+	height: fit-content;
+	position: sticky;
+	top: 100px;
+}
 </style>

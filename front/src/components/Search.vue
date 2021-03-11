@@ -3,7 +3,7 @@
 		<v-main>
 			<h1>Vos recherches</h1>
 			<div class="d-flex mt-9">
-				<v-col class="col-3 ml-4">
+				<v-col class="filter col-3 ml-4">
 					<h3>Filtres</h3>
 					<v-select
 						:items="getCategories"
@@ -16,7 +16,6 @@
 						min="1"
 						v-model="selectedPrice"
 						hint="Price"
-						step="50"
 						color="black"
 						persistent-hint
 						thumb-label="always"
@@ -44,39 +43,27 @@
 							<v-card
 								v-for="item in filteredItems"
 								:key="item.id"
-								class="col-lg-3 col-md-5 col-sm-4 ml-10 mb-5"
+								class="col-lg-3 col-md-5 col-sm-4 ml-10 mb-5 pa-0"
 							>
 								<v-card-title
 									>{{ item.name }}<v-spacer></v-spacer>
 									<v-icon
 										class="mr-1"
-										:color="item.favoris ? 'red' : 'red lighten-4'"
+										:color="item.favorites ? 'red' : 'red lighten-4'"
 										@click="addToFav(item)"
 										>mdi-heart</v-icon
 									>
 									{{ item.price }} €</v-card-title
 								>
 								<v-divider class="ma-4"></v-divider>
-								<v-btn
-									:class="colorItem(item.couleur)"
-									elevation="2"
-									fab
-								></v-btn>
+								<v-btn :class="colorItem(item.color)" elevation="2" fab></v-btn>
 								<v-card-text>{{ item.description }}</v-card-text>
 
 								<v-img
 									@click="$router.push(`article/${item.id}`)"
-									:src="item.images[0]"
+									:src="item.pictures[0]"
 									width="300px"
 									contain
-								/>
-								<v-rating
-									v-model="item.note"
-									readonly
-									dense
-									color="teal"
-									half-increments
-									background-color="blue-grey lighten-2"
 								/>
 								<p v-if="item.inStock" class="">In stock !!</p>
 								<p v-else>Out of stock</p>
@@ -119,7 +106,7 @@ export default {
 			let filtered = this.items;
 			if (this.selectedCategorie !== 'All') {
 				filtered = filtered.filter(
-					item => item.categorie === this.selectedCategorie.toLowerCase()
+					item => item.category === this.selectedCategorie.toLowerCase()
 				);
 			}
 			if (this.search && this.search.length) {
@@ -127,14 +114,14 @@ export default {
 					item.name.toLowerCase().includes(this.search.toLowerCase())
 				);
 			}
-			if (this.selectedPrice < 9000) {
+			if (this.selectedPrice < 400) {
 				filtered = filtered.filter(item => item.price <= this.selectedPrice);
 			}
 			if (this.selectedColor) {
 				filtered = filtered.filter(item => {
-					const index = this.selectedColor.indexOf(item.couleur);
+					const index = this.selectedColor.indexOf(item.color);
 					for (var color of this.selectedColor) {
-						return item.couleur.includes(this.selectedColor[index]);
+						return item.color.includes(this.selectedColor[index]);
 					}
 					return filtered;
 				});
@@ -165,7 +152,7 @@ export default {
 		getColors() {
 			const arr = [];
 			return this.items.reduce((acc, item) => {
-				arr.push(item.couleur);
+				arr.push(item.color);
 				return arr;
 			}, []);
 		},
@@ -173,7 +160,7 @@ export default {
 			const arr = [];
 			arr.push('All');
 			return this.items.reduce((acc, item) => {
-				arr.push(item.categorie);
+				arr.push(item.category);
 				return arr;
 			}, []);
 		},
@@ -219,11 +206,16 @@ export default {
 				(this.seselectedCategorie = '');
 		},
 		addToFav(item) {
-			this.$store.dispatch('favoris/addToFav', item);
+			this.$store.dispatch('favorites/addToFav', item);
 		}
 	}
 };
 </script>
 
 <style lang="scss">
+.filter {
+	height: fit-content;
+	position: sticky;
+	top: 100px;
+}
 </style>

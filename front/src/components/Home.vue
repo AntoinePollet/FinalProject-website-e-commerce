@@ -7,7 +7,7 @@
 						<v-card
 							v-for="item in items"
 							:key="item.id"
-							class="col-lg-3 col-md-5 col-sm-4 ml-10 mb-5"
+							class="col-lg-3 col-md-5 col-sm-4 ml-10 mb-5 pa-0"
 						>
 							<v-card-title
 								>{{ item.name }}<v-spacer></v-spacer>
@@ -19,8 +19,11 @@
 								>
 								{{ item.price }} €</v-card-title
 							>
-							<v-divider class="mx-4"></v-divider>
-							<v-card-text>{{ item.description }}</v-card-text>
+							<v-divider class="mx-4 d-flex align-center"></v-divider>
+
+							<v-card-text class="card-text d-flex align-center">
+								<p class="mb-0">{{ item.description }}</p></v-card-text
+							>
 							<v-img
 								:src="item.pictures[0]"
 								contain
@@ -73,4 +76,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.card-text {
+	height: 170px;
+}
 </style>
