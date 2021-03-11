@@ -1,5 +1,5 @@
 <template>
-	<div class="navigation d-flex">
+	<div class="navigation">
 		<ProfilNavigation />
 		<v-container>
 			<v-card>
@@ -16,7 +16,7 @@
 					:headers="headers"
 					:items="item"
 					:search="search"
-                    dense
+					dense
 				></v-data-table>
 			</v-card>
 		</v-container>
@@ -64,7 +64,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.navigation {
-	height: 100%;
-}
 </style>

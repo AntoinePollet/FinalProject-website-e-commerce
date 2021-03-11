@@ -1,7 +1,7 @@
 const user = {
   namespaced: true,
   state: {
-    isAuth: false,
+    isAuth: true,
     role: ['admin'] // admin contain one more route
   },
   getters: {},

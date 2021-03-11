@@ -1,22 +1,27 @@
 <template>
-	<div class="col-lg-3 col-4 navigation" height="100px">
-		<h2 v-for="item in profilItems" :key="item.name" class="navigation-items">
-			<router-link
-				:to="item.path"
-				class="navigation-items-link"
-				:active="true"
-				>{{ item.name }}</router-link
+	<div class="navigation-bar d-flex justify-center">
+		<div class="navigation col-8 d-flex justify-space-around align-center">
+			<p
+				v-for="item in profilItems"
+				:key="item.name"
+				class="navigation-items mb-0"
 			>
-		</h2>
-		<h2 v-if="isAdmin" class="navigation-items">
-			<router-link
-				to="/profil/admin"
-				class="navigation-items-link"
-				:active="true"
-				>Admin
-			</router-link>
-		</h2>
-		<v-btn text class="teal white--text" @click="signOut">Se deconnecter</v-btn>
+				<router-link
+					:to="item.path"
+					class="navigation-items-link"
+					:active="true"
+					>{{ item.name }}</router-link
+				>
+			</p>
+			<p v-if="isAdmin" class="navigation-items mb-0">
+				<router-link
+					to="/profil/admin"
+					class="navigation-items-link"
+					:active="true"
+					>Admin
+				</router-link>
+			</p>
+		</div>
 	</div>
 </template>
 
@@ -68,20 +73,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.navigation {
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: space-around;
+.navigation-bar {
+	background-color: rgb(244, 244, 244);
+	height: 75px;
 	box-shadow: 5px 0 5px -5px #333;
-	.navigation-items {
-		.navigation-items-link {
-			text-decoration: none;
-			color: #2a9d8f;
-		}
-		.router-link-active {
-			border-bottom: 2px solid #2a9d8f;
+	.navigation {
+		.navigation-items {
+			.navigation-items-link {
+				text-decoration: none;
+				color: #2a9d8f;
+			}
+			.router-link-active {
+				border-bottom: 2px solid #2a9d8f;
+			}
 		}
 	}
 }

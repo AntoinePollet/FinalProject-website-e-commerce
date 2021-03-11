@@ -13,7 +13,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.navigation {
-	height: 100%;
-}
 </style>
