@@ -108,7 +108,8 @@ add format
     "stock": true
 }
 ```
+
 ```diff
- - color has been changed to an array
+- POST, PUT and DELETE request must be authentified by an admin token
 ```
 
