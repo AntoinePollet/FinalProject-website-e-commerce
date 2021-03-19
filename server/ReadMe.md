@@ -110,6 +110,6 @@ add format
 ```
 
 ```diff
-@ POST, PUT and DELETE request must be authentified by an admin token
+@@ color has been changed to an array
 ```
 
