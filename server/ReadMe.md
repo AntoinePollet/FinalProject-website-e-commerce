@@ -108,5 +108,7 @@ add format
     "stock": true
 }
 ```
+```diff
+@ (color has been changed to an array)
+```
 
-(color has been changed to an array)
