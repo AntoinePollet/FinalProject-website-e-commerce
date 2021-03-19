@@ -17,27 +17,27 @@ public class Article {
     private String id;
     private String name;
     private String description;
-    private List images;
-    private String categorie;
-    private String couleur;
+    private List pictures;
+    private String category;
+    private List color;
     private int price;
-    private Double note;
+    private Double rating;
     private Boolean inStock = true;
-    private Boolean favoris = false;
+    private Boolean favorites = false;
 
     public Article() {
     }
 
-    public Article(String name, String description, List images, String categorie, String couleur, int price, Double note, Boolean inStock, Boolean favoris) {
+    public Article(String name, String description, List pictures, String category, List color, int price, Double rating, Boolean inStock, Boolean favorites) {
         this.name = name;
         this.description = description;
-        this.images = images;
-        this.categorie = categorie;
-        this.couleur = couleur;
+        this.pictures = pictures;
+        this.category = category;
+        this.color = color;
         this.price = price;
-        this.note = note;
+        this.rating = rating;
         this.inStock = inStock;
-        this.favoris = favoris;
+        this.favorites = favorites;
     }
 
     public String getId() {
@@ -65,27 +65,27 @@ public class Article {
     }
 
     public List getImages() {
-        return images;
+        return pictures;
     }
 
-    public void setImages(List images) {
-        this.images = images;
+    public void setImages(List pictures) {
+        this.pictures = pictures;
     }
 
     public String getCategorie() {
-        return categorie;
+        return category;
     }
 
-    public void setCategorie(String categorie) {
-        this.categorie = categorie;
+    public void setCategorie(String category) {
+        this.category = category;
     }
 
-    public String getCouleur() {
-        return couleur;
+    public List getCouleur() {
+        return color;
     }
 
-    public void setCouleur(String couleur) {
-        this.couleur = couleur;
+    public void setCouleur(List color) {
+        this.color = color;
     }
 
     public int getPrice() {
@@ -97,11 +97,11 @@ public class Article {
     }
 
     public Double getNote() {
-        return note;
+        return rating;
     }
 
-    public void setNote(Double note) {
-        this.note = note;
+    public void setNote(Double rating) {
+        this.rating = rating;
     }
 
     public Boolean getStock() {
@@ -113,11 +113,11 @@ public class Article {
     }
 
     public Boolean getFavoris() {
-        return favoris;
+        return favorites;
     }
 
-    public void setFavoris(Boolean favoris) {
-        this.favoris = favoris;
+    public void setFavoris(Boolean favorites) {
+        this.favorites = favorites;
     }
 
     @Override
@@ -125,13 +125,13 @@ public class Article {
         return "Article{" +
                 "name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", images=" + images +
-                ", categorie='" + categorie + '\'' +
-                ", couleur='" + couleur + '\'' +
+                ", pictures=" + pictures +
+                ", category='" + category + '\'' +
+                ", color='" + color + '\'' +
                 ", price=" + price +
-                ", note=" + note +
+                ", rating=" + rating +
                 ", inStock=" + inStock +
-                ", favoris=" + favoris +
+                ", favoris=" + favorites +
                 '}';
     }
 }
