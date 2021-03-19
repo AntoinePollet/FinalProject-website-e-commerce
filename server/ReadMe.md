@@ -101,7 +101,7 @@ add format
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi justo nunc, cursus at dignissim in, vulputate vitae augue. Integer eros nibh, lobortis ut nulla vel. Morbi justo nunc, cursus at dignissim in, vulputate vitae augue. Integer eros nibh,",
     "images": ["image.png"],
     "categorie": "meuble",
-    "couleur": "blanc",
+    "couleur": ["blanc"],
     "price": 149,
     "note": 4.8,
     "favoris": false,
@@ -109,4 +109,4 @@ add format
 }
 ```
 
-(color will be change to array)
+(color has been changed to an array)
