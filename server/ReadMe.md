@@ -110,6 +110,6 @@ add format
 ```
 
 ```diff
- ! color has been changed to an array
+ - color has been changed to an array
 ```
 
