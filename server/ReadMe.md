@@ -110,6 +110,6 @@ add format
 ```
 
 ```diff
-- POST, PUT and DELETE request must be authentified by an admin token
+@ POST, PUT and DELETE request must be authentified by an admin token
 ```
 
