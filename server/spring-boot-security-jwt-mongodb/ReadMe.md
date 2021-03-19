@@ -10,12 +10,12 @@ There is 3 Roles :
 
 So if you want to have all the permission for the API endpoint signup with the ADMIN role
 
-#--------------------------------------------------------
-Here is the endpoint to SignUp
+
+## Here is the endpoint to SignUp
 localhost:8088/api/auth/signup
 
 (respect this format, you can choose all the roles)
-
+```
 {
     "username": "admin",
     "email": "admin@bezkoder.com",
@@ -28,13 +28,14 @@ response successfull ->
 {
     "message": "User registered successfully!"
 }
+```
 
-#--------------------------------------------------------
-Here is the endpoint to SignIn
+
+## Here is the endpoint to SignIn
 localhost:8088/api/auth/signin
 
 (respect this format)
-
+```
 {
     "username": "admin",
     "password": "123456789"
@@ -53,13 +54,13 @@ response successfull ->
     "tokenType": "Bearer",
     "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYxNjE3Mjc5OCwiZXhwIjoxNjE2MjU5MTk4fQ.Zs9pUUoKYFVhaeKIItQ0BuqTkD4_3uFMEvnRxwsfbZtHHQ_kUDHnSRmVzKfbWj2e10DPl9ZBhTF-_7OzwUnOzA"
 }
+```
 
-
-#--------------------------------------------------------
-Here is the endpoint to ChangePassword
+## Here is the endpoint to ChangePassword
 localhost:8088/api/auth/changePassword
 
 (respect this format)
+```
 {
     "username": "admin",
     "email": "admin@bezkoderWork.03.com",
@@ -72,26 +73,29 @@ response successfull ->
 {
     "message": "Update registered successfully!"
 }
-
-#--------------------------------------------------------
-Here is the endpoint to access Articles
+```
+## Here is the endpoint to access Articles
 
 localhost:8088/api/articles/ + services 
 
-services :
-    all          (GET)
-    -find/{id}     (GET)
-    #
-    #(I can add more methods if you want to filter the result if you think that loading all the article will be to heavy for the front)
-    #POST, PUT and DELETE request must be authentified by an admin token
-    #
-    -add           (POST) format bellow ⬇
-    -udpate/{id}   (PUT)
-    -delete/{id}   (DELETE)
+(I can add more methods if you want to filter the result if you think that loading all the article will be to heavy for the front)
+
+```diff
+- POST, PUT and DELETE request must be authentified by an admin token
+```
+
+services -> 
+
+1. all          (GET)
+2. find/{id}     (GET)
+3. add           (POST) format bellow ⬇
+4. udpate/{id}   (PUT)
+5. delete/{id}   (DELETE)
+
 
 
 add format
-#color will be change to array 
+```
 {
     "name": "Etagere",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi justo nunc, cursus at dignissim in, vulputate vitae augue. Integer eros nibh, lobortis ut nulla vel. Morbi justo nunc, cursus at dignissim in, vulputate vitae augue. Integer eros nibh,",
@@ -103,3 +107,6 @@ add format
     "favoris": false,
     "stock": true
 }
+```
+
+(color will be change to array)
