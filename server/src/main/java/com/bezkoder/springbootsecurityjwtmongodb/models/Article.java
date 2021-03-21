@@ -64,27 +64,27 @@ public class Article {
         this.description = description;
     }
 
-    public List getImages() {
+    public List getPictures() {
         return pictures;
     }
 
-    public void setImages(List pictures) {
+    public void setPictures(List pictures) {
         this.pictures = pictures;
     }
 
-    public String getCategorie() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategorie(String category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
-    public List getCouleur() {
+    public List getColor() {
         return color;
     }
 
-    public void setCouleur(List color) {
+    public void setColor(List color) {
         this.color = color;
     }
 
@@ -96,27 +96,27 @@ public class Article {
         this.price = price;
     }
 
-    public Double getNote() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setNote(Double rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 
-    public Boolean getStock() {
+    public Boolean getInStock() {
         return inStock;
     }
 
-    public void setStock(Boolean inStock) {
+    public void setInStock(Boolean inStock) {
         this.inStock = inStock;
     }
 
-    public Boolean getFavoris() {
+    public Boolean getFavorites() {
         return favorites;
     }
 
-    public void setFavoris(Boolean favorites) {
+    public void setFavorites(Boolean favorites) {
         this.favorites = favorites;
     }
 
