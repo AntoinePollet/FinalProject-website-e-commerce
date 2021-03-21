@@ -2,24 +2,27 @@
 	<div class="navigation">
 		<ProfilNavigation />
 		<v-container class="col-lg-4 mt-8">
-			<v-card>
-				<h2 class="pt-5">Change password</h2>
+			<v-card flat>
+				<h2 class="pt-5">Modifier mon mot de passe</h2>
 				<v-form ref="form" v-model="validForm" class="pa-5">
+					<p class="text-left">Nouveau mot de passe</p>
 					<v-text-field
-						placeholder="password actuel"
-						v-model="password"
-						:rules="passwordRule"
-					></v-text-field>
-					<v-text-field
-						placeholder="new password"
 						type="password"
 						v-model="newPassword"
 						:rules="newPasswordRule"
+						outlined
+					></v-text-field>
+					<p class="text-left">Réécrire nouveau mot de passe</p>
+					<v-text-field
+						type="password"
+						v-model="retypePassword"
+						:rules="retypePasswordRule"
+						outlined
 					></v-text-field>
 
 					<v-card-actions class="justify-end"
 						><v-btn class="teal white--text" @click="save"
-							>Save</v-btn
+							>Modifier mot de passe</v-btn
 						></v-card-actions
 					>
 				</v-form>
@@ -36,14 +39,20 @@ export default {
 	data() {
 		return {
 			validForm: true,
-			password: '',
 			newPassword: '',
-			passwordRule: [],
-			newPasswordRule: []
+			retypePassword: '',
+			newPasswordRule: [v => !!v || 'Le champ ne peut pas être vide'],
+			retypePasswordRule: [v => !!v || 'Le champ ne peut pas être vide']
 		};
 	},
 	methods: {
-		save() {}
+		save() {
+			if (this.$refs.form.validate()) {
+				if (this.newPassword.localeCompare(this.retypePassword) === 0) {
+					console.log('dispatch method');
+				}
+			}
+		}
 	}
 };
 </script>

@@ -1,32 +1,37 @@
 <template>
 	<v-card>
-		<h2 class="pt-5">Bonjour !</h2>
-		<h4>Connectez vous à votre compte ici.</h4>
-		<v-form ref="form" v-model="validForm" class="pa-5">
+		<h2 class="pt-5">S'inscrire</h2>
+		<v-form ref="form" v-model="valid" class="pa-5">
+			<v-text-field
+				prepend-inner-icon="mdi-account"
+				placeholder="full name"
+				v-model="fullName"
+				:rules="fullNameRule"
+				outlined
+			/>
 			<v-text-field
 				prepend-inner-icon="mdi-email"
 				placeholder="email"
 				v-model="email"
 				:rules="emailRule"
 				outlined
-			></v-text-field>
+			/>
 			<v-text-field
 				prepend-inner-icon="mdi-lock"
 				placeholder="mot de passe"
 				type="password"
 				:rules="passwordRule"
 				outlined
-			></v-text-field>
+			/>
 			<v-card-actions class="pa-0"
-				><v-btn class="teal white--text" width="100%" @click="signin"
-					>Login</v-btn
+				><v-btn class="teal white--text" width="100%" @click="signup"
+					>Sign up</v-btn
 				></v-card-actions
 			>
 			<v-divider class="my-5"></v-divider>
-			<p>Mot de passe oublié? <span class="word">Reset</span></p>
-			<p>
-				Vous n'avez pas de compte?
-				<span @click="$emit('signup')" class="word">Se créer un compte</span>
+			<p @click="$emit('signin')">
+				vous avez déjà un compte ?
+				<span class="word">Se connecter</span>
 			</p>
 		</v-form>
 	</v-card>
@@ -34,12 +39,14 @@
 
 <script>
 export default {
-	name: 'Login',
+	name: 'Signup',
 	data() {
 		return {
-			validForm: true,
+			valid: true,
 			email: '',
 			goTo: '/',
+			fullName: '',
+			fullNameRule: [v => !!v || 'Prénom requis'],
 			emailRule: [v => !!v || 'Email requis !'],
 			passwordRule: [v => !!v || 'Password requis !']
 		};
@@ -50,12 +57,17 @@ export default {
 				vm.goTo = '/commande/livraison';
 			});
 		}
+		if (from.name === 'profil') {
+			next(vm => {
+				vm.goTo = '/profil';
+			});
+		}
 		next();
 	},
 	methods: {
-		signin() {
+		signup() {
 			if (this.$refs.form.validate()) {
-				this.$store.dispatch('user/logIn');
+				this.$store.dispatch('user/login');
 				this.$router.push(this.goTo);
 			}
 		}

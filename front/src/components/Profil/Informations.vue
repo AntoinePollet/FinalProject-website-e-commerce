@@ -1,7 +1,7 @@
 <template>
 	<div class="navigation">
 		<ProfilNavigation />
-		<v-container class="pa-15">
+		<v-container class="pa-15 col-6">
 			<!-- 
 			<v-breadcrumbs :items="items">
 				<template v-slot:item="{ item }">
@@ -11,21 +11,24 @@
 				</template>
 			</v-breadcrumbs>
 			-->
+			<h2 class="mb-3 title-info">Mes informations</h2>
 			<v-form ref="form" v-model="valid" :lazy-validation="true">
+				<p class="text-left">Nom</p>
 				<v-text-field
-					placeholder="Name"
 					v-model="name"
 					hint="Facultatif"
 					:rules="nameRule"
 					persistent-hint
+					outlined
 				/>
+				<p class="text-left">Prenom</p>
 				<div class="d-flex">
 					<v-text-field
-						placeholder="Prenom"
 						v-model="prenom"
 						hint="Facultatif"
 						:rules="lastNameRule"
 						persistent-hint
+						outlined
 					/>
 					<div class="d-flex">
 						<v-checkbox
@@ -42,20 +45,22 @@
 						/>
 					</div>
 				</div>
+				<p class="text-left">Email</p>
 				<v-text-field
 					type="email"
-					placeholder="E-mail"
 					v-model="email"
 					:rules="emailRule"
 					hint="Obligatoire"
 					required
 					persistent-hint
+					outlined
 				/>
+				<p class="text-left">Code postal</p>
 				<v-text-field
-					placeholder="postalCode"
 					hint="Facultatif"
 					persistent-hint
 					v-model="postalCode"
+					outlined
 				/>
 				<v-card-actions class="d-flex justify-end"
 					><v-btn color="teal white--text" @click="send()" :disabled="!valid"
@@ -111,4 +116,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.title-info {
+	color: rgb(0, 0, 0, 0.87);
+}
 </style>

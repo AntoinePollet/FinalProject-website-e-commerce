@@ -76,9 +76,6 @@ export default {
         text-decoration: none;
         color: #2a9d8f;
       }
-      .router-link-active {
-        border-bottom: 2px solid #2a9d8f;
-      }
     }
   }
 }

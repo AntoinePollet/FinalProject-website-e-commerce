@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import Home from '../components/Home.vue'
 import Cart from '../components/Cart.vue'
 import Livraison from '../components/Livraison.vue'
 import Search from '../components/Search.vue'
 import Article from '../components/Article.vue'
 import Contact from '../components/Contact.vue'
-import SignIn from '../components/SignIn.vue'
 import Favoris from '../components/Favoris.vue'
 import Paiement from '../components/Paiement.vue'
 import Success from '../components/Success.vue'
@@ -82,11 +82,6 @@ export default new Router({
       path: '/profil/commandes',
       name: 'commandes',
       component: Commandes
-    },
-    {
-      path: '/signin',
-      name: 'signin',
-      component: SignIn
     },
     {
       path: '/profil/informations',
