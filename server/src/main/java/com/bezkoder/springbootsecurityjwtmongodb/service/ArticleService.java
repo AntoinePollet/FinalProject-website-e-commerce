@@ -38,13 +38,13 @@ public class ArticleService {
             Article _article = articleData.get();
             _article.setName(article.getName());
             _article.setDescription(article.getDescription());
-            _article.setImages(article.getImages());
-            _article.setCategorie(article.getCategorie());
-            _article.setCouleur(article.getCouleur());
+            _article.setPictures(article.getPictures());
+            _article.setCategory(article.getCategory());
+            _article.setColor(article.getColor());
             _article.setPrice(article.getPrice());
-            _article.setNote(article.getNote());
-            _article.setStock(article.getStock());
-            _article.setFavoris(article.getFavoris());
+            _article.setRating(article.getRating());
+            _article.setInStock(article.getInStock());
+            _article.setFavorite(article.getFavorite());
 
             return articleRepo.save(_article);
         }
