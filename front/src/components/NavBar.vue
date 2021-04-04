@@ -31,12 +31,13 @@
 		<v-menu content-class="menu-list">
 			<template v-slot:activator="{ on, attrs }">
 				<p
+					v-if="isAuth"
 					v-on="on"
 					v-bind="attrs"
 					class="navigation-list-items mb-0 mr-3 d-flex align-center"
 					to="/profil"
 				>
-					Profil
+					{{ username }}
 				</p>
 			</template>
 			<v-list>
@@ -76,7 +77,7 @@
 			<v-icon>mdi-cart</v-icon>({{ totalItems }})
 		</router-link>
 
-		<v-divider vertical light inset></v-divider>
+		<v-divider vertical light inset v-if="!isAuth"></v-divider>
 
 		<v-dialog v-model="dialogSignin" width="500">
 			<template v-slot:activator="{ on, attrs }">
@@ -90,7 +91,7 @@
 					Sign in
 				</p>
 			</template>
-			<Signin @signup="signupDialog" />
+			<Signin @signup="signupDialog" @closeSignin="closeSignin" />
 		</v-dialog>
 
 		<v-dialog v-model="dialogSignup" width="500">
@@ -164,6 +165,7 @@ export default {
 		...mapState({
 			cart: state => state.cart.cart,
 			isAuth: state => state.user.isAuth,
+			username: state => state.user.username,
 			favorites: state => state.favorites.favoris,
 			role: state => state.user.role
 		}),
@@ -171,7 +173,7 @@ export default {
 			autocompleteList: 'cart/autocompleteList'
 		}),
 		isAdmin() {
-			if (this.role.includes('admin')) {
+			if (this.role.includes('ROLE_ADMIN')) {
 				return true;
 			} else return false;
 		},
@@ -200,7 +202,7 @@ export default {
 		logout() {
 			if (this.$store.state.user.isAuth) {
 				this.$store.dispatch('user/logout');
-				this.$router.push('/');
+				//this.$router.push('/');
 			}
 		},
 		signinDialog() {
@@ -208,12 +210,15 @@ export default {
 		},
 		signupDialog() {
 			(this.dialogSignin = false), (this.dialogSignup = true);
+		},
+		closeSignin() {
+			this.dialogSignin = false;
 		}
 	}
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .navbar {
 	list-style: none;
 	.v-select__selection,

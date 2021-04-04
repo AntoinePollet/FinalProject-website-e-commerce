@@ -1,69 +1,42 @@
 <template>
 	<div class="navigation">
 		<ProfilNavigation />
-		<v-container class="pa-15 col-6">
-			<!-- 
-			<v-breadcrumbs :items="items">
-				<template v-slot:item="{ item }">
-					<v-breadcrumbs-item :to="item.href" :exact="true">{{
-						item.text
-					}}</v-breadcrumbs-item>
-				</template>
-			</v-breadcrumbs>
-			-->
-			<h2 class="mb-3 title-info">Mes informations</h2>
+		<v-container class="col-6 mt-8">
+			<h2 class="mb-3 pt-5 title-info">Mes informations</h2>
 			<v-form ref="form" v-model="valid" :lazy-validation="true">
-				<p class="text-left">Nom</p>
-				<v-text-field
-					v-model="name"
-					hint="Facultatif"
-					:rules="nameRule"
-					persistent-hint
-					outlined
-				/>
-				<p class="text-left">Prenom</p>
+				<p class="text-left mb-1">Nom</p>
+				<v-text-field v-model="name" :rules="nameRule" outlined dense />
+				<p class="text-left mb-1">Prenom</p>
 				<div class="d-flex">
-					<v-text-field
-						v-model="prenom"
-						hint="Facultatif"
-						:rules="lastNameRule"
-						persistent-hint
-						outlined
-					/>
+					<v-text-field v-model="prenom" :rules="lastNameRule" outlined dense />
 					<div class="d-flex">
 						<v-checkbox
 							label="Mr"
 							v-model="civiliteMr"
 							:disabled="civiliteMme"
-							class="ml-5"
+							class="ml-5 mt-0"
 						/>
 						<v-checkbox
 							label="Mme"
 							v-model="civiliteMme"
 							:disabled="civiliteMr"
-							class="ml-5"
+							class="ml-5 mt-0"
 						/>
 					</div>
 				</div>
-				<p class="text-left">Email</p>
+				<p class="text-left mb-1">Email</p>
 				<v-text-field
 					type="email"
 					v-model="email"
 					:rules="emailRule"
-					hint="Obligatoire"
 					required
-					persistent-hint
 					outlined
+					dense
 				/>
-				<p class="text-left">Code postal</p>
-				<v-text-field
-					hint="Facultatif"
-					persistent-hint
-					v-model="postalCode"
-					outlined
-				/>
+				<p class="text-left mb-1">Code postal</p>
+				<v-text-field v-model="postalCode" outlined dense />
 				<v-card-actions class="d-flex justify-end"
-					><v-btn color="teal white--text" @click="send()" :disabled="!valid"
+					><v-btn color="pink lighten-2 white--text" @click="send()" :disabled="!valid"
 						>Enregistrer</v-btn
 					></v-card-actions
 				>

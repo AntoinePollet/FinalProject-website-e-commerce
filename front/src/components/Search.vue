@@ -19,7 +19,7 @@
 						color="black"
 						persistent-hint
 						thumb-label="always"
-						thumb-color="#2a9d8f"
+						thumb-color="pink lighten-2"
 					/>
 					<v-select
 						:items="getColors"
@@ -33,7 +33,7 @@
 						v-model="selectedFilter"
 						placeholder="filtrer par"
 					/>
-					<v-btn class="teal white--text" @click="resetFilter()"
+					<v-btn class="pink lighten-2 white--text" @click="resetFilter()"
 						>reset filter</v-btn
 					>
 				</v-col>
@@ -55,18 +55,16 @@
 									>
 									{{ item.price }} €</v-card-title
 								>
-								<v-divider class="ma-4"></v-divider>
-								<v-btn :class="colorItem(item.color)" elevation="2" fab></v-btn>
-								<v-card-text>{{ item.description }}</v-card-text>
+								<v-divider class="mx-4 d-flex align-center"></v-divider>
 
+								<v-card-text class="card-text d-flex align-center">
+									<p class="mb-0">{{ item.description }}</p></v-card-text
+								>
 								<v-img
-									@click="$router.push(`article/${item.id}`)"
-									:src="item.pictures[0]"
-									width="300px"
+									src="https://picsum.photos/id/23/300"
 									contain
+									@click="$router.push(`article/${item.id}`)"
 								/>
-								<p v-if="item.inStock" class="">In stock !!</p>
-								<p v-else>Out of stock</p>
 							</v-card>
 						</v-row>
 					</v-col>
@@ -77,14 +75,12 @@
 </template>
 
 <script>
-import colors from '../data/colors.json';
 import { mapState } from 'vuex';
 
 export default {
 	name: 'Search',
 	data() {
 		return {
-			colors: colors,
 			search: '',
 			selectedPrice: 400,
 			selectedColor: [],
@@ -119,9 +115,9 @@ export default {
 			}
 			if (this.selectedColor) {
 				filtered = filtered.filter(item => {
-					const index = this.selectedColor.indexOf(item.color);
+					const index = this.selectedColor.indexOf(item.color[0]);
 					for (var color of this.selectedColor) {
-						return item.color.includes(this.selectedColor[index]);
+						return item.color[0].includes(this.selectedColor[index]);
 					}
 					return filtered;
 				});
@@ -152,7 +148,10 @@ export default {
 		getColors() {
 			const arr = [];
 			return this.items.reduce((acc, item) => {
-				arr.push(item.color);
+				if (arr.includes(item.color[0])) {
+				} else {
+					arr.push(item.color[0]);
+				}
 				return arr;
 			}, []);
 		},
@@ -185,12 +184,15 @@ export default {
 	},
 	beforeRouteEnter(to, from, next) {
 		next(vm => {
-			vm.$store.dispatch('cart/getItems');
-			vm.search = vm.$route.query.name;
-			vm.selectedPrice = 400;
+			if (vm.$store.state.cart.articles.length <= 1) {
+				vm.$store.dispatch('cart/getItems');
+				vm.search = vm.$route.query.name;
+				vm.selectedPrice = 400;
+			}
 		});
 	},
 	methods: {
+		/*
 		colorItem(nameColor) {
 			for (let color in this.colors) {
 				if (this.colors[color].name === nameColor) {
@@ -199,6 +201,7 @@ export default {
 				}
 			}
 		},
+		*/
 		resetFilter() {
 			(this.selectedPrice = 400),
 				(this.selectedColor = []),
@@ -217,5 +220,8 @@ export default {
 	height: fit-content;
 	position: sticky;
 	top: 100px;
+}
+.card-text {
+	height: 170px;
 }
 </style>

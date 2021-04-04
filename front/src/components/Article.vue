@@ -1,102 +1,120 @@
 <template>
 	<v-main>
-		<v-container class="d-flex justify-center col-8">
-			<v-col class="col-2">
-				<v-row
-					class="justify-end py-3"
-					v-for="picture in article.pictures"
-					:key="picture"
-				>
-					<v-img
-						:src="picture"
-						max-width="100"
-						@mouseover="changeImage(picture)"
-					/>
-				</v-row>
-			</v-col>
-			<v-col> <v-img :src="img" /></v-col>
-			<v-col>
-				<v-row>
-					<v-card-title>{{ article.name }}</v-card-title>
-				</v-row>
-				<v-row
-					><v-card-subtitle>{{ article.description }}</v-card-subtitle></v-row
-				>
-				<div class="my-3">
-					<v-rating
-						v-model="article.rating"
-						color="teal"
-						size="20"
-						readonly
-						dense
-						half-increments
-						background-color="blue-grey lighten-2"
-					/>
-				</div>
-				<v-row class="d-flex align-center">
-					<v-avatar><img :src="article.pictures[0]" /></v-avatar>
-					<p class="font-weight-bold mb-0 ml-2">
-						{{ firstLetterUppercase(article.color) }}
-					</p>
-				</v-row>
-				<v-row class="py-3">
-					<v-select
-						:items="[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
-						v-model="quantity"
-						:menu-props="{ bottom: true, offsetY: true }"
-						persistent-hint
-						hint="Quantity"
-					/>
-				</v-row>
-				<v-row class="py-3">
-					<h1>{{ article.price }} €</h1>
-				</v-row>
-				<v-row>
-					<p v-if="article.inStock">In stock !!</p>
-					<p v-else>Out of stock</p>
-				</v-row>
-				<v-row>
-					<v-card-actions class="d-flex justify-end"
-						><v-btn
-							class="white--text pink lighten-2"
-							:disabled="!article.inStock"
-							@click="addToCart(article)"
-							>Add to cart</v-btn
-						></v-card-actions
+		<div v-if="!isLoading">
+			<v-container class="d-flex justify-center col-8">
+				<v-col class="col-2">
+					<v-row
+						class="justify-end py-3"
+						v-for="picture in product.pictures"
+						:key="picture"
 					>
-				</v-row>
-			</v-col>
-		</v-container>
+						<v-img
+							:src="picture"
+							max-width="100"
+							@mouseover="changeImage(picture)"
+						/>
+					</v-row>
+				</v-col>
+				<v-col> <v-img :src="img" /></v-col>
+				<v-col>
+					<v-row>
+						<v-card-title>{{ product.name }}</v-card-title>
+					</v-row>
+					<v-row
+						><v-card-subtitle>{{ product.description }}</v-card-subtitle></v-row
+					>
+					<div class="my-3">
+						<v-rating
+							v-model="product.rating"
+							color="pink lighten-2"
+							size="20"
+							readonly
+							dense
+							half-increments
+							background-color="blue-grey lighten-2"
+						/>
+					</div>
+					<v-row class="d-flex align-center">
+						<v-avatar><img :src="product.pictures[0]" /></v-avatar>
+						<p class="font-weight-bold mb-0 ml-2">
+							{{ firstLetterUppercase(product.color[0]) }}
+						</p>
+					</v-row>
+					<v-row class="py-3">
+						<v-select
+							:items="[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
+							v-model="quantity"
+							:menu-props="{ bottom: true, offsetY: true }"
+							persistent-hint
+							hint="Quantity"
+						/>
+					</v-row>
+					<v-row class="py-3">
+						<h1>{{ product.price }} €</h1>
+					</v-row>
+					<v-row>
+						<p v-if="product.inStock">In stock !!</p>
+						<p v-else>Out of stock</p>
+					</v-row>
+					<v-row>
+						<v-card-actions class="d-flex justify-end"
+							><v-btn
+								class="white--text pink lighten-2"
+								:disabled="!product.inStock"
+								@click="addToCart(product)"
+								>Add to cart</v-btn
+							></v-card-actions
+						>
+					</v-row>
+				</v-col>
+			</v-container>
+		</div>
+		<div v-else>Loading ...</div>
 	</v-main>
 </template>
 
 <script>
 import colors from '../data/colors.json';
-import { mapState } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 export default {
 	name: 'Article',
 	data() {
 		return {
+			isLoading: true,
 			quantity: 1,
 			rating: 0,
 			colors: colors,
-			img: ''
+			img: null
 		};
 	},
 	computed: {
-		...mapState({
-			article: state => state.cart.currentItem
+		...mapGetters({
+			article: 'cart/getArticle'
 		}),
+		product() {
+			return this.article(this.$route.params.id) ?? null;
+		},
 		cart() {
 			return this.$store.state.cart.cart;
+		},
+		image() {
+			this.img = this.product.pictures[0];
+			return this.img;
 		}
 	},
 	watch: {
 		changeImage() {}
 	},
 	beforeRouteEnter(to, from, next) {
-		next(vm => {
-			vm.$store.dispatch('cart/getItem', vm.$route.params.id);
+		next(async vm => {
+			if (vm.product) {
+				vm.img = vm.product.pictures[0];
+				vm.isLoading = false;
+			} else {
+				await vm.$store.dispatch('cart/getItem', vm.$route.params.id);
+				vm.img = vm.product.pictures[0];
+				vm.isLoading = false;
+			}
 		});
 	},
 	methods: {
@@ -105,6 +123,7 @@ export default {
 				...item,
 				quantity: this.quantity
 			};
+
 			const result = await this.$store.dispatch('cart/addToCart', ele);
 			this.$snotify[result.type](result.message);
 		},

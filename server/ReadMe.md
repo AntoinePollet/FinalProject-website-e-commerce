@@ -1,20 +1,19 @@
-# Read Me 
+# Read Me
+
 API endpoints:
 
 First to access to the API you need to create an account
 
-There is 3 Roles :
-    - User
-    - Moderator
-    - Admin
+There is 3 Roles : - User - Moderator - Admin
 
 So if you want to have all the permission for the API endpoint signup with the ADMIN role
 
-
 ## Here is the endpoint to SignUp
+
 localhost:8088/api/auth/signup
 
 (respect this format, you can choose all the roles)
+
 ```
 {
     "username": "admin",
@@ -30,11 +29,12 @@ response successfull ->
 }
 ```
 
-
 ## Here is the endpoint to SignIn
+
 localhost:8088/api/auth/signin
 
 (respect this format)
+
 ```
 {
     "username": "admin",
@@ -57,9 +57,11 @@ response successfull ->
 ```
 
 ## Here is the endpoint to ChangePassword
+
 localhost:8088/api/auth/changePassword
 
 (respect this format)
+
 ```
 {
     "username": "admin",
@@ -74,9 +76,10 @@ response successfull ->
     "message": "Update registered successfully!"
 }
 ```
+
 ## Here is the endpoint to access Articles
 
-localhost:8088/api/articles/ + services 
+localhost:8088/api/articles/ + services
 
 (I can add more methods if you want to filter the result if you think that loading all the article will be to heavy for the front)
 
@@ -84,28 +87,27 @@ localhost:8088/api/articles/ + services
 - POST, PUT and DELETE request must be authentified by an admin token
 ```
 
-services -> 
+services ->
 
-1. all          (GET)
-2. find/{id}     (GET)
-3. add           (POST) format bellow ⬇
-4. udpate/{id}   (PUT)
-5. delete/{id}   (DELETE)
-
-
+1. all (GET)
+2. find/{id} (GET)
+3. add (POST) format bellow ⬇
+4. udpate/{id} (PUT)
+5. delete/{id} (DELETE)
 
 add format
+
 ```
 {
     "name": "Etagere",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi justo nunc, cursus at dignissim in, vulputate vitae augue. Integer eros nibh, lobortis ut nulla vel. Morbi justo nunc, cursus at dignissim in, vulputate vitae augue. Integer eros nibh,",
-    "images": ["image.png"],
-    "categorie": "meuble",
-    "couleur": ["blanc"],
+    "pictures": ["image.png"],
+    "category": "meuble",
+    "color": ["blanc"],
     "price": 149,
     "note": 4.8,
     "favoris": false,
-    "stock": true
+    "inStock": true
 }
 ```
 

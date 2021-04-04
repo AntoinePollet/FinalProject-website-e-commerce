@@ -1,12 +1,11 @@
 import axios from 'axios'
-const url = 'http://localhost:3000/article'
+const url = 'http://localhost:8088/api/articles'
 
 const cart = {
   namespaced: true,
   state: {
     cart: [],
-    articles: [],
-    currentItem: {}
+    articles: []
   },
   getters: {
     getCart: state => {
@@ -40,7 +39,15 @@ const cart = {
       })
     },
     GET_ITEM (state, item) {
-      state.currentItem = item
+      if (state.articles.find(article => article.id === item.id)) {
+        state.articles.splice(
+          state.articles.findIndex(article => article.id === item.id),
+          1,
+          item
+        )
+      } else {
+        state.articles.push(item)
+      }
     },
     ADD_TO_CURRENT_ARTICLE (state, item) {
       state.currentArticle = item
@@ -89,7 +96,7 @@ const cart = {
       commit('GET_ITEMS', response)
     },
     async getItem ({ commit }, id) {
-      const res = await axios
+      const response = await axios
         .get(`${url}/find/${id}`)
         .then(res => {
           return res.data
@@ -97,7 +104,7 @@ const cart = {
         .catch(error => {
           console.log(error)
         })
-      commit('GET_ITEM', res)
+      commit('GET_ITEM', response)
     },
     removeCartItem ({ commit }, index) {
       commit('REMOVE_CART_ITEM', index)

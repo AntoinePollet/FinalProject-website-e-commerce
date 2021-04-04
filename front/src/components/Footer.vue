@@ -1,6 +1,6 @@
 <template>
 	<v-footer class="footer d-flex justify-center" app :padless="padless">
-		<v-card flat tile width="100%" class="pink lighten-4 text-center py-3">
+		<v-card flat tile width="100%" class="blue-grey lighten-5 text-center py-3">
 			<ul class="navigation-list">
 				<li
 					v-for="item in navigationFooter"
@@ -58,14 +58,14 @@ export default {
 			.navigation-list-items-link {
 				text-decoration: none;
 				margin-right: 15px;
-				color: white;
+				color: black;
 				padding-bottom: 3px;
 			}
 			.navigation-list-items-link:hover {
-				border-bottom: 2px solid white;
+				border-bottom: 2px solid black;
 			}
 			.router-link-active {
-				border-bottom: 2px solid white;
+				border-bottom: 2px solid black;
 			}
 		}
 	}

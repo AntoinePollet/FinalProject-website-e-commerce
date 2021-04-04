@@ -31,8 +31,8 @@
 					</v-row>
 					<v-row class="justify-center">
 						<v-card-actions
-							><v-btn @click="removeFromFav(item)"
-								>supprimer</v-btn
+							><v-btn @click="removeFromFav(item)" class="error"
+								><v-icon class="text-white">clear</v-icon></v-btn
 							></v-card-actions
 						>
 					</v-row>

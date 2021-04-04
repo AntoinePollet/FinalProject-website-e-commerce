@@ -25,7 +25,7 @@
 								<p class="mb-0">{{ item.description }}</p></v-card-text
 							>
 							<v-img
-								:src="item.pictures[0]"
+								src="https://picsum.photos/id/23/300"
 								contain
 								@click="$router.push(`article/${item.id}`)"
 							/>
@@ -51,20 +51,12 @@ export default {
 		...mapState({
 			items: state => state.cart.articles
 		})
-		/*
-		filteredItems() {
-			let filtered = this.items;
-			const arr = [];
-			filtered.reduce((acc, item) => {
-				arr.push(item.note);
-			}, []);
-			return filtered;
-		}
-		*/
 	},
 	beforeRouteEnter(to, from, next) {
 		next(vm => {
-			vm.$store.dispatch('cart/getItems');
+			if (vm.$store.state.cart.articles.length <= 1) {
+				vm.$store.dispatch('cart/getItems');
+			}
 		});
 	},
 	methods: {
