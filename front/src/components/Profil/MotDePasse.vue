@@ -1,27 +1,29 @@
 <template>
 	<div class="navigation">
 		<ProfilNavigation />
-		<v-container class="col-lg-4 mt-8">
+		<v-container class="col-lg-6 mt-8">
 			<v-card flat>
 				<h2 class="pt-5">Modifier mon mot de passe</h2>
 				<v-form ref="form" v-model="validForm" class="pa-5">
-					<p class="text-left">Nouveau mot de passe</p>
+					<p class="text-left mb-1">Nouveau mot de passe</p>
 					<v-text-field
 						type="password"
 						v-model="newPassword"
 						:rules="newPasswordRule"
 						outlined
+						dense
 					></v-text-field>
-					<p class="text-left">Réécrire nouveau mot de passe</p>
+					<p class="text-left mb-1">Réécrire nouveau mot de passe</p>
 					<v-text-field
 						type="password"
 						v-model="retypePassword"
 						:rules="retypePasswordRule"
 						outlined
+						dense
 					></v-text-field>
 
 					<v-card-actions class="justify-end"
-						><v-btn class="teal white--text" @click="save"
+						><v-btn class="pink lighten-2 white--text" @click="save"
 							>Modifier mot de passe</v-btn
 						></v-card-actions
 					>

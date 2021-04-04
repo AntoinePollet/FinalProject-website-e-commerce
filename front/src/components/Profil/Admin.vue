@@ -14,7 +14,7 @@
 				</v-card-title>
 				<v-data-table
 					:headers="headers"
-					:items="item"
+					:items="items"
 					:search="search"
 					dense
 				></v-data-table>
@@ -25,7 +25,6 @@
 
 <script>
 import ProfilNavigation from './ProfilNavigation.vue';
-import items from '../../data/items.json';
 import { mapState } from 'vuex';
 
 export default {
@@ -41,24 +40,24 @@ export default {
 					filterable: true,
 					value: 'name'
 				},
-				{ text: 'Catégorie', value: 'categorie' },
-				{ text: 'Couleur', value: 'couleur' },
-				{ text: 'Price', value: 'price' }
+				{ text: 'Catégorie', value: 'category' },
+				{ text: 'Couleur', value: 'color' },
+				{ text: 'Price', value: 'price' },
+				{ text: 'Actions', value: 'actions', sortable: false },
 			]
 		};
 	},
 	beforeRouteEnter(to, from, next) {
 		next(vm => {
-			vm.$store.dispatch('cart/initCart', items);
+			if (vm.$store.state.cart.articles.length <= 1) {
+				vm.$store.dispatch('cart/getItems');
+			}
 		});
 	},
 	computed: {
 		...mapState({
-			allItems: state => state.cart.articles
-		}),
-		item() {
-			return this.allItems;
-		}
+			items: state => state.cart.articles
+		})
 	}
 };
 </script>

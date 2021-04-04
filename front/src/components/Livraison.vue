@@ -31,19 +31,18 @@
 			</v-card>
 		</v-container>
 		<div v-else>
-			Vous devez vous connecter pour continuer,
-			<v-btn text @click="signIn" class="teal white--text"
-				>vous connecter</v-btn
-			>
+			<SigninComponent />
 		</div>
 	</v-main>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import SigninComponent from './SigninComponent.vue';
+
 export default {
 	name: 'livraison',
-	components: {},
+	components: { SigninComponent },
 	data() {
 		return {
 			valid: true,
@@ -54,11 +53,6 @@ export default {
 		...mapState({
 			isAuth: state => state.user.isAuth
 		})
-	},
-	methods: {
-		signIn() {
-			this.$router.push('/signin');
-		}
 	}
 };
 </script>

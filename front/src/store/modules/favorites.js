@@ -17,10 +17,10 @@ const favorites = {
     addToFav ({ commit, state }, item) {
       const el = state.favoris.findIndex(fav => fav.id === item.id)
       if (el !== -1) {
-        item.favoris = false
+        item.favorites = false
         commit('REMOVE_FAV', item)
       } else {
-        item.favoris = true
+        item.favorites = true
         commit('ADD_TO_FAV', item)
       }
     },

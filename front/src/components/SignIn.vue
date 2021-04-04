@@ -6,12 +6,13 @@
 			<v-text-field
 				prepend-inner-icon="mdi-email"
 				placeholder="email"
-				v-model="email"
+				v-model="username"
 				:rules="emailRule"
 				outlined
 			></v-text-field>
 			<v-text-field
 				prepend-inner-icon="mdi-lock"
+				v-model="password"
 				placeholder="mot de passe"
 				type="password"
 				:rules="passwordRule"
@@ -38,7 +39,9 @@ export default {
 	data() {
 		return {
 			validForm: true,
+			username: '',
 			email: '',
+			password: '',
 			goTo: '/',
 			emailRule: [v => !!v || 'Email requis !'],
 			passwordRule: [v => !!v || 'Password requis !']
@@ -53,10 +56,18 @@ export default {
 		next();
 	},
 	methods: {
-		signin() {
-			if (this.$refs.form.validate()) {
-				this.$store.dispatch('user/logIn');
-				this.$router.push(this.goTo);
+		async signin() {
+			try {
+				if (this.$refs.form.validate()) {
+					const payload = {
+						username: this.username,
+						password: this.password
+					};
+					await this.$store.dispatch('user/signin', payload);
+					this.$emit('closeSignin');
+				}
+			} catch (error) {
+				console.log(error);
 			}
 		}
 	}

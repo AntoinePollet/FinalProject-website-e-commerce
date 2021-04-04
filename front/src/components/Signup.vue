@@ -18,6 +18,7 @@
 			/>
 			<v-text-field
 				prepend-inner-icon="mdi-lock"
+				v-model="password"
 				placeholder="mot de passe"
 				type="password"
 				:rules="passwordRule"
@@ -45,6 +46,7 @@ export default {
 			valid: true,
 			email: '',
 			goTo: '/',
+			password: '',
 			fullName: '',
 			fullNameRule: [v => !!v || 'Prénom requis'],
 			emailRule: [v => !!v || 'Email requis !'],
@@ -65,10 +67,19 @@ export default {
 		next();
 	},
 	methods: {
-		signup() {
-			if (this.$refs.form.validate()) {
-				this.$store.dispatch('user/login');
-				this.$router.push(this.goTo);
+		async signup() {
+			try {
+				const payload = {
+					username: this.fullName,
+					email: this.email,
+					password: this.password,
+					role: ['user']
+				};
+				await this.$store.dispatch('user/signup', payload);
+				this.$refs.form.reset();
+			} catch (error) {
+				this.$snotify.error('erreur lors de la création du compte');
+				console.log(error);
 			}
 		}
 	}
