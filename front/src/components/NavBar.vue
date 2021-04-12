@@ -28,10 +28,9 @@
 		/>
 		<v-spacer></v-spacer>
 
-		<v-menu content-class="menu-list">
+		<v-menu v-if="isAuth" content-class="menu-list">
 			<template v-slot:activator="{ on, attrs }">
 				<p
-					v-if="isAuth"
 					v-on="on"
 					v-bind="attrs"
 					class="navigation-list-items mb-0 mr-3 d-flex align-center"
@@ -79,25 +78,18 @@
 
 		<v-divider vertical light inset v-if="!isAuth"></v-divider>
 
-		<v-dialog v-model="dialogSignin" width="500">
+		<v-dialog v-if="!isAuth" v-model="dialogSignin" width="500">
 			<template v-slot:activator="{ on, attrs }">
-				<p
-					v-if="!isAuth"
-					class="black--text mb-0 mr-2 ml-3"
-					text
-					v-on="on"
-					v-bind="attrs"
-				>
+				<p class="black--text mb-0 mr-2 ml-3" text v-on="on" v-bind="attrs">
 					Sign in
 				</p>
 			</template>
 			<Signin @signup="signupDialog" @closeSignin="closeSignin" />
 		</v-dialog>
 
-		<v-dialog v-model="dialogSignup" width="500">
+		<v-dialog v-if="!isAuth" v-model="dialogSignup" width="500">
 			<template v-slot:activator="{ on, attrs }">
 				<p
-					v-if="!isAuth"
 					class="signup-text white--text mb-0 ml-2 py-2 px-2"
 					text
 					v-on="on"

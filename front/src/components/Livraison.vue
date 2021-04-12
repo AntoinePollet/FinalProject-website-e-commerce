@@ -1,7 +1,7 @@
 <template>
 	<v-main>
 		<v-container class="col-lg-8" v-if="isAuth">
-			<v-card>
+			<v-card flat>
 				<v-card-title>Livraison</v-card-title>
 				<v-form v-model="valid" ref="form">
 					<v-col class="d-flex justify-center flex-column">
@@ -23,7 +23,9 @@
 						></v-checkbox>
 					</v-col>
 					<v-card-actions class="right"
-						><v-btn :to="{ name: 'paiement' }" class="teal white--text"
+						><v-btn
+							:to="{ name: 'paiement' }"
+							class="pink lighten-2 white--text"
 							>suivant</v-btn
 						>
 					</v-card-actions>

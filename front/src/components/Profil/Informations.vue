@@ -1,46 +1,56 @@
 <template>
 	<div class="navigation">
 		<ProfilNavigation />
-		<v-container class="col-6 mt-8">
-			<h2 class="mb-3 pt-5 title-info">Mes informations</h2>
-			<v-form ref="form" v-model="valid" :lazy-validation="true">
-				<p class="text-left mb-1">Nom</p>
-				<v-text-field v-model="name" :rules="nameRule" outlined dense />
-				<p class="text-left mb-1">Prenom</p>
-				<div class="d-flex">
-					<v-text-field v-model="prenom" :rules="lastNameRule" outlined dense />
+		<v-container class="container col-5 mt-8">
+			<v-card class="px-5">
+				<h2 class="mb-3 pt-5 title-info">Mes informations</h2>
+				<v-form ref="form" v-model="valid" :lazy-validation="true">
+					<p class="text-left mb-1">Nom</p>
+					<v-text-field v-model="name" :rules="nameRule" outlined dense />
+					<p class="text-left mb-1">Prenom</p>
 					<div class="d-flex">
-						<v-checkbox
-							label="Mr"
-							v-model="civiliteMr"
-							:disabled="civiliteMme"
-							class="ml-5 mt-0"
+						<v-text-field
+							v-model="prenom"
+							:rules="lastNameRule"
+							outlined
+							dense
 						/>
-						<v-checkbox
-							label="Mme"
-							v-model="civiliteMme"
-							:disabled="civiliteMr"
-							class="ml-5 mt-0"
-						/>
+						<div class="d-flex">
+							<v-checkbox
+								label="Mr"
+								v-model="civiliteMr"
+								:disabled="civiliteMme"
+								class="ml-5 mt-0"
+							/>
+							<v-checkbox
+								label="Mme"
+								v-model="civiliteMme"
+								:disabled="civiliteMr"
+								class="ml-5 mt-0"
+							/>
+						</div>
 					</div>
-				</div>
-				<p class="text-left mb-1">Email</p>
-				<v-text-field
-					type="email"
-					v-model="email"
-					:rules="emailRule"
-					required
-					outlined
-					dense
-				/>
-				<p class="text-left mb-1">Code postal</p>
-				<v-text-field v-model="postalCode" outlined dense />
-				<v-card-actions class="d-flex justify-end"
-					><v-btn color="pink lighten-2 white--text" @click="send()" :disabled="!valid"
-						>Enregistrer</v-btn
-					></v-card-actions
-				>
-			</v-form>
+					<p class="text-left mb-1">Email</p>
+					<v-text-field
+						type="email"
+						v-model="email"
+						:rules="emailRule"
+						required
+						outlined
+						dense
+					/>
+					<p class="text-left mb-1">Code postal</p>
+					<v-text-field v-model="postalCode" outlined dense />
+					<v-card-actions class="d-flex justify-end"
+						><v-btn
+							color="pink lighten-2 white--text"
+							@click="send()"
+							:disabled="!valid"
+							>Enregistrer</v-btn
+						></v-card-actions
+					>
+				</v-form>
+			</v-card>
 		</v-container>
 	</div>
 </template>
@@ -52,6 +62,7 @@ export default {
 	components: { ProfilNavigation },
 	data() {
 		return {
+			img: '../../public/watercolor.png',
 			valid: true,
 			name: '',
 			prenom: '',
@@ -89,6 +100,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.navigation {
+	background-image: url('../../public/watercolor.png');
+	background-repeat: repeat;
+	height: 100%;
+}
 .title-info {
 	color: rgb(0, 0, 0, 0.87);
 }

@@ -4,21 +4,23 @@ const url = 'http://localhost:8088/api/auth'
 const user = {
   namespaced: true,
   state: {
-    isAuth: true,
-    role: ['ROLE_ADMIN'],
+    isAuth: false,
+    role: [],
     token: '',
-    username: 'Antoine'
+    username: ''
   },
   getters: {},
   mutations: {
     SIGNUP (state, payload) {},
     SIGNIN (state, payload) {
-      const user = {
-        token: payload.accessToken,
-        username: payload.username,
-        email: payload.email
+      if (payload.saveInfo) {
+        const user = {
+          token: payload.accessToken,
+          username: payload.username,
+          email: payload.email
+        }
+        localStorage.setItem('user', JSON.stringify(user))
       }
-      localStorage.setItem('user', JSON.stringify(user))
       state.token = payload.accessToken
       state.role = payload.roles
       state.username = payload.username
@@ -27,6 +29,7 @@ const user = {
     LOGOUT (state) {
       localStorage.clear()
       state.isAuth = false
+      state.username = ''
       state.role = []
     }
   },
@@ -35,9 +38,7 @@ const user = {
       try {
         const response = await axios
           .post(`${url}/signup`, payload)
-          .then(res => {
-            console.log(res)
-          })
+          .then(res => {})
         commit('SIGNUP', response)
       } catch (error) {
         throw error
@@ -48,8 +49,11 @@ const user = {
         const response = await axios
           .post(`${url}/signin`, payload)
           .then(res => {
-            console.log(res)
-            commit('SIGNIN', res.data)
+            const infos = {
+              ...res.data,
+              saveInfo: payload.saveInfos
+            }
+            commit('SIGNIN', infos)
           })
       } catch (error) {
         throw error

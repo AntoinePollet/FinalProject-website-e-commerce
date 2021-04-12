@@ -8,17 +8,37 @@
 					<h4 class="col-2 text-right">Quantity</h4>
 					<h4 class="col-2 text-right pr-0">Total</h4>
 				</div>
-				<div v-for="item in cart" :key="item.id" class="item-infos d-flex">
-					<div class="col-6 text-left pl-0 pb-0">
-						<v-img
-							contain
-							:src="item.pictures[0]"
-							:style="{ height: '100px', width: '100px' }"
-						/>
-						<p class="mb-0">{{ item.name }}</p>
+				<div
+					v-for="(item, index) in cart"
+					:key="item.id"
+					class="item-infos d-flex"
+				>
+					<div class="col-6 text-left d-flex pl-0 pb-2">
+						<div>
+							<v-img
+								contain
+								:src="item.pictures[0]"
+								:style="{ height: '100px', width: '100px' }"
+							/>
+						</div>
+						<div class="d-flex flex-column ml-2">
+							<p class="mb-0">{{ item.name }}</p>
+							<v-spacer />
+							<p class="remove-item" @click="removeItem(index)">Supprimer</p>
+						</div>
 					</div>
 					<div class="col-2 text-right">{{ item.price }} €</div>
-					<div class="col-2 text-right">{{ item.quantity }}</div>
+					<div class="d-flex justify-end col-2 text-right">
+						<v-select
+							class="col-8 pa-0 ma-0"
+							:items="[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
+							type="number"
+							:value="item.quantity"
+							v-model="item.quantity"
+							max="10"
+							min="1"
+						/>
+					</div>
 					<div class="col-2 text-right pr-0">
 						{{ item.price * item.quantity }} €
 					</div>
@@ -135,5 +155,9 @@ export default {
 }
 .item-infos {
 	border-bottom: thin solid black;
+}
+.remove-item {
+	cursor: pointer;
+	text-decoration: underline;
 }
 </style>

@@ -12,7 +12,9 @@
 					<v-row class="flex-column">
 						<v-row class="justify-center mb-5">
 							<v-img
+								@click="$router.push(`article/${item.id}`)"
 								:src="item.pictures[0]"
+								:style="{ cursor: 'pointer' }"
 								contain
 								max-width="150"
 								max-height="150"

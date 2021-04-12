@@ -24,6 +24,14 @@
 				:rules="passwordRule"
 				outlined
 			/>
+			<v-text-field
+				prepend-inner-icon="mdi-lock"
+				v-model="passwordAgain"
+				placeholder="Retaper votre mot de passe"
+				type="password"
+				:rules="passwordAgainRule"
+				outlined
+			/>
 			<v-card-actions class="pa-0"
 				><v-btn class="teal white--text" width="100%" @click="signup"
 					>Sign up</v-btn
@@ -47,10 +55,21 @@ export default {
 			email: '',
 			goTo: '/',
 			password: '',
+			passwordAgain: '',
 			fullName: '',
 			fullNameRule: [v => !!v || 'Prénom requis'],
 			emailRule: [v => !!v || 'Email requis !'],
-			passwordRule: [v => !!v || 'Password requis !']
+			passwordRule: [
+				v => !!v || 'Password requis !',
+
+				v =>
+					/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/.test(v) ||
+					'Le mot de passe doit contenir une lettre majuscule et au moins un chiffre !',
+				v =>
+					(v && v.length >= 6) ||
+					'Le mot de passe doit contenir au minimum 6 caractères'
+			],
+			passwordAgainRule: [v => !!v || 'Password requis !']
 		};
 	},
 	beforeRouteEnter(to, from, next) {
@@ -67,16 +86,22 @@ export default {
 		next();
 	},
 	methods: {
+		samePassword() {
+			return this.password === this.passwordAgain;
+		},
 		async signup() {
 			try {
-				const payload = {
-					username: this.fullName,
-					email: this.email,
-					password: this.password,
-					role: ['user']
-				};
-				await this.$store.dispatch('user/signup', payload);
-				this.$refs.form.reset();
+				if (this.$refs.form.validate() && this.samePassword()) {
+					console.log("true")
+					const payload = {
+						username: this.fullName,
+						email: this.email,
+						password: this.password,
+						role: ['user']
+					};
+					await this.$store.dispatch('user/signup', payload);
+					this.$refs.form.reset();
+				} 
 			} catch (error) {
 				this.$snotify.error('erreur lors de la création du compte');
 				console.log(error);

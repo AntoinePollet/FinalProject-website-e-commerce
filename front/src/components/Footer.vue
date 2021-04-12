@@ -1,6 +1,6 @@
 <template>
 	<v-footer class="footer d-flex justify-center" app :padless="padless">
-		<v-card flat tile width="100%" class="blue-grey lighten-5 text-center py-3">
+		<v-card flat tile width="100%" class="grey lighten-4 text-center py-3">
 			<ul class="navigation-list">
 				<li
 					v-for="item in navigationFooter"

@@ -1,10 +1,10 @@
 <template>
 	<div class="navigation">
 		<ProfilNavigation />
-		<v-container class="col-lg-6 mt-8">
+		<v-container class="col-lg-5 mt-8">
 			<v-card flat>
 				<h2 class="pt-5">Modifier mon mot de passe</h2>
-				<v-form ref="form" v-model="validForm" class="pa-5">
+				<v-form ref="form" v-model="validForm" class="pt-5">
 					<p class="text-left mb-1">Nouveau mot de passe</p>
 					<v-text-field
 						type="password"

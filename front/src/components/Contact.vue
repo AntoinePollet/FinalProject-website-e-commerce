@@ -1,7 +1,7 @@
 <template>
 	<v-container class="mt-5">
 		<h1 class="mb-5">Nous contacter</h1>
-		<v-card class="pa-7">
+		<v-card class="pa-7" flat>
 			<v-form ref="form" v-model="valid" lazy-validation>
 				<v-text-field
 					placeholder="Name"
@@ -10,7 +10,7 @@
 				></v-text-field>
 				<v-text-field
 					type="email"
-					placeholder="E-mail"
+					placeholder="Email"
 					v-model="email"
 					:rules="emailRule"
 				></v-text-field>
@@ -25,7 +25,7 @@
 					:rules="descriptionRule"
 				></v-textarea>
 				<v-card-actions class="d-flex justify-end"
-					><v-btn color="teal white--text" @click="send()" :disabled="!valid"
+					><v-btn color="pink lighten-2 white--text" @click="send()" :disabled="!valid"
 						>Envoyer</v-btn
 					></v-card-actions
 				>
