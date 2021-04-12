@@ -1,4 +1,5 @@
 import axios from 'axios'
+import _ from 'lodash'
 const url = 'http://localhost:8088/api/articles'
 
 const cart = {
@@ -57,6 +58,7 @@ const cart = {
     }
   },
   actions: {
+  
     addToCart ({ commit, state }, item) {
       const el = state.cart.findIndex(article => article.id === item.id)
       if (el !== -1) {

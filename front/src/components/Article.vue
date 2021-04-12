@@ -15,7 +15,7 @@
 						/>
 					</v-row>
 				</v-col>
-				<v-col> <v-img :src="img" /></v-col>
+				<v-col class="col-6"> <v-img :src="img" /></v-col>
 				<v-col>
 					<v-row>
 						<v-card-title>{{ product.name }}</v-card-title>
@@ -54,7 +54,7 @@
 					</v-row>
 					<v-row>
 						<p v-if="product.inStock">In stock !!</p>
-						<p v-else>Out of stock</p>
+						<p v-else class="text-decoration-line-through">Out of stock</p>
 					</v-row>
 					<v-row>
 						<v-card-actions class="d-flex justify-end"

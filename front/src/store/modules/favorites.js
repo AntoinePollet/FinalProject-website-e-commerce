@@ -30,7 +30,7 @@ const favorites = {
     removeFav ({ rootState, commit }, item) {
       const cart = rootState.cart.articles
       const cartEl = cart.findIndex(cartItem => cartItem.id === item.id)
-      cart[cartEl].favoris = false
+      cart[cartEl].favorites = false
       commit('REMOVE_FAV', item)
     }
   }

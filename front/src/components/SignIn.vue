@@ -9,7 +9,7 @@
 				v-model="username"
 				:rules="emailRule"
 				outlined
-			></v-text-field>
+			/>
 			<v-text-field
 				prepend-inner-icon="mdi-lock"
 				v-model="password"
@@ -17,7 +17,12 @@
 				type="password"
 				:rules="passwordRule"
 				outlined
-			></v-text-field>
+			/>
+			<v-checkbox
+				class="mt-0"
+				label="se souvenir de moi"
+				v-model="rememberMe"
+			/>
 			<v-card-actions class="pa-0"
 				><v-btn class="teal white--text" width="100%" @click="signin"
 					>Login</v-btn
@@ -42,9 +47,19 @@ export default {
 			username: '',
 			email: '',
 			password: '',
+			rememberMe: false,
 			goTo: '/',
 			emailRule: [v => !!v || 'Email requis !'],
-			passwordRule: [v => !!v || 'Password requis !']
+			passwordRule: [
+				v => !!v || 'Password requis !',
+
+				v =>
+					/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/.test(v) ||
+					'Le mot de passe doit contenir une lettre majuscule et au moins un chiffre !',
+				v =>
+					(v && v.length >= 6) ||
+					'Le mot de passe doit contenir au minimum 6 caractères'
+			]
 		};
 	},
 	beforeRouteEnter(to, from, next) {
@@ -61,7 +76,8 @@ export default {
 				if (this.$refs.form.validate()) {
 					const payload = {
 						username: this.username,
-						password: this.password
+						password: this.password,
+						saveInfos: this.rememberMe
 					};
 					await this.$store.dispatch('user/signin', payload);
 					this.$emit('closeSignin');

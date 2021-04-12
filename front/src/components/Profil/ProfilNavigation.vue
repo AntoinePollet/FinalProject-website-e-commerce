@@ -1,5 +1,5 @@
 <template>
-	<div class="navigation-bar blue-grey lighten-5 d-flex justify-center">
+	<div class="navigation-bar pink lighten-5 d-flex justify-center">
 		<div class="navigation col-8 d-flex justify-space-around align-center">
 			<p
 				v-for="item in profilItems"
@@ -74,12 +74,12 @@ export default {
 			.navigation-items-link {
 				font-weight: bold;
 				text-decoration: none;
-				color: $pink;
+				color: rgba(0, 0, 0, 0.7);
 			}
 		}
 	}
 }
 .router-link-exact-active {
-	border-bottom: 2px solid #a0c4ff;
+	border-bottom: 2px solid black;
 }
 </style>
