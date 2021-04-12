@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:app_e_commerce/pages/details.dart';
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart' as http;
+import 'package:app_e_commerce/constante.dart' as Constante;
+import 'package:app_e_commerce/componets/classproducts.dart';
 
 class Products extends StatefulWidget {
   @override
@@ -8,6 +12,21 @@ class Products extends StatefulWidget {
 }
 
 class _ProductsState extends State<Products> {
+  String url = "${Constante.BASE_URL}/api/articles/all";
+
+  Future<List<Single_prodcucts>> _getproducts() async {
+    var response = await http.get(Uri.parse(url));
+    var jsonData = json.decode(response.body);
+    List<Single_prodcucts> producsts = [];
+
+    for (var u in jsonData) {
+      Single_prodcucts proo =
+          Single_prodcucts(u["name"], u["pictures"], u["price"],u["description"]);
+      producsts.add(proo);
+    }
+    return producsts;
+  }
+/*
   var produits = [
     {
       "name": "Table",
@@ -58,74 +77,97 @@ class _ProductsState extends State<Products> {
       "price": 85,
     },
   ];
+*/
+  /*
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
     return GridView.builder(
-        itemCount: produits.length,
+        itemCount:
         gridDelegate:
-            new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         // ignore: missing_return
         itemBuilder: (BuildContext context, int index) {
           return Single_prodcucts(
-            prod_name: produits[index]['name'],
-            prod_picture: produits[index]['picture'],
-            prod_old_price: produits[index]['old_price'],
-            prod_price: produits[index]['price'],
+            name: data[1]['name'],
+            picture: data[2]['pictures'],
+            price: data[5]['price'],
           );
         });
   }
 }
+*/
 
-class Single_prodcucts extends StatelessWidget {
-  final prod_name;
-  final prod_picture;
-  final prod_old_price;
-  final prod_price;
-
-  Single_prodcucts(
-      {this.prod_name,
-      this.prod_picture,
-      this.prod_old_price,
-      this.prod_price});
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Hero(
-          tag: prod_name,
-          child: Material(
-            child: InkWell(
-              onTap: () =>Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new ProductDetail(
-                products_details_name: prod_name,
-                products_details_new_price: prod_price,
-                products_details_old_price: prod_old_price,
-                products_details_picture: prod_picture,
-              ))),
-              child: GridTile(
-                  footer: Container(
-                    color: Colors.white70,
-                    child: ListTile(
-                      leading: Text(
-                        prod_name,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      title: Text(
-                        "\$$prod_price",
-                        style: TextStyle(
-                            color: Colors.red, fontWeight: FontWeight.w800),
-                      ),
-                      /*subtitle: Text(
-                      "\$$prod_old_price",
-                      style: TextStyle(
-                      color: Colors.black54, fontWeight: FontWeight.w800,decoration: TextDecoration.lineThrough),
-                    ),*/
+    return new Scaffold(
+      body: Container(
+        child: FutureBuilder<List<Single_prodcucts>>(
+            future: _getproducts(),
+            // ignore: missing_return
+            builder: (context, snapshot) {
+              if (snapshot.data == null) {
+                return Container(
+                  child: Center(
+                    child: Text("Chargement..."),
                   ),
-                  ),
-                  child: Image.asset(
-                    prod_picture,
-                    fit: BoxFit.cover,
-                  )),
-            ),
-          )),
+                );
+              }
+              if (snapshot.hasData) {
+                return GridView.builder(
+                    itemCount: snapshot.data.length,
+                    gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2),
+                    itemBuilder: (BuildContext context, int index) {
+                      return Card(
+                        child: Hero(
+                          tag: snapshot.data[index].name,
+                          child: Material(
+                            child: InkWell(
+                              onTap: () => Navigator.of(context).push(
+                                new MaterialPageRoute(
+                                  builder: (context) => new ProductDetail(
+                                    products_details_name:
+                                        snapshot.data[index].name,
+                                    products_details_new_price:
+                                        snapshot.data[index].price,
+                                    products_details_picture:
+                                        snapshot.data[index].picture,
+                                      products_details_description :
+                                        snapshot.data[index].description
+                                  ),
+                                ),
+                              ),
+                              child: GridTile(
+                                footer: Container(
+                                  color: Colors.white70,
+                                  child: ListTile(
+                                    leading: Text(
+                                      snapshot.data[index].name,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    title: Text(
+                                        "\$"+snapshot.data[index].price.toString(),
+                                      style: TextStyle(
+                                          color: Colors.red, fontWeight: FontWeight.w800),
+                                    ),
+
+
+                                  ),
+                                ),
+                                child: Image.network(
+                                  snapshot.data[index].picture[0],
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    });
+              }
+            }),
+      ),
     );
   }
 }

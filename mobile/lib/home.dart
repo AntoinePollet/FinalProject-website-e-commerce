@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:carousel_pro/carousel_pro.dart';
+import "package:carousel_pro/carousel_pro.dart";
 import 'package:app_e_commerce/componets/horizontal_list.dart';
 import 'package:app_e_commerce/componets/products.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget  {
+  HomePage({Key key}) : super(key: key);
+
+  @override
+  _HomePage createState() => _HomePage();
+
+}
+
+class _HomePage extends State<HomePage> {
+
   @override
   Widget build(BuildContext context) {
     Widget image_caroussel = new Container(

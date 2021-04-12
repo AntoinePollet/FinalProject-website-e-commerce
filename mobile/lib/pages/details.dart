@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 class ProductDetail extends StatefulWidget {
-  final products_details_name;
-  final products_details_new_price;
-  final products_details_old_price;
-  final products_details_picture;
+  String products_details_name;
+  int products_details_new_price;
+  List products_details_picture;
+  String products_details_description;
   ProductDetail(
       {this.products_details_name,
       this.products_details_new_price,
-      this.products_details_old_price,
-      this.products_details_picture});
+      this.products_details_picture,
+      this.products_details_description});
   @override
   _ProductDetailState createState() => _ProductDetailState();
 }
@@ -43,7 +43,7 @@ class _ProductDetailState extends State<ProductDetail> {
               child: GridTile(
                   child: Container(
                     color: Colors.white,
-                    child: Image.asset(widget.products_details_picture),
+                    child: Image.network(widget.products_details_picture[0]),
                   ),
                   footer: new Container(
                     color: Colors.white70,
@@ -55,6 +55,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       ),
                       title: new Row(
                         children: <Widget>[
+                          /*
                           Expanded(
                               child: new Text(
                             "\$${widget.products_details_old_price}",
@@ -62,6 +63,7 @@ class _ProductDetailState extends State<ProductDetail> {
                                 color: Colors.grey,
                                 decoration: TextDecoration.lineThrough),
                           )),
+                          */
                           Expanded(
                               child: new Text(
                             "\$${widget.products_details_new_price}",
@@ -151,8 +153,9 @@ class _ProductDetailState extends State<ProductDetail> {
                     child: new Text('Acheter maintenant')
                     ),
                   ),
-                  new IconButton(icon: Icon(Icons.add_shopping_cart),color: Colors.red,onPressed: (){}),
-                  new IconButton(icon: Icon(Icons.favorite_border),color: Colors.red,onPressed: (){}),
+                new IconButton(icon: Icon(Icons.favorite_border),color: Colors.red,onPressed: (){}),
+                new IconButton(icon: Icon(Icons.add_shopping_cart),color: Colors.red,onPressed: (){}),
+
 
 
 
@@ -161,7 +164,7 @@ class _ProductDetailState extends State<ProductDetail> {
             Divider(),
             new ListTile(
               title: new Text("Détail"),
-              subtitle: new Text("datadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadata"),
+              subtitle: new Text(widget.products_details_description),
             )
 
       ],

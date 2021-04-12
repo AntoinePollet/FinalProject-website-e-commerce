@@ -24,7 +24,9 @@ dependencies:
   flutter:
     sdk: flutter
   carousel_pro: ^1.0.0
-  http: ^0.12.0
+  http: any
+  shared_preferences: any
+
 
 
 

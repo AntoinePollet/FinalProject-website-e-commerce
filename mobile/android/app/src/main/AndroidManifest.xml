@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.app_e_commerce">
    <application
+       android:usesCleartextTraffic="true"
         android:label="app_e_commerce"
         android:icon="@mipmap/ic_launcher">
         <activity
