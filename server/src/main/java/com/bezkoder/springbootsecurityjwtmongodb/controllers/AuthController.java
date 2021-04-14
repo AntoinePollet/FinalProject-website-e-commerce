@@ -1,15 +1,17 @@
 package com.bezkoder.springbootsecurityjwtmongodb.controllers;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.bezkoder.springbootsecurityjwtmongodb.models.*;
 import com.bezkoder.springbootsecurityjwtmongodb.payload.request.UserUpdateInfo;
+import com.bezkoder.springbootsecurityjwtmongodb.repository.ShoppingCartRepository;
+import com.bezkoder.springbootsecurityjwtmongodb.service.ArticleService;
+import com.bezkoder.springbootsecurityjwtmongodb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,9 +21,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import com.bezkoder.springbootsecurityjwtmongodb.models.ERole;
-import com.bezkoder.springbootsecurityjwtmongodb.models.Role;
-import com.bezkoder.springbootsecurityjwtmongodb.models.User;
 import com.bezkoder.springbootsecurityjwtmongodb.payload.request.LoginRequest;
 import com.bezkoder.springbootsecurityjwtmongodb.payload.request.SignupRequest;
 import com.bezkoder.springbootsecurityjwtmongodb.payload.response.JwtResponse;
@@ -42,6 +41,9 @@ public class AuthController {
     UserRepository userRepository;
 
     @Autowired
+    ShoppingCartRepository shoppingCartRepository;
+
+    @Autowired
     RoleRepository roleRepository;
 
     @Autowired
@@ -49,6 +51,14 @@ public class AuthController {
 
     @Autowired
     JwtUtils jwtUtils;
+
+    private final UserService userService;
+
+    public AuthController(UserService userService) {
+        this.userService = userService;
+    }
+
+
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -71,6 +81,7 @@ public class AuthController {
                 roles));
     }
 
+
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 
@@ -91,6 +102,28 @@ public class AuthController {
         User user = new User(signUpRequest.getUsername(),
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
+
+/*
+        List<String> pictures = new ArrayList() {{
+            add("null");
+        }};
+
+        List<String> color = new ArrayList() {{
+            add("blue");
+        }};
+
+        Article test = new Article("testName", "testDescription", pictures, "testCategory", color,999, 4.0, true, true);
+        List<Article> articles = new ArrayList() {{
+            add(test);
+        }};*/
+
+        List<Article> article = null;
+        List<String> articleS = new ArrayList() {{
+
+        }};
+        ShoppingCart shoppingCart = new ShoppingCart(articleS,new Date(),user.getUsername(),1.0);
+
+
 
         Set<String> strRoles = signUpRequest.getRoles();
         Set<Role> roles = new HashSet<>();
@@ -124,6 +157,7 @@ public class AuthController {
 
         user.setRoles(roles);
         userRepository.save(user);
+        shoppingCartRepository.save(shoppingCart);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
@@ -150,4 +184,13 @@ public class AuthController {
         }
 
     }
+
+    @GetMapping("/find/{username}")
+    public ResponseEntity<User> getUserByUsername (@PathVariable("username") String username) {
+        User user = userService.findByUsername(username);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+
+
 }
