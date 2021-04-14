@@ -6,7 +6,8 @@ const cart = {
   namespaced: true,
   state: {
     cart: [],
-    articles: []
+    articles: [],
+    fav: []
   },
   getters: {
     getCart: state => {
@@ -38,6 +39,21 @@ const cart = {
       items.map(item => {
         state.articles.push(item)
       })
+      let listItems = _.cloneDeep(items)
+      for (let j = 0; j < 4; j++) {
+        let i = 0
+        let item = {}
+        let higherRating = 0
+        while (i < listItems.length) {
+          if (higherRating < listItems[i]?.rating) {
+            higherRating = listItems[i]?.rating
+            item = listItems[i]
+          }
+          i++
+        }
+        state.fav.push(item)
+        listItems.splice(listItems.indexOf(item), 1)
+      }
     },
     GET_ITEM (state, item) {
       if (state.articles.find(article => article.id === item.id)) {
@@ -55,10 +71,13 @@ const cart = {
     },
     REMOVE_CART_ITEM (state, index) {
       state.cart.splice(index, 1)
-    }
+    },
+    GETFAV (state) {}
   },
   actions: {
-  
+    getFav ({ commit, state }) {
+      commit('GETFAV')
+    },
     addToCart ({ commit, state }, item) {
       const el = state.cart.findIndex(article => article.id === item.id)
       if (el !== -1) {
