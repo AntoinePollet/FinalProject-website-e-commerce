@@ -24,10 +24,11 @@ var stripe = Stripe(
 export default {
 	methods: {
 		async handlePaiment() {
-			await fetch('http://localhost:3000/create-checkout-session', {
+			await fetch('http://localhost:8088/paiement', {
 				method: 'POST'
 			})
 				.then(function(response) {
+					console.log(response.json());
 					return response.json();
 				})
 				.then(function(session) {
