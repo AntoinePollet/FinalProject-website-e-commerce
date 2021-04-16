@@ -62,7 +62,7 @@ export default {
 	components: { ProfilNavigation },
 	data() {
 		return {
-			img: '../../asset/watercolor.png',
+			img: '../../assets/watercolor.png',
 			valid: true,
 			name: '',
 			prenom: '',
