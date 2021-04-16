@@ -5,7 +5,6 @@ const path = require('path')
 const webpack = require('webpack')
 
 module.exports = (env, argv) => {
-  console.log(env, argv)
   return {
     entry: './src/main.js',
     output: {
@@ -36,6 +35,7 @@ module.exports = (env, argv) => {
           test: /\.(gif|png|jpe?g|svg)$/i,
           loader: 'file-loader',
           options: {
+            esModule: false,
             name: 'assets/imgs/[name].[ext]',
             publicPath: argv.mode === 'production' ? '/' : '/dist/'
           }
