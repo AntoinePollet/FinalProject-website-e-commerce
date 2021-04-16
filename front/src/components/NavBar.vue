@@ -105,7 +105,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import Signin from './SignInModal.vue';
+import Signin from './SigninModal.vue'
 import Signup from './Signup.vue';
 import items from '../data/items.json';
 export default {
