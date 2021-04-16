@@ -40,7 +40,7 @@ const user = {
     async signup ({ commit }, payload) {
       try {
         const response = await axios
-          .post(`${url}/api/auth/signup`, payload)
+          .post(`${url}/api/v1/auth/signup`, payload)
           .then(res => {})
         commit('SIGNUP', response)
       } catch (error) {
@@ -50,7 +50,7 @@ const user = {
     async signin ({ commit }, payload) {
       try {
         const response = await axios
-          .post(`${url}/api/auth/signin`, payload)
+          .post(`${url}/api/v1/auth/signin`, payload)
           .then(res => {
             const infos = {
               ...res.data,

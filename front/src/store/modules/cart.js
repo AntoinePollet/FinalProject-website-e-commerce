@@ -117,7 +117,7 @@ const cart = {
     },
     async getItems ({ commit }) {
       try {
-        const response = await axios.get(`${url}/api/articles/all`)
+        const response = await axios.get(`${url}/api/v1/articles/all`)
         commit('GET_ITEMS', response.data)
       } catch (error) {
         console.log(error)
@@ -125,7 +125,7 @@ const cart = {
     },
     async getItem ({ commit }, id) {
       try {
-        const response = await axios.get(`${url}/api/articles/find/${id}`)
+        const response = await axios.get(`${url}/api/v1/articles/find/${id}`)
         commit('GET_ITEM', response.data)
       } catch (error) {
         console.log(error)
@@ -136,7 +136,7 @@ const cart = {
     },
     async payment ({ commit }, body) {
       try {
-        const response = await axios.post(`${url}/api/stripe/payment`, body)
+        const response = await axios.post(`${url}/api/v1/stripe/payment`, body)
         commit('PAYMENT', response.data)
       } catch (error) {
         console.log(error)
