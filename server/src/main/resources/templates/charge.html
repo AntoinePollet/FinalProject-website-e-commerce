@@ -129,13 +129,11 @@
                             alert(data.details);
                         }, 'json');*/
                     console.log("hello")
-
                     async function getUser() {
                         const resp = await fetch(`/api/auth/find/admin`);
                         const respData = await resp.json();
                         const usernameD = respData.username.toString();
                         const userIdD = respData.id.toString();
-
 
                         userId = userIdD
                         username= usernameD
@@ -144,8 +142,7 @@
                         return [username];
                     }
 
-
-/*
+                /*
                     async function getShoppingCart() {
                         const resp = await fetch(`/api/shoppingCart/find/6060d6ca1f14d21b2ead72f0`);
                         const respData = await resp.json();
