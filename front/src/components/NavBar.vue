@@ -1,14 +1,17 @@
 <template>
 	<v-app-bar app class="navbar">
-		<v-toolbar-title
-			><router-link to="/" class="navigation-home white--text"
-				><v-img
-					:src="image"
-					contain
-					max-height="45"
-					max-width="45"
-				/> </router-link
-		></v-toolbar-title>
+		<div>
+			<router-link
+				to="/"
+				class="d-flex justify-center align-center navigation-home white--text"
+				style="box-shadow: 0"
+			>
+				<img
+					src="../assets/KyoKyu.png"
+					:style="{ maxWidth: '45px', maxHeight: '45px' }"
+				/>
+			</router-link>
+		</div>
 		<v-spacer></v-spacer>
 		<v-autocomplete
 			class="colorInput"
@@ -223,6 +226,7 @@ export default {
 	.navigation-home {
 		text-decoration: none;
 		font-weight: bold;
+		box-shadow: unset;
 	}
 	.navigation-list-items {
 		height: inherit;

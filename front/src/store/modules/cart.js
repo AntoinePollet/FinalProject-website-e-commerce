@@ -116,40 +116,31 @@ const cart = {
       }
     },
     async getItems ({ commit }) {
-      const response = await axios
-        .get(`${url}/api/articles/all`)
-        .then(res => {
-          return res.data
-        })
-        .catch(error => {
-          console.log(error)
-        })
-      commit('GET_ITEMS', response)
+      try {
+        const response = await axios.get(`${url}/api/articles/all`)
+        commit('GET_ITEMS', response.data)
+      } catch (error) {
+        console.log(error)
+      }
     },
     async getItem ({ commit }, id) {
-      const response = await axios
-        .get(`${url}/api/articles/find/${id}`)
-        .then(res => {
-          return res.data
-        })
-        .catch(error => {
-          console.log(error)
-        })
-      commit('GET_ITEM', response)
+      try {
+        const response = await axios.get(`${url}/api/articles/find/${id}`)
+        commit('GET_ITEM', response.data)
+      } catch (error) {
+        console.log(error)
+      }
     },
     removeCartItem ({ commit }, index) {
       commit('REMOVE_CART_ITEM', index)
     },
     async payment ({ commit }, body) {
-      const response = await axios
-        .post(`${url}/payment`)
-        .then(res => {
-          return res.data
-        })
-        .catch(error => {
-          console.log(error)
-        })
-      commit('PAYMENT', response)
+      try {
+        const response = await axios.post(`${url}/api/stripe/payment`, body)
+        commit('PAYMENT', response.data)
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }

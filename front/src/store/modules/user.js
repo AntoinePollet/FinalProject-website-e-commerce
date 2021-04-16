@@ -7,7 +7,8 @@ const user = {
     isAuth: false,
     role: [],
     token: '',
-    username: ''
+    username: '',
+    user: {}
   },
   getters: {},
   mutations: {
@@ -24,6 +25,8 @@ const user = {
       state.token = payload.accessToken
       state.role = payload.roles
       state.username = payload.username
+      state.user['username'] = payload.username
+      state.user['email'] = payload.email
       state.isAuth = true
     },
     LOGOUT (state) {

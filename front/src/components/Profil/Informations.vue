@@ -2,7 +2,7 @@
 	<div class="navigation">
 		<ProfilNavigation />
 		<v-container class="container col-5 mt-8">
-			<v-card class="px-5">
+			<v-card class="px-5" flat>
 				<h2 class="mb-3 pt-5 title-info">Mes informations</h2>
 				<v-form ref="form" v-model="valid" :lazy-validation="true">
 					<p class="text-left mb-1">Nom</p>
@@ -62,7 +62,6 @@ export default {
 	components: { ProfilNavigation },
 	data() {
 		return {
-			img: '../../assets/watercolor.png',
 			valid: true,
 			name: '',
 			prenom: '',
@@ -100,11 +99,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.navigation {
-	background-image: url('../../public/watercolor.png');
-	background-repeat: repeat;
-	height: 100%;
-}
 .title-info {
 	color: rgb(0, 0, 0, 0.87);
 }
