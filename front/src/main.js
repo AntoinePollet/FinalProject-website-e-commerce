@@ -11,6 +11,7 @@ new Vue({
   store,
   vuetify,
   snotify,
+
   el: '#app',
   render: h => h(App)
 })

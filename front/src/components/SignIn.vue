@@ -83,6 +83,7 @@ export default {
 					this.$emit('closeSignin');
 				}
 			} catch (error) {
+				this.$snotify.error("Username ou mdp invalide")
 				console.log(error);
 			}
 		}

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import _ from 'lodash'
-const url = 'http://localhost:8088/api/articles'
+const url = 'https://kyokyubackend.herokuapp.com'
 
 const cart = {
   namespaced: true,
@@ -21,6 +21,13 @@ const cart = {
         acc.push(item.name)
         return acc
       }, [])
+    },
+    getTotalPrice: state => {
+      return state.cart.reduce((acc, item) => {
+        acc = acc + item.price * item.quantity
+        console.log(acc)
+        return acc
+      }, 0)
     }
   },
   mutations: {
@@ -72,7 +79,10 @@ const cart = {
     REMOVE_CART_ITEM (state, index) {
       state.cart.splice(index, 1)
     },
-    GETFAV (state) {}
+    GETFAV (state) {},
+    PAYMENT (state) {
+      state.cart = []
+    }
   },
   actions: {
     getFav ({ commit, state }) {
@@ -107,7 +117,7 @@ const cart = {
     },
     async getItems ({ commit }) {
       const response = await axios
-        .get(`${url}/all`)
+        .get(`${url}/api/articles/all`)
         .then(res => {
           return res.data
         })
@@ -118,7 +128,7 @@ const cart = {
     },
     async getItem ({ commit }, id) {
       const response = await axios
-        .get(`${url}/find/${id}`)
+        .get(`${url}/api/articles/find/${id}`)
         .then(res => {
           return res.data
         })
@@ -129,6 +139,17 @@ const cart = {
     },
     removeCartItem ({ commit }, index) {
       commit('REMOVE_CART_ITEM', index)
+    },
+    async payment ({ commit }, body) {
+      const response = await axios
+        .post(`${url}/payment`)
+        .then(res => {
+          return res.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      commit('PAYMENT', response)
     }
   }
 }

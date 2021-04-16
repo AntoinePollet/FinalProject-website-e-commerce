@@ -36,7 +36,10 @@
 				</v-col>
 				<h1 class="mb-5">Tous nos articles</h1>
 				<v-col>
-					<v-row class="d-flex flex-wrap justify-center">
+					<v-row
+						v-if="items.length !== 0"
+						class="d-flex flex-wrap justify-center"
+					>
 						<div
 							v-for="item in items"
 							:key="item.id"
@@ -72,6 +75,7 @@
 							</div>
 						</div>
 					</v-row>
+					<v-row v-else>Loading ...</v-row>
 				</v-col>
 			</div>
 		</v-main>

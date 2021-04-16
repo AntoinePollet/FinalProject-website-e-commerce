@@ -20,7 +20,7 @@ import Admin from '../components/Profil/Admin.vue'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [
     {
@@ -36,7 +36,10 @@ export default new Router({
     {
       path: '/commande/livraison',
       name: 'livraison',
-      component: Livraison
+      component: Livraison,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/search',
@@ -66,17 +69,26 @@ export default new Router({
     {
       path: '/commande/paiement',
       name: 'paiement',
-      component: Paiement
+      component: Paiement,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/success',
       name: 'success',
-      component: Success
+      component: Success,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/cancel',
       name: 'cancel',
-      component: Cancel
+      component: Cancel,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/profil/commandes',
@@ -105,3 +117,22 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    if (!auth.loggedIn()) {
+      next({
+        path: '/',
+        query: { redirect: to.fullPath }
+      })
+    } else {
+      next()
+    }
+  } else {
+    next() // make sure to always call next()!
+  }
+})
+
+export default router

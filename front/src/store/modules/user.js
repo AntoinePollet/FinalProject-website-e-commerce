@@ -1,5 +1,5 @@
 import axios from 'axios'
-const url = 'http://localhost:8088/api/auth'
+const url = 'https://kyokyubackend.herokuapp.com'
 
 const user = {
   namespaced: true,
@@ -37,7 +37,7 @@ const user = {
     async signup ({ commit }, payload) {
       try {
         const response = await axios
-          .post(`${url}/signup`, payload)
+          .post(`${url}/api/auth/signup`, payload)
           .then(res => {})
         commit('SIGNUP', response)
       } catch (error) {
@@ -47,7 +47,7 @@ const user = {
     async signin ({ commit }, payload) {
       try {
         const response = await axios
-          .post(`${url}/signin`, payload)
+          .post(`${url}/api/auth/signin`, payload)
           .then(res => {
             const infos = {
               ...res.data,
