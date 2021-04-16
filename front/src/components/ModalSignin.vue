@@ -40,7 +40,7 @@
 
 <script>
 export default {
-	name: 'Login',
+	name: 'SignInModal',
 	data() {
 		return {
 			validForm: true,
@@ -83,7 +83,7 @@ export default {
 					this.$emit('closeSignin');
 				}
 			} catch (error) {
-				this.$snotify.error("Username ou mdp invalide")
+				this.$snotify.error('Username ou mdp invalide');
 				console.log(error);
 			}
 		}

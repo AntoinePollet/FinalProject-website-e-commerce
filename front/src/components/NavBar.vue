@@ -7,7 +7,7 @@
 					contain
 					max-height="45"
 					max-width="45"
-				></v-img></router-link
+				/> </router-link
 		></v-toolbar-title>
 		<v-spacer></v-spacer>
 		<v-autocomplete
@@ -105,7 +105,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import Signin from './SigninModal.vue';
+import Signin from './ModalSignin.vue';
 import Signup from './Signup.vue';
 import items from '../data/items.json';
 export default {
@@ -117,7 +117,6 @@ export default {
 			search: '',
 			dialogSignin: false,
 			dialogSignup: false,
-			image: require('../public/KyoKyu.png'),
 			searchInput: '',
 			items: [],
 			profil: [
@@ -164,6 +163,9 @@ export default {
 		...mapGetters({
 			autocompleteList: 'cart/autocompleteList'
 		}),
+		image() {
+			return '../assets/KyoKyu.png';
+		},
 		isAdmin() {
 			if (this.role.includes('ROLE_ADMIN')) {
 				return true;
