@@ -117,7 +117,6 @@ export default {
 			search: '',
 			dialogSignin: false,
 			dialogSignup: false,
-			image: require('../public/KyoKyu.png'),
 			searchInput: '',
 			items: [],
 			profil: [
@@ -164,6 +163,9 @@ export default {
 		...mapGetters({
 			autocompleteList: 'cart/autocompleteList'
 		}),
+		image() {
+			return require('../public/KyoKyu.png');
+		},
 		isAdmin() {
 			if (this.role.includes('ROLE_ADMIN')) {
 				return true;
