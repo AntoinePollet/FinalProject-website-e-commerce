@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import Signin from './Signin.vue';
+import Signin from './SigninModal.vue';
 import Signup from './Signup.vue';
 
 export default {
