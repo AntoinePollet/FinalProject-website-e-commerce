@@ -7,7 +7,7 @@
 				style="box-shadow: 0"
 			>
 				<img
-					src="../assets/KyoKyu.png"
+					src="../assets/Kyokyu.png"
 					:style="{ maxWidth: '45px', maxHeight: '45px' }"
 				/>
 			</router-link>
