@@ -164,7 +164,7 @@ export default {
 			autocompleteList: 'cart/autocompleteList'
 		}),
 		image() {
-			return require('../assets/KyoKyu.png');
+			return '../assets/KyoKyu.png';
 		},
 		isAdmin() {
 			if (this.role.includes('ROLE_ADMIN')) {
