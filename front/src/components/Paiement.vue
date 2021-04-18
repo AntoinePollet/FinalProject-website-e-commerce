@@ -1,7 +1,7 @@
 <template>
 	<v-main>
 		<div class="col-6" ref="card"></div>
-		<button @click="submit">Purchase</button>
+		<v-btn @click="submit">Purchase</v-btn>
 	</v-main>
 </template>
 
@@ -30,12 +30,12 @@ export default {
 			}, []);
 		}
 	},
-	mounted: function() {
+	mounted() {
+		card = undefined;
 		stripe = Stripe(
 			`pk_test_51IWroJKFVA2XgNwJPjTGtIpYfCJpICDhr6LnvLbONuRVTLRUqvdlKF6bznanAj8Vhfyg6jNMC2m6JTNPz9RsoRJN00lMyNvLYb`
 		);
 		elements = stripe.elements();
-		card = undefined;
 		card = elements.create('card');
 		card.mount(this.$refs.card);
 	},
@@ -58,7 +58,9 @@ export default {
 			// Access the token with result.token
 		},
 		async payment(body) {
-			await this.$store.dispatch('cart/payment', body);
+			try {
+				await this.$store.dispatch('cart/payment', body);
+			} catch (error) {}
 		}
 	}
 };

@@ -4,10 +4,10 @@
 		<h4>Connectez vous à votre compte ici.</h4>
 		<v-form ref="form" v-model="validForm" class="pa-5">
 			<v-text-field
-				prepend-inner-icon="mdi-email"
-				placeholder="email"
+				prepend-inner-icon="mdi-account"
+				placeholder="username"
 				v-model="username"
-				:rules="emailRule"
+				:rules="usernameRule"
 				outlined
 			/>
 			<v-text-field
@@ -45,11 +45,10 @@ export default {
 		return {
 			validForm: true,
 			username: '',
-			email: '',
 			password: '',
 			rememberMe: false,
 			goTo: '/',
-			emailRule: [v => !!v || 'Email requis !'],
+			usernameRule: [v => !!v || 'username requis !'],
 			passwordRule: [
 				v => !!v || 'Password requis !',
 
@@ -80,6 +79,10 @@ export default {
 						saveInfos: this.rememberMe
 					};
 					await this.$store.dispatch('user/signin', payload);
+					await this.$store.dispatch(
+						'user/getCommand',
+						this.$store.state.user.username
+					);
 					this.$emit('closeSignin');
 				}
 			} catch (error) {

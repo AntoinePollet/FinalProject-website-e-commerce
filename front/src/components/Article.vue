@@ -68,16 +68,21 @@
 					</v-row>
 				</v-col>
 			</v-container>
+			<div class="d-flex justify-center">
+				<Comments class="pt-10 col-8" :idArticle="$route.params.id" />
+			</div>
 		</div>
 		<div v-else>Loading ...</div>
 	</v-main>
 </template>
 
 <script>
+import Comments from './Comments.vue';
 import colors from '../data/colors.json';
-import { mapGetters, mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 export default {
 	name: 'Article',
+	components: { Comments },
 	data() {
 		return {
 			isLoading: true,
@@ -115,6 +120,7 @@ export default {
 				vm.img = vm.product.pictures[0];
 				vm.isLoading = false;
 			}
+			await vm.$store.dispatch('user/getComments', vm.$route.params.id);
 		});
 	},
 	methods: {

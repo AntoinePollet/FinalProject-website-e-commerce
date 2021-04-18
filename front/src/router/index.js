@@ -18,7 +18,14 @@ import MotDePasse from '../components/Profil/MotDePasse.vue'
 import CartesPaiement from '../components/Profil/CartesPaiement.vue'
 import Admin from '../components/Profil/Admin.vue'
 
+import store from '../store/index.js'
+
 Vue.use(Router)
+
+const originalPush = Router.prototype.push
+Router.prototype.push = function push (location) {
+  return originalPush.call(this, location).catch((err) => err)
+}
 
 const router = new Router({
   mode: 'history',
@@ -59,7 +66,10 @@ const router = new Router({
     {
       path: '/profil',
       name: 'profil',
-      component: Profil
+      component: Profil,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/favoris',
@@ -93,36 +103,51 @@ const router = new Router({
     {
       path: '/profil/commandes',
       name: 'commandes',
-      component: Commandes
+      component: Commandes,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/profil/informations',
       name: 'informations',
-      component: Informations
+      component: Informations,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/profil/cartesdepaiement',
       name: 'cartesdepaiement',
-      component: CartesPaiement
+      component: CartesPaiement,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/profil/motdepasse',
       name: 'MotDePasse',
-      component: MotDePasse
+      component: MotDePasse,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/profil/admin',
       name: 'Admin',
-      component: Admin
+      component: Admin,
+      meta: {
+        requiresAuth: true,
+        role: 'ROLE_ADMIN'
+      }
     }
   ]
 })
-/*
+
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    // this route requires auth, check if logged in
-    // if not, redirect to login page.
-    if (!auth.loggedIn()) {
+    const logged = store.state.user.isAuth
+    if (!logged) {
       next({
         path: '/',
         query: { redirect: to.fullPath }
@@ -131,8 +156,23 @@ router.beforeEach((to, from, next) => {
       next()
     }
   } else {
-    next() // make sure to always call next()!
+    next()
+  }
+
+  if (to.matched.some(record => record.meta.role)) {
+    const logged = store.state.user.isAuth
+    const role = store.state.user.role
+    if (!role.includes('ROLE_ADMIN') && !logged) {
+      next({
+        path: '/',
+        query: { redirect: to.fullPath }
+      })
+    } else {
+      next()
+    }
+  } else {
+    next()
   }
 })
-*/
+
 export default router

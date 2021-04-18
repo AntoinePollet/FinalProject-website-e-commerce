@@ -4,9 +4,9 @@
 		<v-form ref="form" v-model="valid" class="pa-5">
 			<v-text-field
 				prepend-inner-icon="mdi-account"
-				placeholder="full name"
-				v-model="fullName"
-				:rules="fullNameRule"
+				placeholder="username"
+				v-model="username"
+				:rules="usernameRule"
 				outlined
 			/>
 			<v-text-field
@@ -56,8 +56,8 @@ export default {
 			goTo: '/',
 			password: '',
 			passwordAgain: '',
-			fullName: '',
-			fullNameRule: [v => !!v || 'Prénom requis'],
+			username: '',
+			usernameRule: [v => !!v || 'Prénom requis'],
 			emailRule: [v => !!v || 'Email requis !'],
 			passwordRule: [
 				v => !!v || 'Password requis !',
@@ -77,13 +77,12 @@ export default {
 			next(vm => {
 				vm.goTo = '/commande/livraison';
 			});
-		}
+		} else next();
 		if (from.name === 'profil') {
 			next(vm => {
 				vm.goTo = '/profil';
 			});
-		}
-		next();
+		} else next();
 	},
 	methods: {
 		samePassword() {
@@ -92,16 +91,16 @@ export default {
 		async signup() {
 			try {
 				if (this.$refs.form.validate() && this.samePassword()) {
-					console.log("true")
+					console.log('true');
 					const payload = {
-						username: this.fullName,
+						username: this.username,
 						email: this.email,
 						password: this.password,
 						role: ['user']
 					};
 					await this.$store.dispatch('user/signup', payload);
 					this.$refs.form.reset();
-				} 
+				}
 			} catch (error) {
 				this.$snotify.error('erreur lors de la création du compte');
 				console.log(error);

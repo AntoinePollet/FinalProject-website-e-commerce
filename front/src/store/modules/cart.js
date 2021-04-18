@@ -1,6 +1,6 @@
 import axios from 'axios'
 import _ from 'lodash'
-const url = 'https://kyokyubackend.herokuapp.com'
+const url = 'https://kyokyubackend.herokuapp.com/api/v1/'
 
 const cart = {
   namespaced: true,
@@ -8,6 +8,7 @@ const cart = {
     cart: [],
     articles: [],
     fav: []
+    
   },
   getters: {
     getCart: state => {
@@ -25,7 +26,6 @@ const cart = {
     getTotalPrice: state => {
       return state.cart.reduce((acc, item) => {
         acc = acc + item.price * item.quantity
-        console.log(acc)
         return acc
       }, 0)
     }
@@ -73,6 +73,7 @@ const cart = {
         state.articles.push(item)
       }
     },
+
     ADD_TO_CURRENT_ARTICLE (state, item) {
       state.currentArticle = item
     },
@@ -117,7 +118,7 @@ const cart = {
     },
     async getItems ({ commit }) {
       try {
-        const response = await axios.get(`${url}/api/v1/articles/all`)
+        const response = await axios.get(`${url}articles/all`)
         commit('GET_ITEMS', response.data)
       } catch (error) {
         console.log(error)
@@ -125,7 +126,7 @@ const cart = {
     },
     async getItem ({ commit }, id) {
       try {
-        const response = await axios.get(`${url}/api/v1/articles/find/${id}`)
+        const response = await axios.get(`${url}articles/find/${id}`)
         commit('GET_ITEM', response.data)
       } catch (error) {
         console.log(error)
@@ -136,7 +137,7 @@ const cart = {
     },
     async payment ({ commit }, body) {
       try {
-        const response = await axios.post(`${url}/api/v1/stripe/payment`, body)
+        const response = await axios.post(`${url}stripe/payment`, body)
         commit('PAYMENT', response.data)
       } catch (error) {
         console.log(error)
