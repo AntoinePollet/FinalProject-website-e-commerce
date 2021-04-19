@@ -34,7 +34,7 @@
 						placeholder="filtrer par"
 					/>
 					<v-btn class="pink lighten-2 white--text" @click="resetFilter()"
-						>reset filter</v-btn
+						>réinitialiser filtre(s)</v-btn
 					>
 				</v-col>
 
@@ -102,7 +102,7 @@ export default {
 			search: '',
 			selectedPrice: 400,
 			selectedColor: [],
-			selectedCategorie: 'All',
+			selectedCategorie: 'Tous',
 			selectedFilter: '',
 			filter: [
 				'Prix croissant',

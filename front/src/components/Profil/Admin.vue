@@ -27,10 +27,59 @@
                     v-on="on"
                     v-bind="attrs"
                   >
+                    Ajouter article
                   </v-btn>
                 </template>
+                <v-card>
+                  <v-card-title>
+                    <span>New item</span>
+                  </v-card-title>
+                  <v-container>
+                    <v-row>
+                      <v-col cols="12" sm="6" md="4">
+                        <v-text-field
+                          v-model="editemItem.name"
+                          label="Nom de l'article"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm="6" md="4">
+                        <v-text-field
+                          append-icon="€"
+                          v-model="editemItem.price"
+                          label="Prix"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm="6" md="4">
+                        <v-text-field
+                          v-model="editemItem.description"
+                          label="Description"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm="6" md="4">
+                        <v-text-field
+                          v-model="editemItem.color"
+                          label="Couleurs"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm="6" md="4">
+                        <v-text-field
+                          v-model="editemItem.pictures"
+                          label="Lien images"
+                        ></v-text-field>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-card>
               </v-dialog>
             </v-toolbar>
+          </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-icon small class="mr-2" @click="editItem(item)">
+              mdi-pencil
+            </v-icon>
+            <v-icon small @click="deleteItem(item)">
+              mdi-delete
+            </v-icon>
           </template>
         </v-data-table>
       </v-card>
@@ -48,6 +97,7 @@ export default {
   data() {
     return {
       search: '',
+      dialog: false,
       headers: [
         {
           text: 'Nom',
@@ -59,7 +109,14 @@ export default {
         { text: 'Couleur', value: 'color' },
         { text: 'Price', value: 'price' },
         { text: 'Actions', value: 'actions', sortable: false }
-      ]
+      ],
+      editemItem: {
+        name: '',
+        price: 0,
+        description: '',
+        color: [],
+        pictures: []
+      }
     };
   },
   beforeRouteEnter(to, from, next) {

@@ -40,7 +40,6 @@ const user = {
       return orders.hasOwnProperty(id);
     },
     hasCommented: state => {
-      console.log(state.username);
       if (state.commentArticle.length) {
         return (
           state.commentArticle.find(
@@ -77,6 +76,7 @@ const user = {
       state.role = [];
     },
     GET_COMMANDS(state, res) {
+      state.commands = [];
       for (let i in res) {
         state.commands.push(res[i]);
       }

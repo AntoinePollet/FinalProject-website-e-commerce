@@ -46,15 +46,15 @@
               v-model="quantity"
               :menu-props="{ bottom: true, offsetY: true }"
               persistent-hint
-              hint="Quantity"
+              hint="Quantité"
             />
           </v-row>
           <v-row class="py-3">
             <h1>{{ product.price }} €</h1>
           </v-row>
           <v-row>
-            <p v-if="product.inStock">In stock !!</p>
-            <p v-else class="text-decoration-line-through">Out of stock</p>
+            <p v-if="product.inStock">Disponible !!</p>
+            <p v-else class="text-decoration-line-through">Indisponible</p>
           </v-row>
           <v-row>
             <v-card-actions class="d-flex justify-end"
@@ -62,7 +62,7 @@
                 class="white--text pink lighten-2"
                 :disabled="!product.inStock"
                 @click="addToCart(product)"
-                >Add to cart</v-btn
+                >Ajouter au panier</v-btn
               ></v-card-actions
             >
           </v-row>
@@ -72,7 +72,7 @@
         <Comments class="pt-10 col-8" :idArticle="$route.params.id" />
       </div>
     </div>
-    <div v-else>Loading ...</div>
+    <div v-else>Chargement ...</div>
   </v-main>
 </template>
 

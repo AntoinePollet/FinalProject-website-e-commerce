@@ -2,9 +2,32 @@
   <v-main>
     <div>
       <h2>Commande numéro {{ $route.params.id }}</h2>
-      {{ command }}
-      <div v-for="item in command.articles" :key="item.id">
-        <p>{{ items(item.idArticle) }}</p>
+      <div v-if="command.articles && command.articles.length">
+        <div
+          v-for="item in command.articles"
+          :key="item.idArticle"
+          class="d-flex justify-content-between col-8"
+          :style="{ margin: 'auto' }"
+        >
+          <div>
+            <v-img
+              :src="item.pictures[0]"
+              contain
+              :style="{ maxWidth: '75px' }"
+            ></v-img>
+          </div>
+          <div class="col-8 d-flex justify-center flex-column pl-3">
+            <div>{{ item.name }}</div>
+            <div>{{ item.description }}</div>
+          </div>
+          <div class="col-4 d-flex justify-center flex-column pl-3">
+            <div>Quantité : {{ item.quantity }}</div>
+            <div>Prix : {{ item.price }} €</div>
+          </div>
+        </div>
+      </div>
+      <div v-else>
+        Erreur lors de la récupération des articles
       </div>
     </div>
   </v-main>
@@ -29,9 +52,6 @@ export default {
     }),
     command() {
       return this.getCommand(this.$route.params.id);
-    },
-    items(id) {
-      return this.getArticle(id);
     }
   }
 };

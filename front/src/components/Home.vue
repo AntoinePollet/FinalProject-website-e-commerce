@@ -1,7 +1,6 @@
 <template>
   <v-app class="application">
     <v-main>
-      {{ articlesId }}
       <div :style="{ width: '90%', margin: 'auto' }">
         <h1 class="mb-5">Nos articles les plus populaires</h1>
         <v-col>
@@ -102,19 +101,11 @@ export default {
       cart: state => state.cart.cart
     }),
     articlesId() {
-      const obj = this.cart
-        .reduce((acc, item) => {
-          acc.push(item);
-          return acc;
-        }, [])
-        .reduce((acc, item) => {
-          acc['idArticle'] = acc['idArticle'] = item.id;
-          acc['quantity'] = item.quantity;
-          return acc;
-        }, {});
+      const obj = this.cart.reduce((acc, item) => {
+        acc.push({ id: item.id, quantity: item.quantity });
+        return acc;
+      }, []);
       return obj;
-      /*
-       */
     }
   },
 

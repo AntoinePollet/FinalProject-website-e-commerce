@@ -26,14 +26,7 @@ export default {
     ...mapState({
       username: state => state.user.username,
       cart: state => state.cart.cart
-    }),
-    articlesId() {
-      return this.cart.reduce((acc, item) => {
-        (acc['idArticle'] = item.id), (acc['quantity'] = item.quantity);
-        this.array.push(acc);
-        return acc;
-      }, {});
-    }
+    })
   },
   mounted() {
     card = undefined;
@@ -47,28 +40,24 @@ export default {
 
   methods: {
     async submit() {
-      const result = await stripe.createToken(card);
-      const body = {
-        token: result.token.id,
-        username: this.username,
-        articles: {
-          idArticles: this.articlesId,
-          quantity: 5
-        },
-        amount: this.totalPrice
-      };
       try {
-        this.payment(body);
-      } catch (error) {}
-
-      if (result.error) {
+        const result = await stripe.createToken(card);
+        const body = {
+          token: result.token.id,
+          username: this.username,
+          array: this.cart,
+          amount: this.totalPrice
+        };
+        try {
+          await this.$store.dispatch('cart/payment', body);
+          await this.$store.dispatch(
+            'user/getCommands',
+            this.$store.state.user.username
+          );
+        } catch (error) {}
+      } catch (error) {
+        console.log(error);
       }
-      // Access the token with result.token
-    },
-    async payment(body) {
-      try {
-        await this.$store.dispatch('cart/payment', body);
-      } catch (error) {}
     }
   }
 };

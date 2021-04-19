@@ -4,8 +4,8 @@
 			<v-container class="col-8">
 				<div class="title-product d-flex">
 					<h4 class="col-6 text-left pl-0">Produit</h4>
-					<h4 class="col-2 text-right">Price</h4>
-					<h4 class="col-2 text-right">Quantity</h4>
+					<h4 class="col-2 text-right">Prix</h4>
+					<h4 class="col-2 text-right">Quantité</h4>
 					<h4 class="col-2 text-right pr-0">Total</h4>
 				</div>
 				<div
@@ -46,7 +46,7 @@
 				<div class="d-flex justify-end">
 					<div>
 						<h2>
-							Subtotal : <strong>{{ totalPrice }}</strong> €
+							Total : <strong>{{ totalPrice }}</strong> €
 						</h2>
 						<v-card-actions class="justify-center"
 							><v-btn
@@ -54,12 +54,12 @@
 								@click="$router.push({ name: 'livraison' })"
 								text
 								color="white"
-								>Checkout</v-btn
+								>Suivant</v-btn
 							></v-card-actions
 						>
 						<v-card-actions class="justify-center">
 							<v-btn class="teal" @click="pdf()" text color="white"
-								>download</v-btn
+								>Télécharger</v-btn
 							></v-card-actions
 						>
 					</div>
