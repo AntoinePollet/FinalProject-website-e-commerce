@@ -80,7 +80,7 @@ export default {
 					};
 					await this.$store.dispatch('user/signin', payload);
 					await this.$store.dispatch(
-						'user/getCommand',
+						'user/getCommands',
 						this.$store.state.user.username
 					);
 					this.$emit('closeSignin');

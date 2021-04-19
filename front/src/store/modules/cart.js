@@ -135,9 +135,15 @@ const cart = {
     removeCartItem ({ commit }, index) {
       commit('REMOVE_CART_ITEM', index)
     },
-    async payment ({ commit }, body) {
+    async payment ({ commit, state }, body) {
       try {
-        const response = await axios.post(`${url}stripe/payment`, body)
+        const response = await axios.create({
+            baseURL: this.url,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: 'Bearer ' + state.token
+            }
+          }).post(`${url}stripe/payment`, body)
         commit('PAYMENT', response.data)
       } catch (error) {
         console.log(error)

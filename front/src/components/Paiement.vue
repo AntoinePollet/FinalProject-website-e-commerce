@@ -1,12 +1,11 @@
 <template>
-	<v-main>
-		<div class="col-6" ref="card"></div>
-		<v-btn @click="submit">Purchase</v-btn>
-	</v-main>
+  <v-main>
+    <div class="col-6" ref="card"></div>
+    <v-btn @click="submit">Purchase</v-btn>
+  </v-main>
 </template>
 
-
-<script >
+<script>
 import { mapGetters, mapState } from 'vuex';
 
 let elements = undefined;
@@ -14,57 +13,65 @@ let card = undefined;
 let stripe = undefined;
 
 export default {
-	name: 'Paiement',
-	computed: {
-		...mapGetters({
-			totalPrice: 'cart/getTotalPrice'
-		}),
-		...mapState({
-			username: state => state.user.username,
-			cart: state => state.cart.cart
-		}),
-		articlesId() {
-			return this.cart.reduce((acc, item) => {
-				acc.push(item.id);
-				return acc;
-			}, []);
-		}
-	},
-	mounted() {
-		card = undefined;
-		stripe = Stripe(
-			`pk_test_51IWroJKFVA2XgNwJPjTGtIpYfCJpICDhr6LnvLbONuRVTLRUqvdlKF6bznanAj8Vhfyg6jNMC2m6JTNPz9RsoRJN00lMyNvLYb`
-		);
-		elements = stripe.elements();
-		card = elements.create('card');
-		card.mount(this.$refs.card);
-	},
+  name: 'Paiement',
+  data() {
+    return {
+      array: []
+    };
+  },
+  computed: {
+    ...mapGetters({
+      totalPrice: 'cart/getTotalPrice'
+    }),
+    ...mapState({
+      username: state => state.user.username,
+      cart: state => state.cart.cart
+    }),
+    articlesId() {
+      return this.cart.reduce((acc, item) => {
+        (acc['idArticle'] = item.id), (acc['quantity'] = item.quantity);
+        this.array.push(acc);
+        return acc;
+      }, {});
+    }
+  },
+  mounted() {
+    card = undefined;
+    stripe = Stripe(
+      `pk_test_51IWroJKFVA2XgNwJPjTGtIpYfCJpICDhr6LnvLbONuRVTLRUqvdlKF6bznanAj8Vhfyg6jNMC2m6JTNPz9RsoRJN00lMyNvLYb`
+    );
+    elements = stripe.elements();
+    card = elements.create('card');
+    card.mount(this.$refs.card);
+  },
 
-	methods: {
-		async submit() {
-			const result = await stripe.createToken(card);
-			const body = {
-				token: result.token.id,
-				username: this.username,
-				array: this.articlesId,
-				amount: this.totalPrice
-			};
-			try {
-				this.payment(body);
-			} catch (error) {}
+  methods: {
+    async submit() {
+      const result = await stripe.createToken(card);
+      const body = {
+        token: result.token.id,
+        username: this.username,
+        articles: {
+          idArticles: this.articlesId,
+          quantity: 5
+        },
+        amount: this.totalPrice
+      };
+      try {
+        this.payment(body);
+      } catch (error) {}
 
-			if (result.error) {
-			}
-			// Access the token with result.token
-		},
-		async payment(body) {
-			try {
-				await this.$store.dispatch('cart/payment', body);
-			} catch (error) {}
-		}
-	}
+      if (result.error) {
+      }
+      // Access the token with result.token
+    },
+    async payment(body) {
+      try {
+        await this.$store.dispatch('cart/payment', body);
+      } catch (error) {}
+    }
+  }
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

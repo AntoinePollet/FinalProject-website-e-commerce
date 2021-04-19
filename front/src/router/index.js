@@ -13,6 +13,7 @@ import Success from '../components/Success.vue'
 import Cancel from '../components/Cancel.vue'
 import Profil from '../components/Profil/Profil.vue'
 import Commandes from '../components/Profil/Commandes.vue'
+import Command from '../components/Profil/Command.vue'
 import Informations from '../components/Profil/Informations.vue'
 import MotDePasse from '../components/Profil/MotDePasse.vue'
 import CartesPaiement from '../components/Profil/CartesPaiement.vue'
@@ -104,6 +105,14 @@ const router = new Router({
       path: '/profil/commandes',
       name: 'commandes',
       component: Commandes,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/profil/commandes/:id',
+      name: 'command',
+      component: Command,
       meta: {
         requiresAuth: true
       }
