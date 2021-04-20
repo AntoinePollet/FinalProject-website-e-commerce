@@ -12,6 +12,8 @@ import com.kyokyu.backend.repository.UserRepository;
 import com.kyokyu.backend.security.jwt.JwtUtils;
 import com.kyokyu.backend.security.services.UserDetailsImpl;
 import com.kyokyu.backend.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +31,7 @@ import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/v1/auth")
 public class AuthController {
     @Autowired
     AuthenticationManager authenticationManager;
@@ -48,6 +50,9 @@ public class AuthController {
 
     @Autowired
     JwtUtils jwtUtils;
+
+    Logger logger= LoggerFactory.getLogger(ArticleController.class);
+
 
     private final UserService userService;
 
@@ -71,6 +76,7 @@ public class AuthController {
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
+        logger.info("user signedIn : {}", loginRequest.getUsername());
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getId(),
                 userDetails.getUsername(),
@@ -111,22 +117,16 @@ public class AuthController {
 
         if (strRoles == null) {
             Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found ! Default User Role used."));
             roles.add(userRole);
         } else {
             strRoles.forEach(role -> {
                 switch (role) {
                     case "admin":
-                        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(adminRole);
-
+                        new RuntimeException("Error: Unauthorized role !");
                         break;
                     case "mod":
-                        Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(modRole);
-
+                        new RuntimeException("Error: Unauthorized role !");
                         break;
                     default:
                         Role userRole = roleRepository.findByName(ERole.ROLE_USER)
@@ -135,11 +135,11 @@ public class AuthController {
                 }
             });
         }
-
         user.setRoles(roles);
         userRepository.save(user);
         shoppingCartRepository.save(shoppingCart);
 
+        logger.info("new user registered successfully: {}", signUpRequest.getUsername());
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
@@ -152,25 +152,19 @@ public class AuthController {
         if (userData.isPresent()) {
             // Create new user's account
             User userD = userData.get();
-            userD.setEmail(userUpdateInfo.getEmail());
             userD.setPassword(encoder.encode(userUpdateInfo.getPassword()));
 
             userRepository.save(userD);
-
+            logger.info("password reset: {}", userUpdateInfo.getUsername());
             return ResponseEntity.ok(new MessageResponse("Update registered successfully!"));
         }else {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Username doesn't exist!"));
         }
-
     }
 
-    @GetMapping("/find/{username}")
-    public ResponseEntity<User> getUserByUsername (@PathVariable("username") String username) {
-        User user = userService.findByUsername(username);
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
+
 
 
 

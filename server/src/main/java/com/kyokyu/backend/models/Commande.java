@@ -1,5 +1,6 @@
 package com.kyokyu.backend.models;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -12,6 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@Data
 @Document(collection = "commandes")
 public class Commande {
 
@@ -19,7 +21,7 @@ public class Commande {
     private String id;
 
     //ref
-    private List<String> idArticle;
+    private List<CommandeArticles> articles;
 
     private Date date;
 
@@ -28,15 +30,26 @@ public class Commande {
 
     private Double total;
 
+    private Address address;
+
 
     public Commande() {
     }
 
-    public Commande(List<String> idArticle, Date date, String username, Double total) {
-        this.idArticle = idArticle;
+    public Commande(List<CommandeArticles> articles, Date date, String username, Double total, Address address) {
+        this.articles = articles;
         this.date = date;
         this.username = username;
         this.total = total;
+        this.address = address;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public String getId() {
@@ -47,12 +60,12 @@ public class Commande {
         this.id = id;
     }
 
-    public List<String> getIdArticle() {
-        return idArticle;
+    public List<CommandeArticles> getArticles() {
+        return articles;
     }
 
-    public void setIdArticle(List<String> idArticle) {
-        this.idArticle = idArticle;
+    public void setArticles(List<CommandeArticles> Articles) {
+        this.articles = articles;
     }
 
     public Date getDate() {

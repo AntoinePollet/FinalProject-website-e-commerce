@@ -1,6 +1,7 @@
 package com.kyokyu.backend.models;
 
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -12,6 +13,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
+@Data
 @Document(collection = "commentaires")
 public class Comment {
 
@@ -26,20 +28,32 @@ public class Comment {
 
     private String message;
 
-    private Double rating;
+    private Double rating = null;
+
+    //private Boolean firstRating = false;
+
 
 
     public Comment() {
     }
 
-    public Comment(Date date, String idArticle, String username, String message, Double rating) {
+    public Comment(Date date, String idArticle, String username, String message, Double rating, Boolean firstRating) {
         this.date = date;
         this.idArticle = idArticle;
         this.username = username;
         this.message = message;
         this.rating = rating;
+       // this.firstRating = firstRating;
+
     }
 
+  /*  public Boolean getFirstRating() {
+        return firstRating;
+    }*/
+
+   /* public void setFirstRating(Boolean firstRating) {
+        this.firstRating = firstRating;
+    }*/
 
     public String getId() {
         return id;

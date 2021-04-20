@@ -1,35 +1,52 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Homepage</title>
-    <!--Bootstrap 4 CSS-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<html>
 
-    <!--Bootstrap 4 JavaScript-->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-</head>
-<body class="bg-light pt-5">
+    <head>
+        <title>Parcel Sandbox</title>
+        <meta charset="UTF-8" />
+        <script src="src/index.js" defer></script>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" type="text/css" href="./styles.css">
 
-<!--hero section-->
-<section class="py-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-7 col-md-10 col-12 my-auto mx-auto text-center">
-                <h1>
-                    Stripe Payment Examples
-                </h1>
-                <p class="lead mb-4">
-                    What would you like to do?
-                </p>
-                <a class="btn btn-success" th:href="@{/charge}">Create One-Time Charge</a>
-                <p class="mt-5 text-muted">
-                    <small>An example project by <a th:href="@{https://attacomsian.com}" target="_blank">Atta</a>.</small>
-                </p>
-            </div>
+    </head>
+
+    <body>
+
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+
+    <!-- Background & animion & navbar & title -->
+    <div class="container-fluid">
+        <!-- Background animtion-->
+        <div class="background">
+            <div class="cube"></div>
+            <div class="cube"></div>
+            <div class="cube"></div>
+            <div class="cube"></div>
+            <div class="cube"></div>
         </div>
-    </div>
-</section>
+        <!-- header -->
+        <header>
+            <!-- navbar -->
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">APIv1</a></li>
+                    <li><a href="https://final-project-antoinepollet.vercel.app/">Site</a></li>
+                    <li><a href="/swagger-ui.html">Swagger</a></li>
+                </ul>
+            </nav>
+            <!-- logo -->
+            <div class="logo"><img src="https://firebasestorage.googleapis.com/v0/b/fir-reactapp001.appspot.com/o/Kyokyu.png?alt=media&token=cbeb78c0-2f1a-47d5-9051-312092c3b9c3"></div>
+            <!-- title & content -->
+            <section class="header-content">
+                <h1>Welcome to KyoKyu API</h1>
+                <p>Welcome on KyoKyu API, it has been developed as part of a <br>
+                    school project at Sup De Vinci By Hassen Samir.</p>
+                <button>Portfolio</button>
+                <button onclick="window.location.href='https://github.com/HassenSamir';">Git Hub</button>
+            </section>
+        </header>
+    </body>
 
-</body>
 </html>

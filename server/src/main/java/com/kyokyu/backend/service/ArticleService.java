@@ -43,7 +43,6 @@ public class ArticleService {
             _article.setColor(article.getColor());
             _article.setPrice(article.getPrice());
             _article.setRating(article.getRating());
-            _article.setInStock(article.getInStock());
             _article.setFavorites(article.getFavorites());
 
             return articleRepo.save(_article);

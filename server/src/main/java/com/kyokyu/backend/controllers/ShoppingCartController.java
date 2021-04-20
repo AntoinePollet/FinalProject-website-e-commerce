@@ -13,7 +13,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/shoppingCart")
+@RequestMapping("/api/v1/shoppingCart")
 public class ShoppingCartController {
 
     private final ShoppingCartService shoppingCartService;

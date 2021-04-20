@@ -4,6 +4,8 @@ package com.kyokyu.backend.controllers;
 import com.kyokyu.backend.models.*;
 import com.kyokyu.backend.repository.CommandeRepository;
 import com.kyokyu.backend.service.StripeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -14,7 +16,7 @@ import java.util.Date;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/stripe")
+@RequestMapping("/api/v1/stripe")
 public class PaymentController {
 
 
@@ -28,6 +30,9 @@ public class PaymentController {
 
     @Autowired
     CommandeRepository commandeRepository;
+
+    Logger logger= LoggerFactory.getLogger(ArticleController.class);
+
 
     public PaymentController(StripeService stripeService) {
         this.stripeService = stripeService;
@@ -50,7 +55,7 @@ public class PaymentController {
             return new ResponseEntity<>("An error occurred while trying to create a charge.", HttpStatus.NOT_FOUND);
         }
 
-        Commande commande = new Commande(payment.getArray(),new Date(), payment.getUsername(), (double) payment.getAmount());
+        Commande commande = new Commande(payment.getArray(),new Date(), payment.getUsername(), (double) payment.getAmount(), payment.getAddress());
 
         commandeRepository.save(commande);
 

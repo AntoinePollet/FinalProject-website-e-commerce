@@ -1,6 +1,7 @@
 package com.kyokyu.backend.models;
 
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -12,6 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@Data
 @Document(collection = "payments")
 public class Payment {
     @Id
@@ -23,17 +25,21 @@ public class Payment {
 
     private int amount;
 
-    private List<String> array;
+    private List<CommandeArticles> array;
+
+    private Address address;
 
 
     public Payment() {
     }
 
-    public Payment(String username, String token, int amount, List<String> array) {
+
+    public Payment(String username, String token, int amount, List<CommandeArticles> array, Address address) {
         this.username = username;
         this.token = token;
         this.amount = amount;
         this.array = array;
+        this.address = address;
     }
 
     public String getId() {
@@ -68,11 +74,19 @@ public class Payment {
         this.amount = amount;
     }
 
-    public List<String> getArray() {
+    public List<CommandeArticles> getArray() {
         return array;
     }
 
-    public void setArray(List<String> array) {
+    public void setArray(List<CommandeArticles> array) {
         this.array = array;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }

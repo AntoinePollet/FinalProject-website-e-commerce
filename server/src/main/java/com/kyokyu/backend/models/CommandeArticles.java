@@ -1,46 +1,44 @@
 package com.kyokyu.backend.models;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 
-@Getter
-@Setter
-@ToString
-@Document(collection = "articles")
 @Data
-public class Article {
-    @Id
+public class CommandeArticles {
+
     private String id;
+
     private String name;
+
+    private int quantity;
+
     private String description;
+
     private List pictures;
+
     private String category;
+
     private List color;
+
     private int price;
+
     private Double rating;
-    private int quantity = 0;
-    private Boolean favorites = false;
 
-
-    public Article() {
+    public CommandeArticles() {
     }
 
-    public Article(String name, String description, List pictures, String category, List color, int price, Double rating, int quantity, Boolean favorites) {
+    public CommandeArticles(String name, int quantity, String description, List pictures, String category, List color, int price, Double rating) {
         this.name = name;
+        this.quantity = quantity;
         this.description = description;
         this.pictures = pictures;
         this.category = category;
         this.color = color;
         this.price = price;
         this.rating = rating;
-        this.quantity = quantity;
-        this.favorites = favorites;
     }
 
     public String getId() {
@@ -49,6 +47,14 @@ public class Article {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public String getName() {
@@ -106,36 +112,4 @@ public class Article {
     public void setRating(Double rating) {
         this.rating = rating;
     }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public Boolean getFavorites() {
-        return favorites;
-    }
-
-    public void setFavorites(Boolean favorites) {
-        this.favorites = favorites;
-    }
-
-    @Override
-    public String toString() {
-        return "Article{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", pictures=" + pictures +
-                ", category='" + category + '\'' +
-                ", color='" + color + '\'' +
-                ", price=" + price +
-                ", rating=" + rating +
-                ", favoris=" + favorites +
-                ", quantity=" + quantity+
-                '}';
-    }
 }
-

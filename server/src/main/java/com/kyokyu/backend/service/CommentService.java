@@ -24,24 +24,20 @@ public class CommentService {
         return commentRepository.findAll();
     }
 
-    public Comment findCommentById(String id) {
-        return commentRepository.findById(id)
-                .orElseThrow(() -> new Error("User by id " + id + " was not found"));
+    public List<Comment> findCommentById(String id) {
+        return commentRepository.findCommentById(id);
     }
 
-    public Comment findCommentByUsername(String username) {
-        return commentRepository.findCommentByUsername(username)
-                .orElseThrow(() -> new Error("User by username " + username + " was not found"));
+    public List<Comment> findCommentByUsername(String username) {
+        return commentRepository.findCommentByUsername(username);
     }
 
-    public Comment findCommentByIdArticle(String idArticle) {
-        return commentRepository.findCommentByIdArticle(idArticle)
-                .orElseThrow(() -> new Error("User by username " + idArticle + " was not found"));
+    public List<Comment> findCommentByIdArticle(String idArticle) {
+        return commentRepository.findCommentByIdArticle(idArticle);
     }
 
-    public Comment findCommentByRating(Double rating) {
-        return commentRepository.findCommentByRating(rating)
-                .orElseThrow(() -> new Error("User by username " + rating + " was not found"));
+    public List<Comment> findCommentByRating(Double rating) {
+        return commentRepository.findCommentByRating(rating);
     }
 
 

@@ -1,9 +1,14 @@
 package com.kyokyu.backend.service;
 
 import com.kyokyu.backend.models.Commande;
+import com.kyokyu.backend.models.User;
 import com.kyokyu.backend.repository.CommandeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -28,16 +33,11 @@ public class CommandeService {
                 .orElseThrow(() -> new Error("User by id " + id + " was not found"));
     }
 
-    public Commande findCommandeByUsername(String username) {
-        return commandeRepository.findCommandeByUsername(username)
-                .orElseThrow(() -> new Error("User by username " + username + " was not found"));
+    public List<Commande> findCommandeByUsername(String username) {
+        return commandeRepository.findAllCommandeByUsername(username);
+
     }
 
-    /*
-    public Commande findCommandeByArticleId(String articleId) {
-        return commandeRepository.findCommandeByUserName(articleId)
-                .orElseThrow(() -> new Error("Article  by articleId " + articleId + " was not found"));
-    }*/
 
 
 }
