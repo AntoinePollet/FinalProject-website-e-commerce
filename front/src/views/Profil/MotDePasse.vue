@@ -2,7 +2,7 @@
   <div class="navigation">
     <ProfilNavigation />
     <Breadcrumb :items="links" />
-    <v-container class="col-lg-5 mt-8">
+    <v-container class="col-lg-5">
       <v-card flat>
         <h2 class="pt-5">Modifier mon mot de passe</h2>
         <v-form ref="form" v-model="validForm" class="pt-5">
@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import ProfilNavigation from './ProfilNavigation.vue';
-import Breadcrumb from '../Breadcrumb.vue';
+import ProfilNavigation from '../../components/Profil/ProfilNavigation.vue';
+import Breadcrumb from '../../components/Breadcrumb.vue';
 import { mapState } from 'vuex';
 export default {
   name: 'MotDePasse',

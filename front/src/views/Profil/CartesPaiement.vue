@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import ProfilNavigation from './ProfilNavigation.vue';
-import Breadcrumb from '../Breadcrumb.vue';
+import ProfilNavigation from '../../components/Profil/ProfilNavigation.vue';
+import Breadcrumb from '../../components/Breadcrumb.vue';
 export default {
   name: 'CartesPaiement',
   components: { ProfilNavigation, Breadcrumb },

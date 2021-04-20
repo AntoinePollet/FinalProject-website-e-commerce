@@ -1,7 +1,6 @@
 <template>
   <v-app>
     <Breadcrumb :items="links" />
-    <v-main>
       <h1>Vos recherches</h1>
       <div class="d-flex mt-9">
         <v-col class="filter col-3 ml-4">
@@ -39,14 +38,13 @@
           <ArticlesComponent :items="filteredItems" />
         </v-col>
       </div>
-    </v-main>
   </v-app>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import ArticlesComponent from './ArticlesComponent.vue';
-import Breadcrumb from './Breadcrumb.vue';
+import ArticlesComponent from '../components/ArticlesComponent.vue';
+import Breadcrumb from '../components/Breadcrumb.vue';
 export default {
   name: 'Search',
   components: { ArticlesComponent, Breadcrumb },

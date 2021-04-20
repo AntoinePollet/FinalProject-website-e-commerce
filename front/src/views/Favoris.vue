@@ -49,7 +49,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import Breadcrumb from './Breadcrumb.vue';
+import Breadcrumb from '../components/Breadcrumb.vue';
 export default {
   name: 'Favoris',
   components: { Breadcrumb },

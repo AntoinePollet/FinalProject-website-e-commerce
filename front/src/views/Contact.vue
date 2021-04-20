@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import Breadcrumb from './Breadcrumb.vue';
+import Breadcrumb from '../components/Breadcrumb.vue';
 export default {
   name: 'Contact',
   components: { Breadcrumb },

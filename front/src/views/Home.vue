@@ -1,21 +1,20 @@
 <template>
   <v-app class="application">
     <Breadcrumb :items="links" />
-    <v-main>
       <div :style="{ width: '90%', margin: 'auto' }">
-        <PopularArticles :items="fav" />
+        <PopularArticles :items="fav"/>
         <h1 class="mb-5">Tous nos articles</h1>
         <ArticlesComponent :items="items" />
       </div>
-    </v-main>
+    
   </v-app>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import ArticlesComponent from './ArticlesComponent.vue';
-import PopularArticles from './PopularArticles.vue';
-import Breadcrumb from './Breadcrumb.vue';
+import ArticlesComponent from '../components/ArticlesComponent.vue';
+import PopularArticles from '../components/PopularArticles.vue';
+import Breadcrumb from '../components/Breadcrumb.vue';
 export default {
   name: 'Home',
   data() {

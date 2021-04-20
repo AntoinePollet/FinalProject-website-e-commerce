@@ -177,6 +177,7 @@ export default {
       return '../assets/KyoKyu.png';
     },
     isAdmin() {
+      console.log(this.role);
       if (this.role.includes('ROLE_ADMIN')) {
         return true;
       } else return false;

@@ -10,6 +10,7 @@ const user = {
     token: '',
     username: '',
     user: {},
+    userInfos: {},
     commentArticle: []
   },
   getters: {
@@ -54,19 +55,12 @@ const user = {
   mutations: {
     SIGNUP(state, payload) {},
     SIGNIN(state, payload) {
-      if (payload.saveInfo) {
-        const user = {
-          token: payload.accessToken,
-          username: payload.username,
-          email: payload.email
-        };
-        localStorage.setItem('user', JSON.stringify(user));
-      }
-      state.token = payload.accessToken;
+      state.token = payload.token;
       state.role = payload.roles;
       state.username = payload.username;
       state.user['username'] = payload.username;
       state.user['email'] = payload.email;
+      state.user['id'] = payload.id;
       state.isAuth = true;
     },
     LOGOUT(state) {
@@ -92,6 +86,9 @@ const user = {
     },
     ADD_COMMENT(state, response) {
       state.commentArticle.push(response);
+    },
+    USER_INFOS(state, response) {
+      console.log(response);
     }
   },
   actions: {
@@ -110,10 +107,37 @@ const user = {
           ...response.data,
           saveInfo: payload.saveInfos
         };
-        commit('SIGNIN', infos);
+        const user = {
+          token: infos.accessToken,
+          username: infos.username,
+          email: infos.email,
+          roles: infos.roles
+        };
+        localStorage.setItem('user', JSON.stringify(user));
+        commit('SIGNIN', user);
       } catch (error) {
         throw error;
       }
+    },
+    async autologin({ commit }, token) {
+      try {
+        const response = await axios
+          .create({
+            baseURL: this.url,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: 'Bearer ' + token
+            }
+          })
+          .post(`${url}auth/session`, { token });
+        const user = {
+          token,
+          username: response.data.username,
+          email: response.data.email,
+          roles: response.data.roles
+        };
+        commit('SIGNIN', user);
+      } catch (error) {}
     },
     logout({ commit }) {
       commit('LOGOUT');
@@ -174,6 +198,27 @@ const user = {
       } catch (error) {
         console.log(error);
       }
+    },
+    async userInformations({ commit, state }, body) {
+      try {
+        const response = await axios
+          .create({
+            baseURL: this.url,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: 'Bearer ' + state.token
+            }
+          })
+          .put(`${url}user/updateInfos/${state.user.id}`, body);
+        commit('USER_INFOS', response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getInformations({ commit, state }) {
+      try {
+        const response = await axios.get(`${url}user/find/${state.username}`);
+      } catch (error) {}
     }
   }
 };

@@ -12,7 +12,7 @@
               <v-text-field placeholder="Code postal" outlined dense />
               <v-text-field placeholder="Ville" outlined dense />
               <v-text-field
-                placeholder="numéro de téléphone"
+                placeholder="Numéro de téléphone"
                 outlined
                 dense
                 hint="Peut être utilisé pour faciliter le livraison"
@@ -43,8 +43,8 @@
 
 <script>
 import { mapState } from 'vuex';
-import SigninComponent from './SigninComponent.vue';
-import Breadcrumb from './Breadcrumb.vue';
+import SigninComponent from '../components/SigninComponent.vue';
+import Breadcrumb from '../components/Breadcrumb.vue';
 export default {
   name: 'livraison',
   components: { SigninComponent, Breadcrumb },

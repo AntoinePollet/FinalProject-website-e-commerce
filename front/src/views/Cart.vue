@@ -76,7 +76,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import Breadcrumb from './Breadcrumb.vue';
+import Breadcrumb from '../components/Breadcrumb.vue';
 import colors from '../data/colors.json';
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';

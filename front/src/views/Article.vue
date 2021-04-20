@@ -86,10 +86,10 @@
 </template>
 
 <script>
-import Comments from './Comments.vue';
+import Comments from '../components/Comments.vue';
 import colors from '../data/colors.json';
 import { mapState, mapGetters } from 'vuex';
-import Breadcrumb from './Breadcrumb.vue';
+import Breadcrumb from '../components/Breadcrumb.vue';
 export default {
   name: 'Article',
   components: { Comments, Breadcrumb },

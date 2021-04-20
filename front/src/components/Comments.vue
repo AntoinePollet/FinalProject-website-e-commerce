@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ ordered }}
     <h1 class="pb-5">Avis ({{ comments.length }})</h1>
     <div v-if="comments.length != 0">
       <div
@@ -17,7 +16,6 @@
         </div>
       </div>
     </div>
-
     <div v-else>Aucun Commentaire</div>
     <div v-if="ordered && loggedIn">
       <div v-if="!commented">

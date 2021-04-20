@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="mb-5">Nos articles les plus populaires</h1>
+    <h1 class="mb-10">Nos articles les plus populaires</h1>
     <v-col>
       <v-row v-if="items.length !== 0" class="d-flex justify-center">
         <div v-for="item in items" :key="item.id" class="col-3 mx-4 mb-5 pa-0">

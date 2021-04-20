@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Breadcrumb from './Breadcrumb.vue';
+import Breadcrumb from '../components/Breadcrumb.vue';
 export default {
   name: 'Aboutus',
   components: { Breadcrumb },

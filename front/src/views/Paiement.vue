@@ -8,7 +8,7 @@
         class="pink lighten-2 white--text font-weight-bold"
         @click="submit"
         :disabled="disabled"
-        >Purchase</v-btn
+        >Valider</v-btn
       >
     </v-main>
   </div>
@@ -16,7 +16,7 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-import Breadcrumb from './Breadcrumb.vue';
+import Breadcrumb from '../components/Breadcrumb.vue';
 
 let elements = undefined;
 let card = undefined;
