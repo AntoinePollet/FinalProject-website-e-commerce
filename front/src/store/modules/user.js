@@ -4,11 +4,11 @@ const url = 'https://kyokyubackend.herokuapp.com/api/v1/';
 const user = {
   namespaced: true,
   state: {
-    isAuth: true,
+    isAuth: false,
     commands: [],
     role: [],
     token: '',
-    username: 'user1',
+    username: '',
     user: {},
     commentArticle: []
   },
