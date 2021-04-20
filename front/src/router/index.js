@@ -1,32 +1,34 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from 'vue';
+import Router from 'vue-router';
 
-import Home from '../components/Home.vue'
-import Cart from '../components/Cart.vue'
-import Livraison from '../components/Livraison.vue'
-import Search from '../components/Search.vue'
-import Article from '../components/Article.vue'
-import Contact from '../components/Contact.vue'
-import Favoris from '../components/Favoris.vue'
-import Paiement from '../components/Paiement.vue'
-import Success from '../components/Success.vue'
-import Cancel from '../components/Cancel.vue'
-import Profil from '../components/Profil/Profil.vue'
-import Commandes from '../components/Profil/Commandes.vue'
-import Command from '../components/Profil/Command.vue'
-import Informations from '../components/Profil/Informations.vue'
-import MotDePasse from '../components/Profil/MotDePasse.vue'
-import CartesPaiement from '../components/Profil/CartesPaiement.vue'
-import Admin from '../components/Profil/Admin.vue'
+import Home from '../components/Home.vue';
+import Cart from '../components/Cart.vue';
+import Livraison from '../components/Livraison.vue';
+import Search from '../components/Search.vue';
+import Article from '../components/Article.vue';
+import Contact from '../components/Contact.vue';
+import AboutUs from '../components/AboutUs.vue';
+import Copyright from '../components/Copyright.vue';
+import Favoris from '../components/Favoris.vue';
+import Paiement from '../components/Paiement.vue';
+import Success from '../components/Success.vue';
+import Cancel from '../components/Cancel.vue';
+import Profil from '../components/Profil/Profil.vue';
+import Commandes from '../components/Profil/Commandes.vue';
+import Command from '../components/Profil/Command.vue';
+import Informations from '../components/Profil/Informations.vue';
+import MotDePasse from '../components/Profil/MotDePasse.vue';
+import CartesPaiement from '../components/Profil/CartesPaiement.vue';
+import Admin from '../components/Profil/Admin.vue';
 
-import store from '../store/index.js'
+import store from '../store/index.js';
 
-Vue.use(Router)
+Vue.use(Router);
 
-const originalPush = Router.prototype.push
-Router.prototype.push = function push (location) {
-  return originalPush.call(this, location).catch((err) => err)
-}
+const originalPush = Router.prototype.push;
+Router.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err);
+};
 
 const router = new Router({
   mode: 'history',
@@ -63,6 +65,16 @@ const router = new Router({
       path: '/contact',
       name: 'contact',
       component: Contact
+    },
+    {
+      path: '/aboutus',
+      name: 'aboutus',
+      component: AboutUs
+    },
+    {
+      path: '/copyright',
+      name: 'copyright',
+      component: Copyright
     },
     {
       path: '/profil',
@@ -151,37 +163,37 @@ const router = new Router({
       }
     }
   ]
-})
+});
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    const logged = store.state.user.isAuth
+    const logged = store.state.user.isAuth;
     if (!logged) {
       next({
         path: '/',
         query: { redirect: to.fullPath }
-      })
+      });
     } else {
-      next()
+      next();
     }
   } else {
-    next()
+    next();
   }
 
   if (to.matched.some(record => record.meta.role)) {
-    const logged = store.state.user.isAuth
-    const role = store.state.user.role
+    const logged = store.state.user.isAuth;
+    const role = store.state.user.role;
     if (!role.includes('ROLE_ADMIN') && !logged) {
       next({
         path: '/',
         query: { redirect: to.fullPath }
-      })
+      });
     } else {
-      next()
+      next();
     }
   } else {
-    next()
+    next();
   }
-})
+});
 
-export default router
+export default router;

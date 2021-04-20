@@ -1,5 +1,6 @@
 <template>
   <v-main>
+    <Breadcrumb :items="links" />
     <div>
       <h2>Commande numéro {{ $route.params.id }}</h2>
       <div v-if="command.articles && command.articles.length">
@@ -35,8 +36,28 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import Breadcrumb from '../Breadcrumb.vue';
 export default {
   name: 'command',
+  components: { Breadcrumb },
+  data() {
+    return {
+      links: [
+        {
+          text: 'Home',
+          to: '/'
+        },
+        {
+          text: 'Commandes',
+          to: '/profil/commandes'
+        },
+        {
+          text: `${this.$route.params.id}`,
+          disabled: true
+        }
+      ]
+    };
+  },
   beforeRouteEnter(to, from, next) {
     next(async vm => {
       if (vm.$store.state.user.commands) {

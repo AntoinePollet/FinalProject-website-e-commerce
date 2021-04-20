@@ -1,19 +1,20 @@
 <template>
   <div class="navigation">
     <ProfilNavigation />
+    <Breadcrumb :items="links" />
     <v-container>
-      <v-breadcrumbs>Home</v-breadcrumbs>
       <div v-if="commands.length !== 0">
         <h1 class="pb-5">Vos commandes</h1>
         <div
           v-for="item in commands"
           :key="item.id"
-          class="d-flex justify-content-between"
+          class="d-flex justify-space-between"
         >
           <div>
             <p
               @click="
-                $router.push({ name: 'command', params: { id: item.id } })"
+                $router.push({ name: 'command', params: { id: item.id } })
+              "
             >
               Numéro de commande : {{ item.id }}
             </p>
@@ -27,11 +28,26 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import ProfilNavigation from './ProfilNavigation.vue';
+import Breadcrumb from '../Breadcrumb.vue';
 export default {
   name: 'Commandes',
-  components: { ProfilNavigation },
+  components: { ProfilNavigation, Breadcrumb },
+  data() {
+    return {
+      links: [
+        {
+          text: 'Home',
+          to: '/',
+        },
+        {
+          text: 'Commandes',
+          disabled: true
+        }
+      ]
+    }
+  },
   computed: {
     ...mapState({
       username: state => state.user.username,

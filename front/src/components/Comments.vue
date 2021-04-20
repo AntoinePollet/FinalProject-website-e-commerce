@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{ ordered }}
     <h1 class="pb-5">Avis ({{ comments.length }})</h1>
     <div v-if="comments.length != 0">
       <div

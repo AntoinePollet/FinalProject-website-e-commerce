@@ -90,7 +90,7 @@
           v-on="on"
           v-bind="attrs"
         >
-          Sign in
+          Se connecter
         </p>
       </template>
       <Signin @signup="signupDialog" @closeSignin="closeSignin" />
@@ -105,7 +105,7 @@
           v-on="on"
           v-bind="attrs"
         >
-          Sign up
+          S'inscrire
         </p>
       </template>
       <Signup @signin="signinDialog" />

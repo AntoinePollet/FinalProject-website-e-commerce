@@ -4,11 +4,11 @@ const url = 'https://kyokyubackend.herokuapp.com/api/v1/';
 const user = {
   namespaced: true,
   state: {
-    isAuth: false,
+    isAuth: true,
     commands: [],
     role: [],
     token: '',
-    username: '',
+    username: 'user1',
     user: {},
     commentArticle: []
   },
@@ -29,10 +29,10 @@ const user = {
           return acc;
         }, [])
         .reduce((acc, item) => {
-          if (acc[item.idArticle]) {
-            acc[item.idArticle] = acc[item.idArticle] + item.quantity;
+          if (acc[item.id]) {
+            acc[item.id] = acc[item.id] + item.quantity;
           } else {
-            acc[item.idArticle] = item.quantity;
+            acc[item.id] = item.quantity;
           }
           return acc;
         }, {});
