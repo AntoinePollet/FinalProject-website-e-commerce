@@ -2,7 +2,7 @@
   <v-app-bar app class="navbar">
     <div>
       <router-link
-        to="/"
+        to="/home"
         class="d-flex justify-center align-center navigation-home white--text"
         style="box-shadow: 0"
       >
@@ -85,7 +85,7 @@
       <template v-slot:activator="{ on, attrs }">
         <p
           v-show="!isAuth"
-          class="black--text mb-0 mr-2 ml-3"
+          class=" signinBtn black--text mb-0 mr-2 ml-3 pa-2"
           text
           v-on="on"
           v-bind="attrs"
@@ -100,7 +100,7 @@
       <template v-slot:activator="{ on, attrs }">
         <p
           v-show="!isAuth"
-          class="signup-text white--text mb-0 ml-2 py-2 px-2"
+          class="signup-text white--text mb-0 ml-2 pa-2"
           text
           v-on="on"
           v-bind="attrs"
@@ -206,7 +206,7 @@ export default {
     logout() {
       if (this.$store.state.user.isAuth) {
         this.$store.dispatch('user/logout');
-        this.$router.push('/');
+        this.$router.push('/home');
       }
     },
     signinDialog() {
@@ -247,12 +247,22 @@ export default {
     color: rgb(0, 0, 0);
   }
 }
+
+.signinBtn {
+  border-radius: 10px;
+}
+.signinBtn:hover {
+  background-color: rgb(197, 180, 180);
+}
 .menu-list {
   margin-top: 45px;
 }
 .signup-text {
   background-color: #48cae4;
   border-radius: 12px;
+}
+.signup-text:hover {
+  background-color: #2d9fb6;
 }
 .router-link-exact-active {
   box-shadow: #48cae4 0 2px 0 0, inset #48cae4 0 -1px 0 0;

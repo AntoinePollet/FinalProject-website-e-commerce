@@ -33,7 +33,10 @@
         outlined
       />
       <v-card-actions class="pa-0"
-        ><v-btn class="teal white--text" width="100%" @click="signup"
+        ><v-btn
+          class="signupBtn white--text font-weight-bold"
+          width="100%"
+          @click="signup"
           >Valider</v-btn
         ></v-card-actions
       >
@@ -106,7 +109,9 @@ export default {
             role: ['user']
           };
           await this.$store.dispatch('user/signup', payload);
+          this.$emit('closeSignup');
           this.$refs.form.reset();
+          this.$router.push('/home');
         }
       } catch (error) {
         this.$snotify.error('erreur lors de la création du compte');
@@ -118,6 +123,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.signupBtn {
+  background-color: #0077b6 !important;
+}
+
 .word {
   color: #0077b6;
   font-weight: bold;

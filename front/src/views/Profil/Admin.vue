@@ -1,6 +1,7 @@
 <template>
   <div class="navigation">
     <ProfilNavigation />
+    <Breadcrumb :items="links" />
     <v-container>
       <v-card>
         <v-data-table :headers="headers" :items="items" :search="search" dense>
@@ -180,13 +181,27 @@
 
 <script>
 import ProfilNavigation from '../../components/Profil/ProfilNavigation.vue';
+import Breadcrumb from '../../components/Breadcrumb.vue';
 import { mapState } from 'vuex';
 
 export default {
   name: 'Admin',
-  components: { ProfilNavigation },
+  components: { ProfilNavigation, Breadcrumb },
   data() {
     return {
+      links: [
+        {
+          text: 'Home',
+          to: '/'
+        },
+        {
+          text: 'Profil',
+          disabled: true
+        },
+        {
+          text: 'Admin'
+        }
+      ],
       search: '',
       valid: false,
       dialog: false,
@@ -323,7 +338,6 @@ export default {
             if (this.numberOfImageLink) {
               await this.$store.dispatch('cart/addArticle', this.editedItem);
               await this.$store.dispatch('cart/getItems');
-              this.items.push(this.editedItem);
               this.close();
             } else {
               this.$snotify.error('2 à 4 images requises');

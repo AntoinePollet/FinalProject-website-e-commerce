@@ -18,13 +18,11 @@
         :rules="passwordRule"
         outlined
       />
-      <v-checkbox
-        class="mt-0"
-        label="se souvenir de moi"
-        v-model="rememberMe"
-      />
       <v-card-actions class="pa-0"
-        ><v-btn class="teal white--text" width="100%" @click="signin"
+        ><v-btn
+          class="signinBtn white--text font-weight-bold"
+          width="100%"
+          @click="signin"
           >Se connecter</v-btn
         ></v-card-actions
       >
@@ -46,7 +44,6 @@ export default {
       validForm: true,
       username: '',
       password: '',
-      rememberMe: false,
       goTo: '/',
       usernameRule: [v => !!v || 'username requis !'],
       passwordRule: [
@@ -75,8 +72,7 @@ export default {
         if (this.$refs.form.validate()) {
           const payload = {
             username: this.username,
-            password: this.password,
-            saveInfos: this.rememberMe
+            password: this.password
           };
           await this.$store.dispatch('user/signin', payload);
           await this.$store.dispatch(
@@ -96,6 +92,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.signinBtn {
+  background-color: #0077b6 !important;
+}
 .word {
   color: #0077b6;
   font-weight: bold;

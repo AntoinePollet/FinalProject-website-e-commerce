@@ -2,7 +2,7 @@
   <div class="navigation">
     <ProfilNavigation />
     <Breadcrumb :items="links" />
-    <v-container>
+    <v-container class="col-8">
       <div v-if="commands.length !== 0">
         <h1 class="pb-5">Vos commandes</h1>
         <v-simple-table>
@@ -26,16 +26,15 @@
             <tbody>
               <tr v-for="item in commands" :key="item.name">
                 <td>{{ item.id }}</td>
-                <td>{{ new Date(item.date.substring(0, 10)) }}</td>
-                <td>{{ date(item.date.substring(0, 10)) }}</td>
+                <td>{{ date(item.date) }}</td>
+                <td>{{ status(item.date.substring(0, 10)) }}</td>
                 <td>
                   <v-btn
                     @click="
                       $router.push({
                         name: 'command',
                         params: { id: item.id }
-                      })
-                    "
+                      })"
                     >+</v-btn
                   >
                 </td>
@@ -82,6 +81,9 @@ export default {
   },
   methods: {
     date(date) {
+      return date.substring(0, 10)
+    },
+    status(date) {
       let livraison = new Date(date);
       let twoWeeksLater = new Date();
       twoWeeksLater.setDate(livraison.getDate() + 2 * 7);

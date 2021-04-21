@@ -2,8 +2,8 @@
   <div>
     <Breadcrumb :items="links" />
     <div>
-      <div v-if="command.articles && command.articles.length">
-        <v-container>
+      <div v-if="command.articles && command.articles.length" class="pt-5">
+        <v-container class="col-8">
           <v-simple-table>
             <template v-slot:default>
               <thead>

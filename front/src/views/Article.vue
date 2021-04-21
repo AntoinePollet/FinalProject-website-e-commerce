@@ -7,8 +7,8 @@
           <v-col class="col-2">
             <v-row
               class="justify-end py-3"
-              v-for="picture in product.pictures"
-              :key="picture"
+              v-for="(picture, index) in product.pictures"
+              :key="index"
             >
               <v-img
                 :src="picture"
@@ -36,7 +36,9 @@
                 dense
                 half-increments
                 background-color="blue-grey lighten-2"
-              /><span v-if="getRating != null">({{ getRating }})</span>
+              /><span v-if="getRating != null"
+                >({{ Math.round(getRating * 10) / 10 }})</span
+              >
             </div>
             <v-row class="d-flex align-center">
               <v-avatar><img :src="product.pictures[0]"/></v-avatar>

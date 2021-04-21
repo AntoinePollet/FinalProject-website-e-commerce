@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
+import FourOFour from '../views/FourOFour.vue';
+import Start from '../views/Start.vue';
 import Home from '../views/Home.vue';
 import Cart from '../views/Cart.vue';
 import Livraison from '../views/Livraison.vue';
@@ -34,7 +36,19 @@ const router = new Router({
   mode: 'history',
   routes: [
     {
+      path: '*',
+      name: '404',
+      components: {
+        default: require('../views/FourOFour.vue').default
+      }
+    },
+    {
       path: '/',
+      name: 'start',
+      component: Start
+    },
+    {
+      path: '/home',
       name: 'home',
       component: Home
     },

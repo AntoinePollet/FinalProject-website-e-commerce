@@ -56,7 +56,6 @@ const user = {
   mutations: {
     SIGNUP(state, payload) {},
     SIGNIN(state, payload) {
-      console.log(payload);
       state.token = payload.token;
       state.role = payload.roles;
       state.username = payload.username;
@@ -90,10 +89,8 @@ const user = {
       state.commentArticle.push(response);
     },
     USER_INFOS(state, response) {
-      console.log(response);
     },
     GET_INFORMATIONS(state, payload) {
-      console.log(payload);
       state.userInfos = payload;
     }
   },
@@ -147,7 +144,8 @@ const user = {
         commit('SIGNIN', user);
       } catch (error) {}
     },
-    logout({ commit }) {
+    logout({ rootState, commit }) {
+      rootState.cart.cart = [];
       commit('LOGOUT');
     },
     async getCommands({ commit }, user) {

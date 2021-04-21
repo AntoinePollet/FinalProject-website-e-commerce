@@ -23,12 +23,14 @@
             />
             <div class="d-flex">
               <v-checkbox
+                color="pink lighten-2"
                 label="Mr"
                 v-model="civiliteMr"
                 :disabled="civiliteMme"
                 class="ml-5 mt-0"
               />
               <v-checkbox
+                color="pink lighten-2"
                 label="Mme"
                 v-model="civiliteMme"
                 :disabled="civiliteMr"
