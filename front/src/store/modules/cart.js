@@ -97,10 +97,12 @@ const cart = {
           quantity: newQuantity <= 10 ? newQuantity : 10
         };
         commit('UPDATE_CART', newItem);
+        /*
         const response = await axios.put(
           `${url}shoppingCart/update/${item.id}`,
           newItem
         );
+        */
         if (newQuantity > 10) {
           return {
             type: 'warning',
@@ -112,10 +114,12 @@ const cart = {
           message: 'item updated'
         };
       } else {
+        /*
         const response = await axios.put(
           `${url}shoppingCart/update/${item.id}`,
           item
         );
+        */
         commit('ADD_TO_CART', item);
         return {
           type: 'success',
