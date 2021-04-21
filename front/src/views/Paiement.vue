@@ -32,7 +32,7 @@ export default {
         {
           link: true,
           text: 'Home',
-          to: '/'
+          to: '/home'
         },
         {
           link: false,

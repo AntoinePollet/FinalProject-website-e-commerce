@@ -2,9 +2,7 @@
   <v-app class="application">
     <Breadcrumb :items="links" />
     <div :style="{ width: '90%', margin: 'auto' }">
-      <!--
-      <PopularArticles :items="items" />
-      -->
+      <PopularArticles :items="fav" />
       <h1 class="mb-5">Tous nos articles</h1>
       <ArticlesComponent :items="items" />
     </div>
@@ -31,14 +29,9 @@ export default {
   components: { ArticlesComponent, PopularArticles, Breadcrumb },
   computed: {
     ...mapState({
-      items: state => state.cart.articles
-    }),
-    ...mapGetters({
-      getPopularArticles: 'cart/getPopularArticles'
-    }),
-    pop() {
-      return this.getPopularArticles(this.items);
-    }
+      items: state => state.cart.articles,
+      fav: state => state.cart.fav
+    })
   },
 
   beforeRouteEnter(to, from, next) {

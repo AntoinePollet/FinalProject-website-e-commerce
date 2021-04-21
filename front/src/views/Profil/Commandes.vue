@@ -60,7 +60,7 @@ export default {
       links: [
         {
           text: 'Home',
-          to: '/'
+          to: '/home'
         },
         {
           text: 'Profil',

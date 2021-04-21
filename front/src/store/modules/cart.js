@@ -6,7 +6,8 @@ const cart = {
   namespaced: true,
   state: {
     cart: [],
-    articles: []
+    articles: [],
+    fav: []
   },
   getters: {
     getCart: state => {
@@ -26,15 +27,6 @@ const cart = {
         acc = acc + item.price * item.quantity;
         return acc;
       }, 0);
-    },
-    getPopularArticles: state => items => {
-      let listItems = _.cloneDeep(items);
-      let arr = [];
-      let random = Math.floor(Math.random() * state.articles.length);
-      const item = listItems.indexOf(random);
-      arr.push(item);
-
-      return arr;
     }
   },
   mutations: {
@@ -49,10 +41,26 @@ const cart = {
       );
     },
     GET_ITEMS(state, items) {
+      state.fav = [];
       state.articles = [];
       items.map(item => {
         state.articles.push(item);
       });
+      let listItems = _.cloneDeep(items);
+      for (let j = 0; j < 4; j++) {
+        let i = 0;
+        let item = {};
+        let higherRating = 0;
+        while (i < listItems.length) {
+          if (higherRating < listItems[i].rating) {
+            higherRating = listItems[i].rating;
+            item = listItems[i];
+          }
+          i++;
+        }
+        state.fav.push(item);
+        listItems.splice(listItems.indexOf(item), 1);
+      }
     },
     GET_ITEM(state, item) {
       if (state.articles.find(article => article.id === item.id)) {
