@@ -53,7 +53,7 @@
               <v-card-actions class="justify-center"
                 ><v-btn
                   class="pink light-gray px-3 py-3"
-                  @click="$router.push({ name: 'livraison' })"
+                  @click="next"
                   text
                   color="white"
                   >Suivant</v-btn
@@ -124,6 +124,13 @@ export default {
     }
   },
   methods: {
+    next() {
+      if (this.$store.state.user.isAuth) {
+        this.$router.push({ name: 'livraison' });
+      } else {
+        this.$snotify.error('Vous devez être connecté');
+      }
+    },
     removeItem(item, index) {
       this.$store.dispatch('cart/removeCartItem', index);
     },
