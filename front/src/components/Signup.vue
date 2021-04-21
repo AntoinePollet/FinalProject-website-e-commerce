@@ -107,6 +107,7 @@ export default {
           };
           await this.$store.dispatch('user/signup', payload);
           this.$refs.form.reset();
+          this.$router.push('/');
         }
       } catch (error) {
         this.$snotify.error('erreur lors de la création du compte');

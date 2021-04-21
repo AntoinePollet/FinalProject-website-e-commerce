@@ -7,8 +7,8 @@
           <v-col class="col-2">
             <v-row
               class="justify-end py-3"
-              v-for="picture in product.pictures"
-              :key="picture"
+              v-for="(picture, index) in product.pictures"
+              :key="index"
             >
               <v-img
                 :src="picture"
