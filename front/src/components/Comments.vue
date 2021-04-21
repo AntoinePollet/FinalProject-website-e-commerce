@@ -22,6 +22,8 @@
         <v-form ref="form">
           <div class="col-2">
             <v-rating
+              color="pink lighten-2"
+              background-color="pink lighten-0"
               hover
               v-model="rating"
               length="5"

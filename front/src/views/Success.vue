@@ -2,7 +2,7 @@
   <v-main
     ><h1>Paiement validé</h1>
     <div>
-      <v-btn to="/" class="pink lighten-2 font-weight-bold white--text"
+      <v-btn to="/home" class="pink lighten-2 font-weight-bold white--text"
         >Retour au magasin</v-btn
       >
     </div></v-main

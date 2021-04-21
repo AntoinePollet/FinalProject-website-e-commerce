@@ -1,17 +1,18 @@
 <template>
   <v-app class="application">
     <Breadcrumb :items="links" />
-      <div :style="{ width: '90%', margin: 'auto' }">
-        <PopularArticles :items="fav"/>
-        <h1 class="mb-5">Tous nos articles</h1>
-        <ArticlesComponent :items="items" />
-      </div>
-    
+    <div :style="{ width: '90%', margin: 'auto' }">
+      <!--
+      <PopularArticles :items="items" />
+      -->
+      <h1 class="mb-5">Tous nos articles</h1>
+      <ArticlesComponent :items="items" />
+    </div>
   </v-app>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 import ArticlesComponent from '../components/ArticlesComponent.vue';
 import PopularArticles from '../components/PopularArticles.vue';
 import Breadcrumb from '../components/Breadcrumb.vue';
@@ -30,16 +31,20 @@ export default {
   components: { ArticlesComponent, PopularArticles, Breadcrumb },
   computed: {
     ...mapState({
-      items: state => state.cart.articles,
-      fav: state => state.cart.fav
-    })
+      items: state => state.cart.articles
+    }),
+    ...mapGetters({
+      getPopularArticles: 'cart/getPopularArticles'
+    }),
+    pop() {
+      return this.getPopularArticles(this.items);
+    }
   },
 
   beforeRouteEnter(to, from, next) {
     next(async vm => {
       if (vm.$store.state.cart.articles.length <= 1) {
         await vm.$store.dispatch('cart/getItems');
-        await vm.$store.dispatch('cart/getFav');
       }
     });
   },
