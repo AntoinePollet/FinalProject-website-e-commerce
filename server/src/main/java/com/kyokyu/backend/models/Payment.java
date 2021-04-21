@@ -27,19 +27,19 @@ public class Payment {
 
     private List<CommandeArticles> array;
 
-    private Address address;
+    private Delivery delivery;
 
 
     public Payment() {
     }
 
 
-    public Payment(String username, String token, int amount, List<CommandeArticles> array, Address address) {
+    public Payment(String username, String token, int amount, List<CommandeArticles> array, Delivery delivery) {
         this.username = username;
         this.token = token;
         this.amount = amount;
         this.array = array;
-        this.address = address;
+        this.delivery = delivery;
     }
 
     public String getId() {
@@ -82,11 +82,11 @@ public class Payment {
         this.array = array;
     }
 
-    public Address getAddress() {
-        return address;
+    public Delivery getDelivery() {
+        return delivery;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
     }
 }

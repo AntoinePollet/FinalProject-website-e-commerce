@@ -1,14 +1,19 @@
 package com.kyokyu.backend.security.jwt;
 
+import com.kyokyu.backend.models.User;
+import com.kyokyu.backend.repository.UserRepository;
 import com.kyokyu.backend.security.services.UserDetailsImpl;
+import com.kyokyu.backend.service.UserService;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Component
 public class JwtUtils {
@@ -19,6 +24,9 @@ public class JwtUtils {
 
     @Value("${kyokyu.app.jwtExpirationMs}")
     private int jwtExpirationMs;
+
+    @Autowired
+    UserRepository userRepository;
 
     public String generateJwtToken(Authentication authentication) {
 
@@ -35,6 +43,12 @@ public class JwtUtils {
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
     }
+
+    public String getUserNameFromJwtTokenTest(String token) {
+        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+    }
+
+
 
     public boolean validateJwtToken(String authToken) {
         try {

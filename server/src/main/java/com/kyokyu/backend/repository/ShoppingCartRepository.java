@@ -10,7 +10,7 @@ public interface ShoppingCartRepository extends MongoRepository<ShoppingCart, St
 
     Optional<ShoppingCart> findShoppingCartById(String id);
 
-    Optional<ShoppingCart> findShoppingCartByIdUser(String username);
+    Optional<ShoppingCart> findByIdUserName(String username);
 
 
 }

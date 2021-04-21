@@ -24,7 +24,7 @@ public class StripeService {
             Map<String, Object> chargeParams = new HashMap<>();
             chargeParams.put("amount", amount);
             chargeParams.put("currency", "usd");
-            chargeParams.put("description", "Charge for Test " + email);
+            chargeParams.put("description", "KyoKyu Charge for " + email);
             chargeParams.put("source", token); // ^ obtained with Stripe.js
 
             //create a charge

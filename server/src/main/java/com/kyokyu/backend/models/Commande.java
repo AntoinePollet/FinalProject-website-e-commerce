@@ -30,26 +30,26 @@ public class Commande {
 
     private Double total;
 
-    private Address address;
+    private Delivery deliveryAddress;
 
 
     public Commande() {
     }
 
-    public Commande(List<CommandeArticles> articles, Date date, String username, Double total, Address address) {
+    public Commande(List<CommandeArticles> articles, Date date, String username, Double total, Delivery deliveryAddress) {
         this.articles = articles;
         this.date = date;
         this.username = username;
         this.total = total;
-        this.address = address;
+        this.deliveryAddress = deliveryAddress;
     }
 
-    public Address getAddress() {
-        return address;
+    public Delivery getDelivery() {
+        return deliveryAddress;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setDelivery(Delivery deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
     }
 
     public String getId() {

@@ -1,15 +1,8 @@
 package com.kyokyu.backend.controllers;
 
-
-
-import com.kyokyu.backend.models.Address;
 import com.kyokyu.backend.models.User;
-
 import com.kyokyu.backend.models.UserInfos;
-import com.kyokyu.backend.repository.RoleRepository;
-import com.kyokyu.backend.repository.ShoppingCartRepository;
 import com.kyokyu.backend.repository.UserRepository;
-import com.kyokyu.backend.security.jwt.JwtUtils;
 import com.kyokyu.backend.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +34,7 @@ public class UserController {
     }
 
 
-    @GetMapping("/find/{username}")
+    @GetMapping("/findByUsername/{username}")
     @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<User> getUserByUsername (@PathVariable("username") String username) {
         User user = userService.findByUsername(username);
@@ -55,6 +48,14 @@ public class UserController {
         List<User> users = userService.findAllUser();
         logger.info("getAllUsers : {}", users);
         return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @GetMapping("/find/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    public ResponseEntity<User> getUserById (@PathVariable("id") String id) {
+        User user = userService.findById(id);
+        logger.info("getUserByUsername : {}", user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
 
@@ -71,7 +72,6 @@ public class UserController {
         logger.info("user infos updated : {}", updateUserById);
         return new ResponseEntity<>(updateUserById, HttpStatus.OK);
     }
-
 
 
 

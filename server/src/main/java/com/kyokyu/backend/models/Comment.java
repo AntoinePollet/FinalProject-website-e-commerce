@@ -30,9 +30,6 @@ public class Comment {
 
     private Double rating = null;
 
-    //private Boolean firstRating = false;
-
-
 
     public Comment() {
     }
@@ -43,17 +40,9 @@ public class Comment {
         this.username = username;
         this.message = message;
         this.rating = rating;
-       // this.firstRating = firstRating;
 
     }
 
-  /*  public Boolean getFirstRating() {
-        return firstRating;
-    }*/
-
-   /* public void setFirstRating(Boolean firstRating) {
-        this.firstRating = firstRating;
-    }*/
 
     public String getId() {
         return id;

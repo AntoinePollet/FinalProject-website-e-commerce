@@ -19,24 +19,23 @@ public class ShoppingCart {
     private String id;
 
     //ref
-    private List<String> idArticle;
-
     private Date date;
+    private List<CommandeArticles> articles;
 
     // ref
-    private String idUser;
-    private Double price;
+    private String username;
+    private Double total = 0.0;
 
 
     public ShoppingCart() {
     }
 
 
-    public ShoppingCart(List<String> idArticle, Date date, String idUser, Double price) {
-        this.idArticle = idArticle;
+    public ShoppingCart(List<CommandeArticles> articles, Date date, String username, Double total) {
+        this.articles = articles;
         this.date = date;
-        this.idUser = idUser;
-        this.price = price;
+        this.username = username;
+        this.total = total;
     }
 
 
@@ -48,12 +47,12 @@ public class ShoppingCart {
         this.id = id;
     }
 
-    public List<String> getIdArticle() {
-        return idArticle;
+    public List<CommandeArticles> getArticles() {
+        return articles;
     }
 
-    public void setIdArticle(List<String> idArticle) {
-        this.idArticle = idArticle;
+    public void setArticles(List<CommandeArticles> articles) {
+        this.articles = articles;
     }
 
     public Date getDate() {
@@ -64,30 +63,30 @@ public class ShoppingCart {
         this.date = date;
     }
 
-    public String getIdUser() {
-        return idUser;
+    public String getUsername() {
+        return username;
     }
 
-    public void setIdUser(String idUser) {
-        this.idUser = idUser;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public Double getPrice() {
-        return price;
+    public Double getTotal() {
+        return total;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setTotal(Double total) {
+        this.total = total;
     }
 
     @Override
     public String toString() {
         return "ShoppingCart{" +
                 "id='" + id + '\'' +
-                ", idArticle=" + idArticle +
+                ", articles =" + articles +
                 ", date=" + date +
-                ", idUser=" + idUser +
-                ", price=" + price +
+                ", username=" + username +
+                ", total=" + total +
                 '}';
     }
 }

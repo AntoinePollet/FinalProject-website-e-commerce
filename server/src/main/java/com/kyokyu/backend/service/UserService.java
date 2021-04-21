@@ -1,8 +1,6 @@
 package com.kyokyu.backend.service;
 
 
-import com.kyokyu.backend.models.Address;
-import com.kyokyu.backend.models.Article;
 import com.kyokyu.backend.models.User;
 import com.kyokyu.backend.models.UserInfos;
 import com.kyokyu.backend.repository.UserRepository;
@@ -32,6 +30,11 @@ public class UserService {
     public User findByUsername(String username) {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new Error("User by username " + username + " was not found"));
+    }
+
+    public User findById(String id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new Error("User by id " + id + " was not found"));
     }
 
 

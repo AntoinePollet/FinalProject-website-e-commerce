@@ -55,7 +55,7 @@ public class PaymentController {
             return new ResponseEntity<>("An error occurred while trying to create a charge.", HttpStatus.NOT_FOUND);
         }
 
-        Commande commande = new Commande(payment.getArray(),new Date(), payment.getUsername(), (double) payment.getAmount(), payment.getAddress());
+        Commande commande = new Commande(payment.getArray(),new Date(), payment.getUsername(), (double) payment.getAmount(), payment.getDelivery());
 
         commandeRepository.save(commande);
 

@@ -2,16 +2,19 @@ package com.kyokyu.backend.controllers;
 
 import com.kyokyu.backend.models.*;
 import com.kyokyu.backend.payload.request.LoginRequest;
+import com.kyokyu.backend.payload.request.SessionRequest;
 import com.kyokyu.backend.payload.request.SignupRequest;
 import com.kyokyu.backend.payload.request.UserUpdateInfo;
 import com.kyokyu.backend.payload.response.JwtResponse;
 import com.kyokyu.backend.payload.response.MessageResponse;
+import com.kyokyu.backend.payload.response.SessionResponse;
 import com.kyokyu.backend.repository.RoleRepository;
 import com.kyokyu.backend.repository.ShoppingCartRepository;
 import com.kyokyu.backend.repository.UserRepository;
 import com.kyokyu.backend.security.jwt.JwtUtils;
 import com.kyokyu.backend.security.services.UserDetailsImpl;
 import com.kyokyu.backend.service.UserService;
+import io.jsonwebtoken.Jwts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +50,7 @@ public class AuthController {
 
     @Autowired
     PasswordEncoder encoder;
+
 
     @Autowired
     JwtUtils jwtUtils;
@@ -107,10 +111,10 @@ public class AuthController {
                 encoder.encode(signUpRequest.getPassword()));
 
 
-        List<String> articleS = new ArrayList() {{
+        List<CommandeArticles> articles = new ArrayList() {{
 
         }};
-        ShoppingCart shoppingCart = new ShoppingCart(articleS,new Date(),user.getUsername(),1.0);
+        ShoppingCart shoppingCart = new ShoppingCart(articles,new Date(),user.getUsername(),1.0);
 
         Set<String> strRoles = signUpRequest.getRoles();
         Set<Role> roles = new HashSet<>();
@@ -141,6 +145,36 @@ public class AuthController {
 
         logger.info("new user registered successfully: {}", signUpRequest.getUsername());
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    }
+
+
+    /*   @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")*/
+    @PostMapping("/session")
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SessionRequest sessionRequest) {
+
+        try{
+            Optional<User> userData = userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(sessionRequest.getToken()));
+
+            if (userData.isPresent()) {
+                // Create new user's account
+                User userD = userData.get();
+
+                Set<?> roles = Collections.singleton(userD.getRoles().stream().map(line -> line.getName()));
+
+                SessionResponse sessionResponse = new SessionResponse(userD.getId(),userD.getUsername(),
+                        userD.getEmail(), roles, sessionRequest.getToken());
+                //sessionResponse.setRoles(roles);
+
+                return  new ResponseEntity<>(sessionResponse, HttpStatus.OK);
+            }else {
+                return ResponseEntity
+                        .badRequest()
+                        .body(new MessageResponse("Error: token doesn't exist!"));
+            }
+        }catch(Exception e){
+            return  new ResponseEntity<>("token error", HttpStatus.OK);
+        }
+
     }
 
     @PutMapping("/changePassword")
