@@ -36,7 +36,7 @@
                 dense
                 half-increments
                 background-color="blue-grey lighten-2"
-              />({{ getRating }})
+              /><span v-if="getRating != null">({{ getRating }})</span>
             </div>
             <v-row class="d-flex align-center">
               <v-avatar><img :src="product.pictures[0]"/></v-avatar>
@@ -59,7 +59,9 @@
             <v-row>
               <p v-if="product.quantity">
                 Disponible, Il reste
-                <span class="font-weight-black">{{ product.quantity - this.quantity }}</span>
+                <span class="font-weight-black">{{
+                  product.quantity - this.quantity
+                }}</span>
                 articles
               </p>
               <p v-else class="text-decoration-line-through">Indisponible</p>

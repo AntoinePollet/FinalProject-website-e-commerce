@@ -7,12 +7,17 @@
         <h2 class="mb-3 pt-5 title-info">Mes informations</h2>
         <v-form ref="form" v-model="valid" :lazy-validation="true">
           <p class="text-left mb-1">Nom</p>
-          <v-text-field v-model="lastname" :rules="nameRule" outlined dense />
+          <v-text-field
+            v-model="lastname"
+            :rules="lastnameRule"
+            outlined
+            dense
+          />
           <p class="text-left mb-1">Prenom</p>
           <div class="d-flex">
             <v-text-field
               v-model="firstname"
-              :rules="lastNameRule"
+              :rules="firstnameRule"
               outlined
               dense
             />
@@ -41,7 +46,7 @@
             dense
           />
           <p class="text-left mb-1">Adresse</p>
-          <v-text-field v-model="address" :rules="addressRule" outlined dense />
+          <v-text-field v-model="street" :rules="addressRule" outlined dense />
           <div class="d-flex">
             <div class="col-6 pa-0 pr-2">
               <p class="text-left mb-1">Ville</p>
@@ -94,18 +99,13 @@ export default {
         }
       ],
       valid: true,
-      lastname: '',
-      firstname: '',
       civiliteMr: false,
       civiliteMme: false,
-      address: '',
-      city: '',
-      postalCode: '',
-      nameRule: [
+      firstnameRule: [
         v => !!v || 'Name est obligatoire',
         v => /^[a-zA-Z]+$/.test(v) || 'Name incorrect'
       ],
-      lastNameRule: [
+      lastnameRule: [
         v => !!v || 'Last name est obligatoire',
         v => /^[a-zA-Z]+$/.test(v) || 'Prénom incorrect'
       ],
@@ -117,20 +117,74 @@ export default {
       ],
       addressRule: [v => !!v || 'Adresse est obligatoire'],
       cityRule: [v => !!v || 'Ville est obligatoire'],
-      postalRule: [v => !!v || 'Code postal est obligatoire']
+      postalRule: [
+        v => !!v || 'Code postal est obligatoire',
+        v => (v && v.lenght !== 5) || 'CodePostal doit être égal à 5'
+      ]
     };
   },
   beforeRouteEnter(to, from, next) {
     next(async vm => {
       try {
-        await this.$store.dispatch('user/getInformations');
-      } catch (error) {}
+        await vm.$store.dispatch(
+          'user/getInformations',
+          vm.$store.state.user.id
+        );
+      } catch (error) {
+        console.log(error);
+      }
     });
+  },
+  watch: {
+    userInfos() {
+      if (this.userInfos.sexe === 'H') this.civiliteMr = true;
+      else this.civiliteMme = true;
+    }
   },
   computed: {
     ...mapState({
       userInfos: state => state.user.userInfos
     }),
+    firstname: {
+      get() {
+        return this.userInfos?.firstname || '';
+      },
+      set(nv) {
+        this.userInfos.firstname = nv;
+      }
+    },
+    lastname: {
+      get() {
+        return this.userInfos?.lastname || '';
+      },
+      set(nv) {
+        this.userInfos.lastname = nv;
+      }
+    },
+    street: {
+      get() {
+        return this.userInfos?.address?.street || '';
+      },
+      set(nv) {
+        this.userInfos.address.street = nv;
+      }
+    },
+    city: {
+      get() {
+        return this.userInfos?.address?.city || '';
+      },
+      set(nv) {
+        this.userInfos.address.city = nv;
+      }
+    },
+    postalCode: {
+      get() {
+        return this.userInfos?.address?.postalCode || '';
+      },
+      set(nv) {
+        this.userInfos.address.postalCode = nv;
+      }
+    },
     path() {
       return this.$route.path;
     },
@@ -145,7 +199,7 @@ export default {
       const address = {
         city: this.city,
         postalCode: this.postalCode,
-        street: this.address
+        street: this.street
       };
       return address;
     }

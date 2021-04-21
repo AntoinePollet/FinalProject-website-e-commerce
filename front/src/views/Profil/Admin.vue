@@ -38,79 +38,99 @@
                   <v-divider></v-divider>
                   <v-card-text>
                     <v-container>
-                      <v-row>
-                        <v-col cols="12" sm="6" md="6">
-                          <v-text-field
-                            v-model="editedItem.name"
-                            label="Nom de l'article"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="12" sm="6" md="6">
-                          <v-text-field
-                            append-icon="€"
-                            v-model="editedItem.price"
-                            label="Prix"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="12" sm="6" md="6">
-                          <v-text-field
-                            v-model="editedItem.quantity"
-                            label="Quantity"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="12" sm="12" md="12">
-                          <v-textarea
-                            v-model="editedItem.description"
-                            label="Description"
-                          ></v-textarea>
-                        </v-col>
-                        <v-col cols="12" sm="12" md="12">
-                          <div
-                            v-for="(item, index) in editedItem.color"
-                            :key="item.name"
-                            class="d-flex"
-                          >
+                      <v-form ref="form" v-model="valid">
+                        <v-row>
+                          <v-col cols="12" sm="6" md="6">
                             <v-text-field
-                              v-model="editedItem.color[index]"
-                              label="Couleurs"
+                              v-model="editedItem.name"
+                              label="Nom de l'article"
+                              :rules="nameRules"
                             ></v-text-field>
-                            <div v-if="index === 0" class="d-flex align-center">
-                              <v-btn @click="addColor"
-                                ><v-icon>mdi-plus</v-icon></v-btn
-                              >
-                            </div>
-                            <div v-else class="d-flex align-center">
-                              <v-btn @click="deleteColor(index)" class="error"
-                                ><v-icon>mdi-delete</v-icon></v-btn
-                              >
-                            </div>
-                          </div>
-                        </v-col>
-                        <v-col cols="12" sm="12" md="12">
-                          <div
-                            v-for="(item, index) in editedItem.pictures"
-                            :key="item.name"
-                            class="d-flex"
-                          >
+                          </v-col>
+                          <v-col cols="12" sm="6" md="6">
                             <v-text-field
-                              v-model="editedItem.pictures[index]"
-                              label="Lien images"
+                              append-icon="€"
+                              v-model="editedItem.price"
+                              label="Prix"
+                              :rules="priceRules"
                             ></v-text-field>
-                            <div v-if="index === 0" class="d-flex align-center">
-                              <v-btn @click="addPictures(index)"
-                                ><v-icon>mdi-plus</v-icon></v-btn
+                          </v-col>
+                          <v-col cols="12" sm="6" md="6">
+                            <v-text-field
+                              v-model="editedItem.quantity"
+                              label="Quantity"
+                            ></v-text-field>
+                          </v-col>
+                          <v-col cols="12" sm="6" md="6">
+                            <v-text-field
+                              v-model="editedItem.category"
+                              label="Catégorie"
+                              :rules="categoryRules"
+                            ></v-text-field>
+                          </v-col>
+                          <v-col cols="12" sm="12" md="12">
+                            <v-textarea
+                              v-model="editedItem.description"
+                              label="Description"
+                              :rules="descriptionRules"
+                            ></v-textarea>
+                          </v-col>
+                          <v-col cols="12" sm="12" md="12">
+                            <div
+                              v-for="(item, index) in editedItem.color"
+                              :key="item.name"
+                              class="d-flex"
+                            >
+                              <v-text-field
+                                v-model="editedItem.color[index]"
+                                label="Couleurs"
+                                :rules="colorRules"
+                              ></v-text-field>
+                              <div
+                                v-if="index === 0"
+                                class="d-flex align-center"
                               >
+                                <v-btn @click="addColor"
+                                  ><v-icon>mdi-plus</v-icon></v-btn
+                                >
+                              </div>
+                              <div v-else class="d-flex align-center">
+                                <v-btn @click="deleteColor(index)" class="error"
+                                  ><v-icon>mdi-delete</v-icon></v-btn
+                                >
+                              </div>
                             </div>
-                            <div v-else class="d-flex align-center">
-                              <v-btn
-                                @click="deletePictures(index)"
-                                class="error"
-                                ><v-icon>mdi-delete</v-icon></v-btn
+                          </v-col>
+                          <v-col cols="12" sm="12" md="12">
+                            <div
+                              v-for="(item, index) in editedItem.pictures"
+                              :key="item.name"
+                              class="d-flex"
+                            >
+                              <v-text-field
+                                v-model="editedItem.pictures[index]"
+                                label="Lien images"
+                                :rules="picturesRules"
+                              ></v-text-field>
+                              <div
+                                v-if="index === 0"
+                                class="d-flex align-center"
                               >
+                                <v-btn @click="addPictures(index)"
+                                  ><v-icon>mdi-plus</v-icon></v-btn
+                                >
+                              </div>
+                              <div v-else class="d-flex align-center">
+                                <v-btn
+                                  @click="deletePictures(index)"
+                                  class="error"
+                                  ><v-icon>mdi-delete</v-icon></v-btn
+                                >
+                              </div>
                             </div>
-                          </div>
-                        </v-col>
-                      </v-row>
+                          </v-col>
+                        </v-row>
+                      </v-form>
                     </v-container>
                   </v-card-text>
                   <v-card-actions>
@@ -168,8 +188,23 @@ export default {
   data() {
     return {
       search: '',
+      valid: false,
       dialog: false,
       dialogDelete: false,
+      nameRules: [v => !!v || 'Nom est requis'],
+      priceRules: [
+        v => !!v || 'Prix est requis',
+        v => /^\d+$/.test(v) || 'Prix est un nombre'
+      ],
+      categoryRules: [v => !!v || 'Catégorie est requis'],
+      descriptionRules: [
+        v => !!v || 'Description est requis',
+        v =>
+          v.length < 250 || 'La description ne peut pas dépasser 250 caractères'
+      ],
+      colorRules: [v => !!v || 'Couleur est requise'],
+      picturesRules: [v => !!v || 'Lien image requise'],
+
       headers: [
         {
           text: 'Nom',
@@ -188,6 +223,7 @@ export default {
         price: 0,
         quantity: 0,
         description: '',
+        category: '',
         color: [''],
         pictures: ['']
       },
@@ -196,6 +232,7 @@ export default {
         price: 0,
         quantity: 0,
         description: '',
+        category: '',
         color: [''],
         pictures: ['']
       }
@@ -210,16 +247,24 @@ export default {
     }
   },
   beforeRouteEnter(to, from, next) {
-    next(vm => {
+    next(async vm => {
       if (vm.$store.state.cart.articles.length <= 1) {
-        vm.$store.dispatch('cart/getItems');
+        await vm.$store.dispatch('cart/getItems');
       }
     });
   },
   computed: {
     ...mapState({
       items: state => state.cart.articles
-    })
+    }),
+    numberOfImageLink() {
+      if (
+        this.editedItem.pictures.length > 1 &&
+        this.editedItem.pictures.length <= 4
+      )
+        return true;
+      else return false;
+    }
   },
   methods: {
     addColor() {
@@ -274,11 +319,18 @@ export default {
         // Je remplace
       } else {
         try {
-          await this.$store.dispatch('cart/addArticle', this.editedItem);
+          if (this.$refs.form.validate()) {
+            if (this.numberOfImageLink) {
+              await this.$store.dispatch('cart/addArticle', this.editedItem);
+              await this.$store.dispatch('cart/getItems');
+              this.items.push(this.editedItem);
+              this.close();
+            } else {
+              this.$snotify.error('2 à 4 images requises');
+            }
+          }
         } catch (error) {}
-        this.items.push(this.editedItem);
       }
-      this.close();
     }
   }
 };

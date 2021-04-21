@@ -9,6 +9,7 @@ const user = {
     role: [],
     token: '',
     username: '',
+    id: '',
     user: {},
     userInfos: {},
     commentArticle: []
@@ -55,12 +56,13 @@ const user = {
   mutations: {
     SIGNUP(state, payload) {},
     SIGNIN(state, payload) {
+      console.log(payload);
       state.token = payload.token;
       state.role = payload.roles;
       state.username = payload.username;
+      state.id = payload.id;
       state.user['username'] = payload.username;
       state.user['email'] = payload.email;
-      state.user['id'] = payload.id;
       state.isAuth = true;
     },
     LOGOUT(state) {
@@ -89,6 +91,10 @@ const user = {
     },
     USER_INFOS(state, response) {
       console.log(response);
+    },
+    GET_INFORMATIONS(state, payload) {
+      console.log(payload);
+      state.userInfos = payload;
     }
   },
   actions: {
@@ -111,7 +117,8 @@ const user = {
           token: infos.accessToken,
           username: infos.username,
           email: infos.email,
-          roles: infos.roles
+          roles: infos.roles,
+          id: infos.id
         };
         localStorage.setItem('user', JSON.stringify(user));
         commit('SIGNIN', user);
@@ -134,7 +141,8 @@ const user = {
           token,
           username: response.data.username,
           email: response.data.email,
-          roles: response.data.roles
+          roles: response.data.roles,
+          id: response.data.id
         };
         commit('SIGNIN', user);
       } catch (error) {}
@@ -209,16 +217,27 @@ const user = {
               Authorization: 'Bearer ' + state.token
             }
           })
-          .put(`${url}user/updateInfos/${state.user.id}`, body);
+          .put(`${url}user/updateInfos/${state.id}`, body);
         commit('USER_INFOS', response.data);
       } catch (error) {
         console.log(error);
       }
     },
-    async getInformations({ commit, state }) {
+    async getInformations({ commit, state }, id) {
       try {
-        const response = await axios.get(`${url}user/find/${state.username}`);
-      } catch (error) {}
+        const response = await axios
+          .create({
+            baseURL: this.url,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: 'Bearer ' + state.token
+            }
+          })
+          .get(`${url}user/find/${id}`);
+        commit('GET_INFORMATIONS', response.data);
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 };

@@ -171,6 +171,7 @@ router.beforeEach(async (to, from, next) => {
     if (localStorage.getItem('user')) {
       let user = JSON.parse(localStorage.getItem('user'));
       await store.dispatch('user/autologin', user.token);
+      await store.dispatch('user/getCommands', user.username);
     }
   }
   if (to.matched.some(record => record.meta.requiresAuth)) {
