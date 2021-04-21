@@ -17,7 +17,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import ProfilNavigation from './ProfilNavigation.vue';
+import ProfilNavigation from '../../components/Profil/ProfilNavigation.vue';
 export default {
 	name: 'Profil',
 	components: { ProfilNavigation },

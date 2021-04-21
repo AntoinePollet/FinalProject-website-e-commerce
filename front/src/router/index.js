@@ -1,24 +1,34 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from 'vue';
+import Router from 'vue-router';
 
-import Home from '../components/Home.vue'
-import Cart from '../components/Cart.vue'
-import Livraison from '../components/Livraison.vue'
-import Search from '../components/Search.vue'
-import Article from '../components/Article.vue'
-import Contact from '../components/Contact.vue'
-import Favoris from '../components/Favoris.vue'
-import Paiement from '../components/Paiement.vue'
-import Success from '../components/Success.vue'
-import Cancel from '../components/Cancel.vue'
-import Profil from '../components/Profil/Profil.vue'
-import Commandes from '../components/Profil/Commandes.vue'
-import Informations from '../components/Profil/Informations.vue'
-import MotDePasse from '../components/Profil/MotDePasse.vue'
-import CartesPaiement from '../components/Profil/CartesPaiement.vue'
-import Admin from '../components/Profil/Admin.vue'
+import Home from '../views/Home.vue';
+import Cart from '../views/Cart.vue';
+import Livraison from '../views/Livraison.vue';
+import Search from '../views/Search.vue';
+import Article from '../views/Article.vue';
+import Contact from '../views/Contact.vue';
+import AboutUs from '../views/AboutUs.vue';
+import Copyright from '../views/Copyright.vue';
+import Favoris from '../views/Favoris.vue';
+import Paiement from '../views/Paiement.vue';
+import Success from '../views/Success.vue';
+import Cancel from '../views/Cancel.vue';
+import Profil from '../views/Profil/Profil.vue';
+import Commandes from '../views/Profil/Commandes.vue';
+import Command from '../views/Profil/Command.vue';
+import Informations from '../views/Profil/Informations.vue';
+import MotDePasse from '../views/Profil/MotDePasse.vue';
+import CartesPaiement from '../views/Profil/CartesPaiement.vue';
+import Admin from '../views/Profil/Admin.vue';
 
-Vue.use(Router)
+import store from '../store/index.js';
+
+Vue.use(Router);
+
+const originalPush = Router.prototype.push;
+Router.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err);
+};
 
 const router = new Router({
   mode: 'history',
@@ -57,9 +67,22 @@ const router = new Router({
       component: Contact
     },
     {
+      path: '/aboutus',
+      name: 'aboutus',
+      component: AboutUs
+    },
+    {
+      path: '/copyright',
+      name: 'copyright',
+      component: Copyright
+    },
+    {
       path: '/profil',
       name: 'profil',
-      component: Profil
+      component: Profil,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/favoris',
@@ -93,46 +116,91 @@ const router = new Router({
     {
       path: '/profil/commandes',
       name: 'commandes',
-      component: Commandes
+      component: Commandes,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/profil/commandes/:id',
+      name: 'command',
+      component: Command,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/profil/informations',
       name: 'informations',
-      component: Informations
+      component: Informations,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/profil/cartesdepaiement',
       name: 'cartesdepaiement',
-      component: CartesPaiement
+      component: CartesPaiement,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/profil/motdepasse',
       name: 'MotDePasse',
-      component: MotDePasse
+      component: MotDePasse,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/profil/admin',
       name: 'Admin',
-      component: Admin
+      component: Admin,
+      meta: {
+        requiresAuth: true,
+        role: 'ROLE_ADMIN'
+      }
     }
   ]
-})
-/*
-router.beforeEach((to, from, next) => {
+});
+
+router.beforeEach(async (to, from, next) => {
+  const logged = store.state.user.isAuth;
+  if (!logged) {
+    if (localStorage.getItem('user')) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      await store.dispatch('user/autologin', user.token);
+      await store.dispatch('user/getCommands', user.username);
+    }
+  }
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    // this route requires auth, check if logged in
-    // if not, redirect to login page.
-    if (!auth.loggedIn()) {
+    if (!logged) {
       next({
         path: '/',
         query: { redirect: to.fullPath }
-      })
+      });
     } else {
-      next()
+      next();
     }
   } else {
-    next() // make sure to always call next()!
+    next();
   }
-})
-*/
-export default router
+
+  if (to.matched.some(record => record.meta.role)) {
+    const logged = store.state.user.isAuth;
+    const role = store.state.user.role;
+    if (!role.includes('ROLE_ADMIN') && !logged) {
+      next({
+        path: '/',
+        query: { redirect: to.fullPath }
+      });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});
+
+export default router;
