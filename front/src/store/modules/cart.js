@@ -6,7 +6,8 @@ const cart = {
   namespaced: true,
   state: {
     cart: [],
-    articles: []
+    articles: [],
+    fav: []
   },
   getters: {
     getCart: state => {
@@ -26,15 +27,6 @@ const cart = {
         acc = acc + item.price * item.quantity;
         return acc;
       }, 0);
-    },
-    getPopularArticles: state => items => {
-      let listItems = _.cloneDeep(items);
-      let arr = [];
-      let random = Math.floor(Math.random() * state.articles.length);
-      const item = listItems.indexOf(random);
-      arr.push(item);
-
-      return arr;
     }
   },
   mutations: {
@@ -49,10 +41,26 @@ const cart = {
       );
     },
     GET_ITEMS(state, items) {
+      state.fav = [];
       state.articles = [];
       items.map(item => {
         state.articles.push(item);
       });
+      let listItems = _.cloneDeep(items);
+      for (let j = 0; j < 4; j++) {
+        let i = 0;
+        let item = {};
+        let higherRating = 0;
+        while (i < listItems.length) {
+          if (higherRating < listItems[i].rating) {
+            higherRating = listItems[i].rating;
+            item = listItems[i];
+          }
+          i++;
+        }
+        state.fav.push(item);
+        listItems.splice(listItems.indexOf(item), 1);
+      }
     },
     GET_ITEM(state, item) {
       if (state.articles.find(article => article.id === item.id)) {
@@ -99,12 +107,12 @@ const cart = {
         if (newQuantity > 10) {
           return {
             type: 'warning',
-            message: 'quantité set à 10'
+            message: 'quantité max atteinte'
           };
         }
         return {
           type: 'success',
-          message: 'item updated'
+          message: `${item.name} mis à jour`
         };
       } else {
         /*
@@ -116,7 +124,7 @@ const cart = {
         commit('ADD_TO_CART', item);
         return {
           type: 'success',
-          message: 'item added'
+          message: `${item.name} ajouté au panier x${item.quantity}`
         };
       }
     },
@@ -152,7 +160,7 @@ const cart = {
           .post(`${url}stripe/payment`, body);
         commit('PAYMENT', response.data);
       } catch (error) {
-        console.log(error);
+        throw error;
       }
     },
     async addArticle({ rootState, commit, state }, body) {

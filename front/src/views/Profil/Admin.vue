@@ -2,7 +2,7 @@
   <div class="navigation">
     <ProfilNavigation />
     <Breadcrumb :items="links" />
-    <v-container>
+    <v-container class="col-8">
       <v-card>
         <v-data-table :headers="headers" :items="items" :search="search" dense>
           <template v-slot:top>
@@ -192,7 +192,7 @@ export default {
       links: [
         {
           text: 'Home',
-          to: '/'
+          to: '/home'
         },
         {
           text: 'Profil',

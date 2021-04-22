@@ -32,7 +32,7 @@ export default {
         {
           link: true,
           text: 'Home',
-          to: '/'
+          to: '/home'
         },
         {
           link: false,
@@ -79,9 +79,10 @@ export default {
             'user/getCommands',
             this.$store.state.user.username
           );
-          this.$snotify.success('Commande validé avec succès');
+
           this.$router.push({ name: 'success' });
           this.disabled = false;
+          this.$snotify.success('Commande validé avec succès');
         } catch (error) {
           this.$snotify.error('Erreur lors de la commande');
           this.$router.push({ name: 'cancel' });

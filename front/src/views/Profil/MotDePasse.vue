@@ -50,7 +50,7 @@ export default {
       links: [
         {
           text: 'Home',
-          to: '/'
+          to: '/home'
         },
         {
           text: 'Profil',
@@ -108,8 +108,14 @@ export default {
           };
           try {
             await this.$store.dispatch('user/changePassword', body);
+            this.$snotify.success('Mot de passe modifié !');
             this.$refs.form.reset();
-          } catch (error) {}
+          } catch (error) {
+            console.log(error);
+            this.$snotify.error(
+              'Erreur lors de la modification du mot de passe'
+            );
+          }
         } else {
           this.$snotify.error('Les mots de passe ne sont pas identiques');
         }

@@ -36,9 +36,7 @@
                 dense
                 half-increments
                 background-color="blue-grey lighten-2"
-              /><span v-if="getRating != null"
-                >({{ Math.round(getRating * 10) / 10 }})</span
-              >
+              /><span v-if="getRating != null">({{ getRating }})</span>
             </div>
             <v-row class="d-flex align-center">
               <v-avatar><img :src="product.pictures[0]"/></v-avatar>
@@ -108,7 +106,7 @@ export default {
         {
           link: true,
           text: 'Home',
-          to: '/'
+          to: '/home'
         },
         {
           link: false,
@@ -137,8 +135,10 @@ export default {
       return this.img;
     },
     getRating() {
-      if (this.ratingArticle)
-        return this?.ratingArticle / this?.comments?.length;
+      if (this.ratingArticle) {
+        let rating = this?.ratingArticle / this?.comments?.length;
+        return Math.round(rating * 10) / 10;
+      }
     }
   },
   watch: {

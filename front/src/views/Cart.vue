@@ -52,18 +52,20 @@
               </h2>
               <v-card-actions class="justify-center"
                 ><v-btn
-                  class="pink light-gray px-3 py-3"
+                  class="pink lighten-2 font-weight-bold px-3 py-3"
                   @click="next"
                   text
                   color="white"
                   >Suivant</v-btn
                 ></v-card-actions
               >
+              <!--
               <v-card-actions class="justify-center">
                 <v-btn class="teal" @click="pdf()" text color="white"
                   >Télécharger</v-btn
                 ></v-card-actions
               >
+              -->
             </div>
           </div>
         </v-container>
@@ -89,7 +91,7 @@ export default {
       links: [
         {
           text: 'Home',
-          to: '/'
+          to: '/home'
         },
         {
           text: 'Panier',
