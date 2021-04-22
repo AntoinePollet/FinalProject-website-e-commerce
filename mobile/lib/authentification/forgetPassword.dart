@@ -1,65 +1,35 @@
 import 'dart:convert';
 
-import 'file:///C:/Users/elias/Desktop/Projects/Projet-e-commerce/FinalProject-website-e-commerce/mobile/lib/pages/home.dart';
+
 import 'file:///C:/Users/elias/Desktop/Projects/Projet-e-commerce/FinalProject-website-e-commerce/mobile/lib/model/Users.dart';
-import 'package:app_e_commerce/authentification/RegisterConnexion.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import'package:app_e_commerce/constante.dart' as Constante;
+import 'loginsuser.dart';
 
-import 'forgetPassword.dart';
-
-class Loginusers extends StatefulWidget {
-  Loginusers({Key key}) : super(key: key);
+class Forgetpass extends StatefulWidget {
+  Forgetpass({Key key}) : super(key: key);
 
   @override
-  _LoginusersState createState() => _LoginusersState();
+  _Forgetpass createState() => _Forgetpass();
 }
 
-class _LoginusersState extends State<Loginusers> {
+class _Forgetpass extends State<Forgetpass> {
   final _formKey = GlobalKey<FormState>();
-  Users user = Users("", "","","",[],"");
-  String url = "${Constante.BASE_URL}/api/v1/auth/signin";
+  Users user =  Users("", "","","",[],"");
+  String url = "${Constante.BASE_URL}/api/v1/auth/changePassword";
+
 
   Future save() async {
-    print('debut de la requette');
+
     var res = await http.post(Uri.parse(url),
         headers: {'Content-Type': 'application/json'},
-        body: json.encode({'username': user.username, 'password': user.password,'role':user.role}));
-    if (res.statusCode == 200) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HomePage(),
-          ));
-    }else{
-      _showDialog();
+        body: json.encode({'username': user.username,'email': user.email, 'password': user.password}));
+    if (res.body != null) {
+      Navigator.pop(context);
     }
-
   }
 
-  void _showDialog() {
-    // flutter defined function
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text("WARNING"),
-          content: new Text("Erreur Account"),
-          actions: <Widget>[
-            // usually buttons at the bottom of the dialog
-            new FlatButton(
-              child: new Text("Close"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,7 +39,7 @@ class _LoginusersState extends State<Loginusers> {
             child: Column(
               children: [
                 Container(
-                  height: 750,
+                  height: 820,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     color: Color.fromRGBO(233, 65, 82, 1),
@@ -90,15 +60,11 @@ class _LoginusersState extends State<Loginusers> {
                         SizedBox(
                           height: 100,
                         ),
-                        Text("Login",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 50,
-                              color: Colors.white,
-                            )),
+                        Text("Change password",style:TextStyle(fontWeight: FontWeight.bold,fontSize: 50, color: Colors.white)),
                         SizedBox(
-                          height: 30,
+                          height: 60,
                         ),
+                        ////////////////
                         Align(
                           alignment: Alignment.topLeft,
                           child: Text(
@@ -135,6 +101,7 @@ class _LoginusersState extends State<Loginusers> {
                         SizedBox(
                           height: 60,
                         ),
+                        ////////////////
                         Align(
                           alignment: Alignment.topLeft,
                           child: Text(
@@ -155,7 +122,7 @@ class _LoginusersState extends State<Loginusers> {
                           },
                           validator: (value) {
                             if (value.isEmpty) {
-                              return 'Password is Empty';
+                              return 'Email is Empty';
                             }
                             return null;
                           },
@@ -176,30 +143,12 @@ class _LoginusersState extends State<Loginusers> {
                         Center(
                           child: InkWell(
                             onTap: () {
-                              Navigator.push(
-                                  context,
+                              Navigator.pop(context,
                                   MaterialPageRoute(
-                                      builder: (context) => RegisterConnexion()));
+                                      builder: (context) => Loginusers()));
                             },
                             child: Text(
-                              "Dont have Account ?",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  color: Colors.white),
-                            ),
-                          ),
-                        ),
-                        Center(
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Forgetpass()));
-                            },
-                            child: Text(
-                              "Forget Pass  ?",
+                              "Already have Account ?",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20,
@@ -207,7 +156,6 @@ class _LoginusersState extends State<Loginusers> {
                             ),
                           ),
                         )
-
                       ],
                     ),
                   ),
@@ -223,6 +171,9 @@ class _LoginusersState extends State<Loginusers> {
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
                           save();
+                          Navigator.pop(context,
+                              MaterialPageRoute(
+                                  builder: (context) => Loginusers()));
                         }
                       },
                       shape: RoundedRectangleBorder(

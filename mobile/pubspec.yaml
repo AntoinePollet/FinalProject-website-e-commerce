@@ -26,6 +26,9 @@ dependencies:
   carousel_pro: ^1.0.0
   http: any
   shared_preferences: any
+  scoped_model: ^1.0.1
+  google_fonts: ^1.1.0
+
 
 
 

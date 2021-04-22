@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:app_e_commerce/authentification/Users.dart';
+import 'file:///C:/Users/elias/Desktop/Projects/Projet-e-commerce/FinalProject-website-e-commerce/mobile/lib/model/Users.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import'package:app_e_commerce/constante.dart' as Constante;
@@ -14,8 +14,8 @@ class RegisterConnexion extends StatefulWidget {
 
 class _RegisterConnexionState extends State<RegisterConnexion> {
   final _formKey = GlobalKey<FormState>();
-  Users user = Users("", "", "","");
-  String url = "${Constante.BASE_URL}/api/auth/signup";
+  Users user =  Users("", "","","",[],"");
+  String url = "${Constante.BASE_URL}/api/v1/auth/signup";
 
 
   Future save() async {
@@ -23,8 +23,7 @@ class _RegisterConnexionState extends State<RegisterConnexion> {
     var res = await http.post(Uri.parse(url),
         headers: {'Content-Type': 'application/json'},
         body: json.encode({'username': user.username,'email': user.email, 'password': user.password}));
-    print(res.body);
-    if (res.body != null) {
+    if (res.statusCode == 200) {
       Navigator.pop(context);
     }
   }
