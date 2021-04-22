@@ -160,7 +160,7 @@ const cart = {
           .post(`${url}stripe/payment`, body);
         commit('PAYMENT', response.data);
       } catch (error) {
-        console.log(error);
+        throw error;
       }
     },
     async addArticle({ rootState, commit, state }, body) {
