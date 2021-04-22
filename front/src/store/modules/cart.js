@@ -107,12 +107,12 @@ const cart = {
         if (newQuantity > 10) {
           return {
             type: 'warning',
-            message: 'quantité set à 10'
+            message: 'quantité max atteinte'
           };
         }
         return {
           type: 'success',
-          message: 'item updated'
+          message: `${item.name} mis à jour`
         };
       } else {
         /*
@@ -124,7 +124,7 @@ const cart = {
         commit('ADD_TO_CART', item);
         return {
           type: 'success',
-          message: 'item added'
+          message: `${item.name} ajouté au panier x${item.quantity}`
         };
       }
     },
