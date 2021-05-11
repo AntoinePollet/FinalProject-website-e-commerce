@@ -12,13 +12,7 @@
               <v-spacer></v-spacer>
               <v-dialog v-model="dialog" max-width="700px">
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    color="primary"
-                    dark
-                    class="mb-2"
-                    v-on="on"
-                    v-bind="attrs"
-                  >
+                  <v-btn dark class="mb-2 btn-color" v-on="on" v-bind="attrs">
                     Ajouter article
                   </v-btn>
                   <v-card-title>
@@ -86,6 +80,7 @@
                                 v-model="editedItem.color[index]"
                                 label="Couleurs"
                                 :rules="colorRules"
+                                class="mr-3"
                               ></v-text-field>
                               <div
                                 v-if="index === 0"
@@ -112,6 +107,7 @@
                                 v-model="editedItem.pictures[index]"
                                 label="Lien images"
                                 :rules="picturesRules"
+                                class="mr-3"
                               ></v-text-field>
                               <div
                                 v-if="index === 0"
@@ -350,4 +346,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.btn-color {
+  background-color: $primary !important;
+}
+</style>

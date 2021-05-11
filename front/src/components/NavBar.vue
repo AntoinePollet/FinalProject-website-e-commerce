@@ -85,7 +85,7 @@
       <template v-slot:activator="{ on, attrs }">
         <p
           v-show="!isAuth"
-          class=" signinBtn black--text mb-0 mr-2 ml-3 pa-2"
+          class="signinBtn black--text mb-0 mr-2 ml-3 pa-2"
           text
           v-on="on"
           v-bind="attrs"
@@ -258,11 +258,12 @@ export default {
   margin-top: 45px;
 }
 .signup-text {
-  background-color: #48cae4;
+  background-color: $primary;
+  opacity: 0.7;
   border-radius: 12px;
 }
 .signup-text:hover {
-  background-color: #2d9fb6;
+  opacity: 1;
 }
 .router-link-exact-active {
   box-shadow: #48cae4 0 2px 0 0, inset #48cae4 0 -1px 0 0;

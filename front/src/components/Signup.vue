@@ -124,11 +124,11 @@ export default {
 
 <style lang="scss" scoped>
 .signupBtn {
-  background-color: #0077b6 !important;
+  background-color: $primary !important;
 }
 
 .word {
-  color: #0077b6;
+  color: $primary;
   font-weight: bold;
   cursor: pointer;
 }
